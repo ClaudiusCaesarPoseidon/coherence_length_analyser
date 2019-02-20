@@ -26,7 +26,19 @@ def setup_():
     ]
 
     REQUIREMENTS = [
+        'opencv-python',
         'numpy',
+        "pillow",
+        "PySide2",
+        "scipy",
+        "pyserial",
+        "cython",
+        "matplotlib",
+        "aimage2ndarray",
+        "pymediainfo",
+        "natsort",
+        "screeninfo",
+        "qtconsole"
     ]
 
     setup(

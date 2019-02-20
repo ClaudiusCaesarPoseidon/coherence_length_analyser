@@ -1,11 +1,12 @@
 from PIL import Image, ImageEnhance
 import os
-import timeit
+#import timeit
 import shutil
-import subprocess
+#import subprocess
 import numpy as np
 import cv2
 from ...lib import functions
+from .ffmpeg_python import convert
 from PyQt5 import QtCore
 QtCore.Signal = QtCore.pyqtSignal
 default_imread = cv2.imread
@@ -174,19 +175,20 @@ class ptv_thread(QtCore.QThread):
                 continue
 #            cmd = [self.parent.parent.ffmpeg_path, '-i',
 #                   ffmpeg_img_path, '-qscale', '0', ffmpeg_vid_path]
-            cmd = [self.parent.parent.ffmpeg_python_path, '-i',
-                   os.path.dirname(ffmpeg_img_path), '-o', ffmpeg_vid_path]
-            p = subprocess.Popen(cmd)  # no window , creationflags=0x08000000
-            a = timeit.default_timer()
-            while True:
-                if p.poll() is not None:
-                    break
-                if timeit.default_timer() - a > 2:
-                    print("Processing")
-                    a = timeit.default_timer()
+#            cmd = [self.parent.parent.ffmpeg_python_path, '-i',
+#                   os.path.dirname(ffmpeg_img_path), '-o', ffmpeg_vid_path]
+#            p = subprocess.Popen(cmd)  # no window , creationflags=0x08000000
+#            a = timeit.default_timer()
+#            while True:
+#                if p.poll() is not None:
+#                    break
+#                if timeit.default_timer() - a > 2:
+#                    print("Processing")
+#                    a = timeit.default_timer()
+            convert(os.path.dirname(ffmpeg_img_path), ffmpeg_vid_path, 5)
             shutil.rmtree(os.path.dirname(ffmpeg_img_path))
-            if p.poll() is not None:
-                break
+#            if p.poll() is not None:
+#                break
             if self.choice == "ja":
                 break
             break
