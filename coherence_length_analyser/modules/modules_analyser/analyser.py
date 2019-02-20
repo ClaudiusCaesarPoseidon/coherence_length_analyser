@@ -13,7 +13,6 @@ from PyQt5 import QtCore, QtWidgets, QtGui, uic
 QtCore.Signal = QtCore.pyqtSignal
 QtCore.Slot = QtCore.pyqtSlot
 monitor_format = functions.monitor_format
-index_containing_substring = functions.
 
 
 def index_containing_substring(the_list, substring):
