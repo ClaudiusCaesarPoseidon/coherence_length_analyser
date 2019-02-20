@@ -124,13 +124,11 @@ class picture_to_video(Widgetb):
         self.th.emit.connect(self.get_action)
         self.th.no.connect(self.th_no)
         self.th.start()
-        print(1)
 
     def th_no(self):
         self.ChooseFolder.setDisabled(False)
 
     def get_action(self, tup):
-        print(tup)
         data, mode = tup
         if mode == 0:
             self.files = data

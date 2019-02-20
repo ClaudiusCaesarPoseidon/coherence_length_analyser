@@ -185,7 +185,7 @@ class ptv_thread(QtCore.QThread):
 #                if timeit.default_timer() - a > 2:
 #                    print("Processing")
 #                    a = timeit.default_timer()
-            convert(os.path.dirname(ffmpeg_img_path), ffmpeg_vid_path, 5)
+            convert(os.path.dirname(ffmpeg_img_path), ffmpeg_vid_path, 2)
             shutil.rmtree(os.path.dirname(ffmpeg_img_path))
 #            if p.poll() is not None:
 #                break
