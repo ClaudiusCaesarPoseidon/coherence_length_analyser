@@ -462,3 +462,14 @@ def toggle(button):
     else:
         button.setChecked(True)
         button.setEnabled(False)
+
+
+def isascii(string):
+    try:
+        return string.isascii()
+    except AttributeError:
+        try:
+            string.encode("ascii")
+            return True
+        except UnicodeEncodeError:
+            return False

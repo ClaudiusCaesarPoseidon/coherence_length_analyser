@@ -4,26 +4,19 @@ from natsort import natsort_keygen
 import numpy as np
 from PIL import Image
 import timeit
+from ...lib import functions
 natsort_key = natsort_keygen()
 default_imread = cv2.imread
 
 
 def imread(path, mode=1):
-    if mode == 0:
-        if path.isascii() is True:
-            return default_imread.imread(path, mode)
-        else:
-            return np.asarray(Image.open(path).convert('L'))
-
+    if functions.isascii(path) is True:
+        return default_imread(path, mode)
     else:
-        if path.isascii() is True:
-            return default_imread.imread(path, mode)
+        if mode == 0:
+            return np.asarray(Image.open(path).convert('L'))
         else:
-            im = Image.open(path)
-            if im.mode == 'L':
-                return np.asarray(im.convert('RGB'))
-            else:
-                return np.asarray(im)
+            return np.asarray(Image.open(path).convert('RGB'))
 
 
 def convert(image_folder, vid_path, time):
@@ -41,4 +34,3 @@ def convert(image_folder, vid_path, time):
             print("Processing")
             a = timeit.default_timer()
     video.release()
-

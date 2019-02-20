@@ -12,7 +12,7 @@ QtCore.Slot = QtCore.pyqtSlot
 
 
 def imread(path, mode=1):
-    if path.isascii() is True:
+    if functions.isascii(path) is True:
         return default_imread(path, mode)
     else:
         if mode == 0:
