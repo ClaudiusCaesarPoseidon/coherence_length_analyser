@@ -32,7 +32,6 @@ def setup_():
         "PySide2",
         "scipy",
         "pyserial",
-        "cython",
         "matplotlib",
         "aimage2ndarray",
         "pymediainfo",
