@@ -33,7 +33,7 @@ def setup_():
         "scipy",
         "pyserial",
         "matplotlib",
-        "aimage2ndarray",
+        "qimage2ndarray",
         "pymediainfo",
         "natsort",
         "screeninfo",
