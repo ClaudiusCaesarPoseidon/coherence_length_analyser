@@ -25,7 +25,7 @@ def imread(path, mode=1):
 
 
 def imwrite(path, image):
-    if path.isascii() is True:
+    if functions.isascii(path) is True:
         return default_imwrite(path, image)
     else:
         im = Image.fromarray(image)
