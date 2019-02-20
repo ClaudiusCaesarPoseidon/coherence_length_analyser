@@ -24,7 +24,13 @@ def setup_():
 #        Extension('coherence_length_analyser.lib.c_lib.idle_switch', [
 #                  os.path.join('coherence_length_analyser', 'lib', 'c_lib', 'idle_switch.pyx')],),
     ]
+
+    REQUIREMENTS = [
+        'numpy',
+    ]
+
     setup(
+        install_requires=REQUIREMENTS,
         name="coherence_length_analyser",
         version="1.0.0",
         author="Thilo Haarmeyer",
