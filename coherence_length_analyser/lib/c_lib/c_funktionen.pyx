@@ -112,7 +112,6 @@ cpdef double is_SetFrameRate(HIDS cam, double FPS, char* path):
 cpdef tuple Init_Cam(char* path,int width=640, int heigth=480,int gain_boost=1):
     """inits the uEye camera"""
     cdef HIDS cam = uEye.is_InitCamera(path)
-#    cdef HIDS cam = 1
     uEye.is_EnableAutoExit(cam,uEye.IS_ENABLE_AUTO_EXIT,path)
     uEye.is_SetColorMode(cam,uEye.IS_CM_SENSOR_RAW8,path)
     cdef int ret=uEye.is_SetExternalTrigger(cam, uEye.IS_SET_TRIGGER_SOFTWARE,path)
