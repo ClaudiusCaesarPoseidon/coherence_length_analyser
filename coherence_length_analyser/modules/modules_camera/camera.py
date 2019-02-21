@@ -102,6 +102,7 @@ class Camera(Widgetb):
         self._white = None
         self._white_val = None
         self._mean = None
+        self.stop = False
         self.i = 0
         self.Save.clicked.connect(self.save_values)
         self.valueChanged_a.connect(self.set_gui_values)
@@ -503,6 +504,7 @@ class Camera(Widgetb):
             self.number_of_measurements = self.Number_Of_Measurements.value()
             self.Sleep_Time.setDisabled(True)
             self.sleep_time = self.Sleep_Time.value()
+            self.stop = False
             if self.number_of_measurements > 0:
                 self.Start.clicked.disconnect()
                 self.Start.clicked.connect(self.start_multiple)
@@ -601,7 +603,7 @@ class Camera(Widgetb):
         self.th.start()
 
     def mid2_multiple(self):
-        if self.i < self.number_of_measurements:
+        if self.i < self.number_of_measurements and self.stop is False:
             self.pos = self.start
             pos = self.position[0][0]
             try:
@@ -632,7 +634,7 @@ class Camera(Widgetb):
             self.mid3_multiple()
 
     def mid3_multiple(self):
-        if self.i >= self.number_of_measurements:
+        if self.i >= self.number_of_measurements or self.stop is True:
             self.end_multiple()
         else:
             self.i += 1
@@ -707,6 +709,7 @@ class Camera(Widgetb):
             functions.Exit_Cam(path=self.dll_path, cam=self.cam)
 
     def is_ends(self):
+        self.stop = True
         self.ends = True
         self.th.wait()
         self.ends = False
