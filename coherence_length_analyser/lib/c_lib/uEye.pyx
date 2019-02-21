@@ -14,7 +14,7 @@ from libc.stdint cimport uint32_t,int32_t
 from libc.stdio cimport printf
 from numpy cimport ndarray
 cimport cython
-from . cimport uEye
+cimport coherence_length_analyser.lib.c_lib.uEye
 
 
 uEyeDll=ctypes.cdll.LoadLibrary(dll_path_uEye())
