@@ -33,7 +33,10 @@ class Init_Thread(QtCore.QThread):
             xxx = functions.get_frame_extremes(cam, self.parent.dll_path)
 #            tmp = namedtuple("FPS", xxx.keys())(*xxx.values())
             tmp = VAL(**xxx)
-            max_fps = 1 / tmp.min
+            try:
+                max_fps = 1 / tmp.min
+            except ZeroDivisionError:
+                max_fps = 15
             functions.is_SetFrameRate(cam, max_fps, self.parent.dll_path)
             print("Camera Connected. Starting.")
         else:
