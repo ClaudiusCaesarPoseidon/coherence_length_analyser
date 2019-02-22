@@ -1,6 +1,4 @@
-from PyQt5 import QtCore
-QtCore.Signal = QtCore.pyqtSignal
-QtCore.Slot = QtCore.pyqtSlot
+from PySide2 import QtCore
 
 
 class Stream(QtCore.QObject):

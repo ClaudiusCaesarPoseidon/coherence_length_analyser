@@ -8,9 +8,9 @@ from scipy.signal import savgol_filter
 import os
 import cv2
 import numpy as np
-from PyQt5 import QtCore, QtGui
-QtCore.Signal = QtCore.pyqtSignal
-QtCore.Slot = QtCore.pyqtSlot
+from PySide2 import QtCore, QtGui
+
+
 round = functions.round
 X = functions.x
 

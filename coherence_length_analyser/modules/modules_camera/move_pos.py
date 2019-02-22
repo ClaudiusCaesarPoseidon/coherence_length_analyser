@@ -1,7 +1,5 @@
 from .motor_movement import motor_movement
-from PyQt5 import QtCore
-QtCore.Signal = QtCore.pyqtSignal
-QtCore.Slot = QtCore.pyqtSlot
+from PySide2 import QtCore
 
 
 class move_pos(QtCore.QThread):

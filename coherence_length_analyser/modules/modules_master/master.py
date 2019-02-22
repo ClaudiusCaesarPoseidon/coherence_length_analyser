@@ -20,9 +20,10 @@ import os
 import sys
 from ...lib import functions
 import shutil
-from PyQt5 import QtCore, QtWidgets, QtGui, uic
-QtCore.Signal = QtCore.pyqtSignal
-QtCore.Slot = QtCore.pyqtSlot
+from PySide2 import QtCore, QtWidgets, QtGui
+from ConvertQt import uic
+
+
 is_admin = functions.is_admin
 build_directory = functions.build_directory
 

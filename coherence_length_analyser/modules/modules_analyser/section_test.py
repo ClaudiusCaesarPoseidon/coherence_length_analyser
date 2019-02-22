@@ -4,9 +4,7 @@ import os
 import numpy as np
 import qimage2ndarray
 from pymediainfo import MediaInfo
-from PyQt5 import QtCore, QtGui
-QtCore.Signal = QtCore.pyqtSignal
-QtCore.Slot = QtCore.pyqtSlot
+from PySide2 import QtCore, QtGui
 
 
 class section_test(QtCore.QThread):

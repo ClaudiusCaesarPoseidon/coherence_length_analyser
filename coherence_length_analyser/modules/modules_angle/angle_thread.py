@@ -3,9 +3,9 @@ import qimage2ndarray
 import os
 import math
 import numpy as np
-from PyQt5 import QtCore, QtGui
-QtCore.Signal = QtCore.pyqtSignal
-QtCore.Slot = QtCore.pyqtSlot
+from PySide2 import QtCore, QtGui
+
+
 round = functions.round
 substring_in_list = functions.substring_in_list
 

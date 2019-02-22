@@ -223,6 +223,9 @@
 #import zipfile
 #import PIL
 #import PySide2
+from ConvertQt import uic
+
+
 #import click
 #import dotenv
 #import easy_install
@@ -232,7 +235,6 @@
 #import pynput
 #import pyqt5_tools
 #import pyscreeze
-#import pyside2uic
 #import pytweening
 #import screeninfo
 #import setuptools

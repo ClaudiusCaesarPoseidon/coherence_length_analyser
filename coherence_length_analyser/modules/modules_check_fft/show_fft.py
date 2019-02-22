@@ -2,9 +2,7 @@ from ...lib import functions
 import numpy as np
 import cv2
 import qimage2ndarray
-from PyQt5 import QtCore, QtGui
-QtCore.Signal = QtCore.pyqtSignal
-QtCore.Slot = QtCore.pyqtSlot
+from PySide2 import QtCore, QtGui
 
 
 class show_fft(QtCore.QThread):

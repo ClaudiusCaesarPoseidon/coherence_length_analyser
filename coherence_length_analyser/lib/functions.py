@@ -204,7 +204,7 @@ def set_list(lst):
     return lst
 
 
-#def min__(array, length, x):
+# def min__(array, length, x):
 #    """calculates the lower threshold of the array"""
 #    procent = int(length / 100)
 #    if procent > 0:
@@ -218,7 +218,7 @@ def set_list(lst):
 
 def check_dtype(array, dtype):
     if isinstance(array, np.ndarray) and array.dtype == dtype\
-     and array.flags.contiguous:
+            and array.flags.contiguous:
         return True
     else:
         return False

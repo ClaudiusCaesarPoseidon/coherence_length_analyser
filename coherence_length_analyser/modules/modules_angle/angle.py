@@ -7,10 +7,11 @@ import cv2
 import qimage2ndarray
 from ...lib import functions
 from ..eigen_widgets import Widgetb
-from PyQt5 import QtCore, QtWidgets, QtGui, uic, QtTest
-QtCore.Signal = QtCore.pyqtSignal
+from PySide2 import QtCore, QtWidgets, QtGui, QtTest
+from ConvertQt import uic
+
+
 default_imread = cv2.imread
-QtCore.Slot = QtCore.pyqtSlot
 
 
 def imread(path, mode=1):

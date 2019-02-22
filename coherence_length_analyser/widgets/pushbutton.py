@@ -1,6 +1,4 @@
-from PyQt5 import QtCore, QtWidgets
-QtCore.Signal = QtCore.pyqtSignal
-QtCore.Slot = QtCore.pyqtSlot
+from PySide2 import QtCore, QtWidgets
 
 
 class PushButton(QtWidgets.QPushButton):

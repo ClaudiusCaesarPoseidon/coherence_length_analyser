@@ -5,9 +5,7 @@ import qimage2ndarray
 import cv2
 import scipy.signal
 import scipy.fftpack
-from PyQt5 import QtCore, QtGui
-QtCore.Signal = QtCore.pyqtSignal
-QtCore.Slot = QtCore.pyqtSlot
+from PySide2 import QtCore, QtGui
 
 
 def mean(lst):

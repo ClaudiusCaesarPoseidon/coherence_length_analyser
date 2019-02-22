@@ -1,9 +1,8 @@
 import os
 from ...lib import functions
 from ..eigen_widgets import Dialog
-from PyQt5 import QtCore, QtWidgets, QtGui, uic
-QtCore.Signal = QtCore.pyqtSignal
-QtCore.Slot = QtCore.pyqtSlot
+from PySide2 import QtCore, QtWidgets, QtGui
+from ConvertQt import uic
 
 
 class Dialogg(Dialog):

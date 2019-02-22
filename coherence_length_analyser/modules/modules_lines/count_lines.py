@@ -3,9 +3,9 @@ import os
 import numpy as np
 import scipy.signal
 import scipy.fftpack
-from PyQt5 import QtCore, QtGui
-QtCore.Signal = QtCore.pyqtSignal
-QtCore.Slot = QtCore.pyqtSlot
+from PySide2 import QtCore, QtGui
+
+
 substring_in_list = functions.substring_in_list
 VAL = functions.VAL
 

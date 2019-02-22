@@ -11,9 +11,10 @@ import os
 import timeit
 from functools import partial
 import numpy as np
-from PyQt5 import QtCore, QtWidgets, QtGui, uic
-QtCore.Signal = QtCore.pyqtSignal
-QtCore.Slot = QtCore.pyqtSlot
+from PySide2 import QtCore, QtWidgets, QtGui
+from ConvertQt import uic
+
+
 inting = functions.inting
 Dll_Path = functions.Dll_Path
 toggle = functions.toggle

@@ -3,10 +3,11 @@ from .show_fft import show_fft
 from ...lib import functions
 from ..eigen_widgets import Dialog
 import os
-from PyQt5 import QtCore, QtWidgets, QtGui, uic
-QtCore.Signal = QtCore.pyqtSignal
+from PySide2 import QtCore, QtWidgets, QtGui
+from ConvertQt import uic
+
+
 tmp = get_monitors()[0].height
-QtCore.Slot = QtCore.pyqtSlot
 
 
 class Check_FFT(Dialog):

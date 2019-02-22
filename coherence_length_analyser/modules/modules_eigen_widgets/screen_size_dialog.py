@@ -2,9 +2,8 @@ from .dialog import Dialog
 import sys
 import os
 from ...lib import functions
-from PyQt5 import QtCore, QtGui, uic, QtWidgets
-QtCore.Signal = QtCore.pyqtSignal
-QtCore.Slot = QtCore.pyqtSlot
+from PySide2 import QtCore, QtGui, QtWidgets
+from ConvertQt import uic
 
 
 class screen_size_dialog(Dialog):

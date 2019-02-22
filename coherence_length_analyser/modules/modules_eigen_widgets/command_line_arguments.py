@@ -1,8 +1,7 @@
 import os
 from ...lib import functions
-from PyQt5 import QtCore, QtWidgets, uic, QtGui
-QtCore.Signal = QtCore.pyqtSignal
-QtCore.Slot = QtCore.pyqtSlot
+from PySide2 import QtCore, QtWidgets, QtGui
+from ConvertQt import uic
 
 
 class Command_Line_Arguments(QtWidgets.QDialog):

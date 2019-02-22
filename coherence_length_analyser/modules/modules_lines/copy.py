@@ -4,10 +4,10 @@ from ...lib import functions
 import cv2
 import os
 import shutil
-from PyQt5 import QtCore
-QtCore.Signal = QtCore.pyqtSignal
+from PySide2 import QtCore
+
+
 default_imread = cv2.imread
-QtCore.Slot = QtCore.pyqtSlot
 
 
 def imread(path, mode=1):

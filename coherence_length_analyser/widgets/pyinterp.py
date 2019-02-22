@@ -1,9 +1,7 @@
 import code
 import sys
 import re
-from PyQt5 import QtCore, QtWidgets, QtGui
-QtCore.Signal = QtCore.pyqtSignal
-QtCore.Slot = QtCore.pyqtSlot
+from PySide2 import QtCore, QtWidgets, QtGui
 
 
 class PyInterp(QtWidgets.QTextEdit):

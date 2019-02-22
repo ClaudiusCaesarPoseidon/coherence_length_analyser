@@ -6,10 +6,10 @@ import datetime
 import numpy as np
 import cv2
 import qimage2ndarray
-from PyQt5 import QtCore, QtGui
-QtCore.Signal = QtCore.pyqtSignal
+from PySide2 import QtCore, QtGui
+
+
 default_imwrite = cv2.imwrite
-QtCore.Slot = QtCore.pyqtSlot
 
 
 def imwrite(path, image):

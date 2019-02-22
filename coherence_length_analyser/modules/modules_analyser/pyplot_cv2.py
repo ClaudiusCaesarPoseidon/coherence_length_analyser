@@ -7,9 +7,9 @@ import ctypes
 import cv2
 import numpy as np
 import qimage2ndarray
-from PyQt5 import QtCore, QtGui
-QtCore.Signal = QtCore.pyqtSignal
-QtCore.Slot = QtCore.pyqtSlot
+from PySide2 import QtCore, QtGui
+
+
 substring_in_list = functions.substring_in_list
 
 
@@ -195,7 +195,7 @@ class pyplot_cv2(QtCore.QThread):
 #                                section)
                         i += 1
             if video is True and self.parent.ends is False:
-#                length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
+                #                length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
                 data_a = np.array(data)
                 tmp_for_filter = self.parent.Filter_Switch.currentIndex()
                 data_a = choose_filter(data_a, tmp_for_filter, x)

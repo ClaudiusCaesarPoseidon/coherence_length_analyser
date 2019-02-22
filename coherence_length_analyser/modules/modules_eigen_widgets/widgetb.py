@@ -1,9 +1,7 @@
 from .stream import Stream
 from .dialog import Dialog
 import sys
-from PyQt5 import QtCore, QtGui
-QtCore.Slot = QtCore.pyqtSlot
-QtCore.Signal = QtCore.pyqtSignal
+from PySide2 import QtCore, QtGui
 
 
 class Widgetb(Dialog):

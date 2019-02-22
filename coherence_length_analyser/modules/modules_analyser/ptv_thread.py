@@ -7,11 +7,11 @@ import numpy as np
 import cv2
 from ...lib import functions
 from .ffmpeg_python import convert
-from PyQt5 import QtCore
-QtCore.Signal = QtCore.pyqtSignal
+from PySide2 import QtCore
+
+
 default_imread = cv2.imread
 default_imwrite = cv2.imwrite
-QtCore.Slot = QtCore.pyqtSlot
 
 
 def imread(path, mode=1):

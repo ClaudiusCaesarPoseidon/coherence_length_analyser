@@ -9,9 +9,10 @@ import os
 import timeit
 import sys
 import cv2
-from PyQt5 import QtCore, QtWidgets, QtGui, uic
-QtCore.Signal = QtCore.pyqtSignal
-QtCore.Slot = QtCore.pyqtSlot
+from PySide2 import QtCore, QtWidgets, QtGui
+from ConvertQt import uic
+
+
 monitor_format = functions.monitor_format
 
 

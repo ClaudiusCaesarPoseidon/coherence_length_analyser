@@ -1,8 +1,6 @@
 from .all_folders import get_all_folders
 from .search import search
-from PyQt5 import QtCore
-QtCore.Signal = QtCore.pyqtSignal
-QtCore.Slot = QtCore.pyqtSlot
+from PySide2 import QtCore
 
 
 class choose_action(QtCore.QThread):

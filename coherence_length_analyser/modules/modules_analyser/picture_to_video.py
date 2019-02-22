@@ -7,9 +7,8 @@ from .search import search
 from .dialogg import Dialogg
 import hashlib
 import os
-from PyQt5 import QtCore, QtWidgets, QtGui, uic
-QtCore.Signal = QtCore.pyqtSignal
-QtCore.Slot = QtCore.pyqtSlot
+from PySide2 import QtCore, QtWidgets, QtGui
+from ConvertQt import uic
 
 
 class picture_to_video(Widgetb):
