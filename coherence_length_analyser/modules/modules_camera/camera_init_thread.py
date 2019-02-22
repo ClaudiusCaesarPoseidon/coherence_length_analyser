@@ -44,6 +44,7 @@ class Init_Thread(QtCore.QThread):
             connect = False
         if connect is True and False:
             tup = (ser, came)
+            print(self.emit.emit)
             self.emit.emit(tup)
         else:
             self.emit2.emit()
