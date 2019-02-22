@@ -43,6 +43,7 @@ class Init_Thread(QtCore.QThread):
             print("No Camera Detected. Please connect uEye Camera.")
             connect = False
         if connect is True:
+            print(ser, came)
             self.emit.emit((ser, came))
         else:
             self.emit2.emit()
