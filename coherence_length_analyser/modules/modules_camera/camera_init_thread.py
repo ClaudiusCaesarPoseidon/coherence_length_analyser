@@ -6,7 +6,7 @@ VAL = functions.VAL
 
 
 class Init_Thread(QtCore.QThread):
-    emit = QtCore.Signal(tuple)
+    emit1 = QtCore.Signal(tuple)
     emit2 = QtCore.Signal()
 
     def __init__(self, parent=None):
@@ -44,7 +44,7 @@ class Init_Thread(QtCore.QThread):
             connect = False
         if connect is True:
             tup = (ser, came)
-            print(self.emit.emit)
-            self.emit.emit(tup)
+            print(self.emit1.emit)
+            self.emit1.emit(tup)
         else:
             self.emit2.emit()

@@ -115,7 +115,7 @@ class Camera(Widgetb):
         self.valueChanged_w.connect(self.set_gui_values)
         self.valueChanged_m.connect(self.set_gui_values)
         self.threadd = Init_Thread(self)
-        self.threadd.emit.connect(self.do_connect)
+        self.threadd.emit1.connect(self.do_connect)
         self.threadd.emit2.connect(self.do_not_connect)
         self.threadd.start()
 
