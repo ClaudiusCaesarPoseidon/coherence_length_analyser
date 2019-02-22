@@ -1,9 +1,6 @@
 # pylint: disable=C0111
 # pylint: disable=C1133
 import pkg_resources
-QtCore.Signal = QtCore.pyqtSignal
-
-QtCore.Slot = QtCore.pyqtSlot
 
 
 class PythonQtError(RuntimeError):
@@ -23,12 +20,12 @@ def get_available_modules():
 
 def get_qt_module():
     list_of_packages = get_available_modules()
-    if 'PyQt5' in list_of_packages:
+    if 'PySide2' in list_of_packages:
         return 'pyside2'
-    if 'PyQt5' in list_of_packages:
+    if 'PySide' in list_of_packages:
         return 'pyside'
     if 'PyQt5' in list_of_packages:
         return 'pyqt5'
-    if 'PyQt5' in list_of_packages:
+    if 'PyQt4' in list_of_packages:
         return 'pyqt4'
     raise PythonQtError('No Qt bindings could be found')
