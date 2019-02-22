@@ -1,6 +1,7 @@
+from PySide2 import QtWidgets
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
-from PySide2 import QtWidgets
+#from PySide2 import QtWidgets
 
 
 class Canvas(QtWidgets.QWidget):
