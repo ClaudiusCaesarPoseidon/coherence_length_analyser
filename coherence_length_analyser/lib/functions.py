@@ -33,7 +33,7 @@ def get_frame_extremes(cam):
     max = ueye.double(0)
     intervall = ueye.double(0)
     ueye.is_GetFrameTimeRange(cam, min, max, intervall)
-    return {'max': max, 'min': min, 'intervall': intervall}
+    return {'max': max.value, 'min': min.value, 'intervall': intervall.value}
 
 
 def is_SetFrameRate(cam, FPS):
