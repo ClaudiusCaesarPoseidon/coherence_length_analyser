@@ -37,7 +37,8 @@ def setup_():
         "pymediainfo",
         "natsort",
         "screeninfo",
-        "qtconsole"
+        "qtconsole",
+        "pyueye"
     ]
 
     setup(

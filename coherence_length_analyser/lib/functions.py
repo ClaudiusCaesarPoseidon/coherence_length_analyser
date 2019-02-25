@@ -12,7 +12,7 @@ import serial
 from .c_lib import c_funktionen
 from encodings.aliases import aliases
 from collections import Counter
-from ueye import ueye
+from pyueye import ueye
 # is_InitCamera
 # is_SetFrameRate
 # is_GetFrameTimeRange
