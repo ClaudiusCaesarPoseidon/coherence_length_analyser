@@ -24,7 +24,7 @@ from pyueye import ueye
 def Number_Of_Cameras():
     """gets number of availible uEye Cameras"""
     number = 0
-    ueye.is_getNumberofCameras(number)
+    ueye.is_getNumberOfCameras(number)
     return number
 
 
