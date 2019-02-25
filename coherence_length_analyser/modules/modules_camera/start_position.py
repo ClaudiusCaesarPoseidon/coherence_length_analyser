@@ -25,7 +25,7 @@ class start_position(QtCore.QThread):
         self.exposure = 50.0
         self.gain = 100
         self.exposure, self.gain = functions.Set_Values(
-            self.parent.cam, self.exposure, self.gain, 114, True, path=self.parent.dll_path)
+            self.parent.cam, self.exposure, self.gain, 114, True)
         self.img = None
         super().__init__()
 
@@ -35,7 +35,7 @@ class start_position(QtCore.QThread):
             if self.parent.ret == 0:
                 functions.CopyImg(self.parent.cam, ImageData)
                 self.exposure, self.gain = functions.Get_Values(
-                    self.parent.cam, self.exposure, self.parent.dll_path)
+                    self.parent.cam, self.exposure)
                 tup = (self.exposure, self.gain)
                 self.val.emit(tup)
                 self.img = ImageData.copy()

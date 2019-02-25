@@ -64,15 +64,15 @@ class Measure(QtCore.QThread):
             gain = 50
             if self.parent.Lock.isChecked() is False:
                 exposure, gain = functions.Set_Values(
-                    self.parent.cam, exposure, gain, 114, True, path=self.parent.dll_path)
+                    self.parent.cam, exposure, gain, 114, True)
             else:
                 if self.parent.exposure_saved is not None and self.parent.gain_saved is not None:
                     exposure, gain = self.parent.exposure_saved, self.parent.gain_saved
                     exposure, gain = functions.Set_Values(
-                        self.parent.cam, exposure, gain, 114, False, path=self.parent.dll_path)
+                        self.parent.cam, exposure, gain, 114, False)
                 else:
                     exposure, gain = functions.Set_Values(
-                        self.parent.cam, exposure, gain, 114, True, path=self.parent.dll_path)
+                        self.parent.cam, exposure, gain, 114, True)
             start = True
             print('Start')
             mode = None
@@ -88,9 +88,9 @@ class Measure(QtCore.QThread):
                         self.sleep(2)
                         start = False
                         exposure, gain = functions.Get_Values(
-                            self.parent.cam, exposure, self.parent.dll_path)
+                            self.parent.cam, exposure
                     exposure, gain = functions.Set_Values(
-                        self.parent.cam, exposure, gain, 114, False, path=self.parent.dll_path)
+                        self.parent.cam, exposure, gain, 114, False)
                     functions.CopyImg(self.parent.cam, ImageData)
                     self.img = ImageData.copy()
                     self.img = np.roll(self.img, -40, axis=1)

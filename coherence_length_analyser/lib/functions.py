@@ -40,12 +40,12 @@ def is_SetFrameRate(cam, FPS):
     return ueye.is_SetFrameRate(cam, FPS)
 
 
-def Init_Cam(path, width=640, heigth=480, gain_boost=1):
+def Init_Cam(width=640, heigth=480, gain_boost=1):
     """inits the uEye camera"""
     cam = ueye.HIDS(0)
     ueye.is_InitCamera(cam, None)
     ueye.is_EnableAutoExit(cam, ueye.IS_ENABLE_AUTO_EXIT)
-    ueye.is_SetColorMode(cam, ueye.IS_CM_SENSOR_RAW8, path)
+    ueye.is_SetColorMode(cam, ueye.IS_CM_SENSOR_RAW8)
     ret = ueye.is_SetExternalTrigger(cam, ueye.IS_SET_TRIGGER_SOFTWARE)
     ueye.is_Blacklevel(cam, ueye.IS_BLACKLEVEL_CMD_SET_MODE, 1)
     ueye.is_AllocImageMem(cam, width, heigth, 8)
@@ -58,7 +58,7 @@ def Init_Cam(path, width=640, heigth=480, gain_boost=1):
     return cam, ret
 
 
-def BOOOOOOOOOOST(cam, mode, path):
+def BOOOOOOOOOOST(cam, mode):
     """set the gain boost mode of the camera"""
     if mode is True:
         ueye.is_SetGainBoost(cam, ueye.IS_SET_GAINBOOST_ON)
@@ -66,7 +66,7 @@ def BOOOOOOOOOOST(cam, mode, path):
         ueye.is_SetGainBoost(cam, ueye.IS_SET_GAINBOOST_OFF)
 
 
-def Get_Values(cam, exposure, path):
+def Get_Values(cam, exposure):
     """gets the current exposure time and gain of the camera"""
     expo = 0.0
     gain = 0
@@ -84,7 +84,7 @@ def Get_Values(cam, exposure, path):
     return expo, gain
 
 
-def Set_Values(cam, exposure, gain, blacklevel, automode, path):
+def Set_Values(cam, exposure, gain, blacklevel, automode):
     """sets the exposure time and gain of the camera"""
     expo = 0.0
     if automode is False:
@@ -93,8 +93,7 @@ def Set_Values(cam, exposure, gain, blacklevel, automode, path):
             gain,
             ueye.IS_IGNORE_PARAMETER,
             ueye.IS_IGNORE_PARAMETER,
-            ueye.IS_IGNORE_PARAMETER,
-            path)
+            ueye.IS_IGNORE_PARAMETER)
         ueye.is_Exposure(
             cam,
             ueye.IS_EXPOSURE_CMD_SET_EXPOSURE,
@@ -109,7 +108,7 @@ def Set_Values(cam, exposure, gain, blacklevel, automode, path):
         ueye.is_SetAutoParameter(cam, ueye.IS_SET_ENABLE_AUTO_GAIN, 1, 0)
         ueye.is_SetAutoParameter(
             cam, ueye.IS_SET_ENABLE_AUTO_SHUTTER, 1, 0)
-    return Get_Values(cam, expo, path)
+    return Get_Values(cam, expo)
 
 
 def CopyImg(cam, ImageData):
@@ -221,7 +220,7 @@ def fft_shift_py(array):
 #
 # def Exit_Cam(path, cam):
 #    """closes the uEye camera"""
-    return c_funktionen.Exit_Cam(path, cam)
+#    return c_funktionen.Exit_Cam(path, cam)
 
 
 def vigenere(string, key):

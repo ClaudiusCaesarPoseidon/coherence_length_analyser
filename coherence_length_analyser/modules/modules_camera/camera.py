@@ -16,7 +16,7 @@ from ConvertQt import uic
 
 
 inting = functions.inting
-Dll_Path = functions.Dll_Path
+#Dll_Path = functions.Dll_Path
 toggle = functions.toggle
 
 
@@ -34,7 +34,7 @@ class Camera(Widgetb):
 
     def __init__(self, parent=None, config=None):
         super().__init__()
-        self.dll_path = Dll_Path()
+#        self.dll_path = Dll_Path()
         self.parent = parent
         if self.parent is not None:
             self.direc_path = self.parent.direc_path
@@ -411,9 +411,9 @@ class Camera(Widgetb):
 
     def gain_boost(self):
         if self.Gain_Boost.isChecked() is True:
-            functions.BOOOOOOOOOOST(self.cam, True, self.dll_path)
+            functions.BOOOOOOOOOOST(self.cam, True)
         else:
-            functions.BOOOOOOOOOOST(self.cam, False, self.dll_path)
+            functions.BOOOOOOOOOOST(self.cam, False)
 
     def On(self):
         toggle(self.Cam_Off)
@@ -694,9 +694,9 @@ class Camera(Widgetb):
         self.cam_off = True
         self.ser.close()
         if self.Cam_Active is True:
-            functions.Exit_Cam(path=self.dll_path, cam=self.cam)
+            functions.Exit_Cam(cam=self.cam)
         if self.thread_run is True:
-            functions.Exit_Cam(path=self.dll_path, cam=self.cam)
+            functions.Exit_Cam(cam=self.cam)
         return super().closeEvent(event)
 
     def end_(self):
@@ -708,7 +708,7 @@ class Camera(Widgetb):
         self.cam_off = True
         self.ser.close()
         if self.Cam_Active is True:
-            functions.Exit_Cam(path=self.dll_path, cam=self.cam)
+            functions.Exit_Cam(cam=self.cam)
 
     def is_ends(self):
         self.stop = True
