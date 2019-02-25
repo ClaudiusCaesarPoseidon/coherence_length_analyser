@@ -115,7 +115,7 @@ class Camera(Widgetb):
         self.valueChanged_w.connect(self.set_gui_values)
         self.valueChanged_m.connect(self.set_gui_values)
         self.threadd = Init_Thread(self)
-        self.threadd.emit.connect(self.do_connect)
+        self.threadd.emit1.connect(self.do_connect)
         self.threadd.emit2.connect(self.do_not_connect)
         self.threadd.start()
 
@@ -126,7 +126,6 @@ class Camera(Widgetb):
     def set_gui_values(self):
         temp = self.Values_GUI.toPlainText().split("\n")
         tmp = [y.split("\t") for y in temp]
-#        print(tmp)
         tmp[0][5] = str(self.angle)
         tmp[1][6] = str(self.lines)
         tmp[1][1] = str(self.exposure_current)
@@ -149,6 +148,7 @@ class Camera(Widgetb):
         tmp = ''.join(tmp)
         self.Info.setPlainText(tmp)
 
+    @QtCore.Slot(tuple)
     def do_connect(self, tup):
         ser, came = tup
         self.ser = ser
@@ -177,6 +177,7 @@ class Camera(Widgetb):
         self.thread.val.connect(self.lock)
         self.thread.White.connect(self.set_white)
 
+    @QtCore.Slot()
     def do_not_connect(self, tup):
         self.Cam_Active = False
         ser, came = tup

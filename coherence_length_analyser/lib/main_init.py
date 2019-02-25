@@ -4,8 +4,9 @@ import ctypes
 import cv2
 import numpy as np
 from PIL import Image
-from PyQt5 import QtTest, QtWidgets
+from PySide2 import QtTest, QtWidgets
 from datetime import datetime as datetime_, timedelta
+
 default_imread = cv2.imread
 
 
@@ -32,8 +33,6 @@ def main_init():
     else:
         from .get_qt_module import get_qt_module
         os.environ['QT_API'] = get_qt_module()
-
-
 #        import lib.setup as setup
 #        import lib.visual_studio_installed_version
 #        import importlib
@@ -42,19 +41,13 @@ def main_init():
 #        for item, name in zip(modules, names):
 #            try:
 #                importlib.import_module(item)
-QtCore.Signal = QtCore.pyqtSignal
-
-QtCore.Slot = QtCore.pyqtSlot
-
-
 #            except ModuleNotFoundError:
 #                if lib.visual_studio_installed_version.right_msvc_version_installed() is True:
 #                    tmp = getattr(setup, "setup_" + name)
 #                    tmp()
 #                else:
 #                    raise OSError("Microsoft Visual Studio ", lib.visual_studio_installed_version.get_build_version_major, "is not installed.")
-
-   if 'PyQt5' in sys.modules:
+    if 'PySide2' in sys.modules:
         QtTest.QTest.qWait = qWait
     cv2.imread = imread
 

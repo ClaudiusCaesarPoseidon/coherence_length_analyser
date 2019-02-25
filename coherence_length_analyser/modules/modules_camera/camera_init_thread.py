@@ -6,7 +6,7 @@ VAL = functions.VAL
 
 
 class Init_Thread(QtCore.QThread):
-    emit = QtCore.Signal(tuple)
+    emit1 = QtCore.Signal(tuple)
     emit2 = QtCore.Signal()
 
     def __init__(self, parent=None):
@@ -43,6 +43,6 @@ class Init_Thread(QtCore.QThread):
             print("No Camera Detected. Please connect uEye Camera.")
             connect = False
         if connect is True:
-            self.emit.emit((ser, came))
+            self.emit1.emit((ser, came))
         else:
             self.emit2.emit()
