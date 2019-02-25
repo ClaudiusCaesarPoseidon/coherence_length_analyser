@@ -37,7 +37,8 @@ def get_frame_extremes(cam):
 
 
 def is_SetFrameRate(cam, FPS):
-    return ueye.is_SetFrameRate(cam, FPS)
+    newFPS = ueye.double()
+    return ueye.is_SetFrameRate(cam, FPS, newFPS)
 
 
 def Init_Cam(width=640, heigth=480, gain_boost=1):
