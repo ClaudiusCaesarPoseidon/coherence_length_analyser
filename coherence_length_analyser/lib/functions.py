@@ -12,6 +12,116 @@ import serial
 from .c_lib import c_funktionen
 from encodings.aliases import aliases
 from collections import Counter
+import pyueye
+# is_InitCamera
+# is_SetFrameRate
+# is_GetFrameTimeRange
+# is_getNumberofCameras
+# is_Exposure
+# is_SetHardwareGain
+
+
+def Number_Of_Cameras():
+    """gets number of availible uEye Cameras"""
+    number = 0
+    pyueye.is_getNumberofCameras(number)
+    return number
+
+
+def get_frame_extremes(cam):
+    min = 0
+    max = 0
+    intervall = 0
+    pyueye.is_GetFrameTimeRange(cam, min, max, intervall)
+    return {'max': max, 'min': min, 'intervall': intervall}
+
+
+def is_SetFrameRate(cam, FPS):
+    return pyueye.is_SetFrameRate(cam, FPS)
+
+
+def Init_Cam(path, width=640, heigth=480, gain_boost=1):
+    """inits the uEye camera"""
+    cam = pyueye.ueye.HIDS(0)
+    pyueye.is_InitCamera(cam, None)
+    pyueye.is_EnableAutoExit(cam, pyueye.IS_ENABLE_AUTO_EXIT)
+    pyueye.is_SetColorMode(cam, pyueye.IS_CM_SENSOR_RAW8, path)
+    ret = pyueye.is_SetExternalTrigger(cam, pyueye.IS_SET_TRIGGER_SOFTWARE)
+    pyueye.is_Blacklevel(cam, pyueye.IS_BLACKLEVEL_CMD_SET_MODE, 1)
+    pyueye.is_AllocImageMem(cam, width, heigth, 8)
+    pyueye.is_SetImageMem(cam)
+    pyueye.is_CaptureVideo(cam, pyueye.IS_DONT_WAIT)
+    if gain_boost == 1:
+        pyueye.is_SetGainBoost(cam, pyueye.IS_SET_GAINBOOST_ON)
+    else:
+        pyueye.is_SetGainBoost(cam, pyueye.IS_SET_GAINBOOST_OFF)
+    return cam, ret
+
+
+def BOOOOOOOOOOST(cam, mode, path):
+    """set the gain boost mode of the camera"""
+    if mode is True:
+        pyueye.is_SetGainBoost(cam, pyueye.IS_SET_GAINBOOST_ON)
+    else:
+        pyueye.is_SetGainBoost(cam, pyueye.IS_SET_GAINBOOST_OFF)
+
+
+def Get_Values(cam, exposure, path):
+    """gets the current exposure time and gain of the camera"""
+    expo = 0.0
+    gain = 0
+    pyueye.is_Exposure(
+        cam,
+        pyueye.IS_EXPOSURE_CMD_GET_EXPOSURE,
+        exposure,
+        pyueye.ueye.sizeof(exposure))
+    gain = pyueye.is_SetHardwareGain(
+        cam,
+        pyueye.IS_GET_MASTER_GAIN,
+        pyueye.IS_IGNORE_PARAMETER,
+        pyueye.IS_IGNORE_PARAMETER,
+        pyueye.IS_IGNORE_PARAMETER)
+    return expo, gain
+
+
+def Set_Values(cam, exposure, gain, blacklevel, automode, path):
+    """sets the exposure time and gain of the camera"""
+    expo = 0.0
+    if automode is False:
+        pyueye.is_SetHardwareGain(
+            cam,
+            gain,
+            pyueye.IS_IGNORE_PARAMETER,
+            pyueye.IS_IGNORE_PARAMETER,
+            pyueye.IS_IGNORE_PARAMETER,
+            path)
+        pyueye.is_Exposure(
+            cam,
+            pyueye.IS_EXPOSURE_CMD_SET_EXPOSURE,
+            exposure,
+            pyueye.ueye.sizeof(exposure))
+        expo = exposure
+        pyueye.is_Blacklevel(
+            cam,
+            pyueye.IS_BLACKLEVEL_CMD_SET_OFFSET,
+            blacklevel)
+    elif automode is True:
+        pyueye.is_SetAutoParameter(cam, pyueye.IS_SET_ENABLE_AUTO_GAIN, 1, 0)
+        pyueye.is_SetAutoParameter(
+            cam, pyueye.IS_SET_ENABLE_AUTO_SHUTTER, 1, 0)
+    return Get_Values(cam, expo, path)
+
+
+def CopyImg(cam, ImageData):
+    """copys the image from the memory to a numpy array"""
+    ret = pyueye.is_CopyImageMem(cam, ImageData)
+    return ret
+
+
+def Exit_Cam(cam):
+    """exits the camera"""
+    ret = pyueye.is_ExitCamera(cam)
+    return ret
 
 
 def get_codecs(limiter=None):
@@ -35,14 +145,14 @@ def encode(string):
             pass
 
 
-def get_frame_extremes(cam, path):
-    """returns the maximum and minumum frame rate"""
-    return c_funktionen.get_frame_extremes(cam, path)
-
-
-def is_SetFrameRate(cam, FPS, path):
-    """sets the frame rate"""
-    return c_funktionen.is_SetFrameRate(cam, FPS, path)
+# def get_frame_extremes(cam, path):
+#    """returns the maximum and minumum frame rate"""
+#    return c_funktionen.get_frame_extremes(cam, path)
+#
+#
+# def is_SetFrameRate(cam, FPS, path):
+#    """sets the frame rate"""
+#    return c_funktionen.is_SetFrameRate(cam, FPS, path)
 
 
 def dll_path_uEye():
@@ -78,39 +188,39 @@ def fft_shift_py(array):
     return c_funktionen.fft_shift_py(array)
 
 
-def Number_Of_Cameras(path):
-    """returns the number of available uEye cameras"""
-    return c_funktionen.Number_Of_Cameras(path)
-
-
-def Init_Cam(path, width=640, height=480, gain_boost=1):
-    """inits the uEye camera"""
-    return c_funktionen.Init_Cam(path, width, height, gain_boost)
-
-
-def BOOOOOOOOOOST(cam, mode, path):
-    """switches gain goost on or off"""
-    return c_funktionen.BOOOOOOOOOOST(cam, mode, path)
-
-
-def Get_Values(cam, exposure, path):
-    """get the current values of exposure time and gain"""
-    return c_funktionen.Get_Values(cam, exposure, path)
-
-
-def Set_Values(cam, exposure, gain, blacklevel, automode, path):
-    """sets the values of exposure time and gain"""
-    return c_funktionen.Set_Values(
-        cam, exposure, gain, blacklevel, automode, path)
-
-
-def CopyImg(cam, ImageData):
-    """copy image from memory to array"""
-    return c_funktionen.CopyImg(cam, ImageData)
-
-
-def Exit_Cam(path, cam):
-    """closes the uEye camera"""
+# def Number_Of_Cameras(path):
+#    """returns the number of available uEye cameras"""
+#    return c_funktionen.Number_Of_Cameras(path)
+#
+#
+# def Init_Cam(path, width=640, height=480, gain_boost=1):
+#    """inits the uEye camera"""
+#    return c_funktionen.Init_Cam(path, width, height, gain_boost)
+#
+#
+# def BOOOOOOOOOOST(cam, mode, path):
+#    """switches gain goost on or off"""
+#    return c_funktionen.BOOOOOOOOOOST(cam, mode, path)
+#
+#
+# def Get_Values(cam, exposure, path):
+#    """get the current values of exposure time and gain"""
+#    return c_funktionen.Get_Values(cam, exposure, path)
+#
+#
+# def Set_Values(cam, exposure, gain, blacklevel, automode, path):
+#    """sets the values of exposure time and gain"""
+#    return c_funktionen.Set_Values(
+#        cam, exposure, gain, blacklevel, automode, path)
+#
+#
+# def CopyImg(cam, ImageData):
+#    """copy image from memory to array"""
+#    return c_funktionen.CopyImg(cam, ImageData)
+#
+#
+# def Exit_Cam(path, cam):
+#    """closes the uEye camera"""
     return c_funktionen.Exit_Cam(path, cam)
 
 
@@ -230,8 +340,8 @@ def min__(array, percentage):
         array = round_array(array, 2)
     count = Counter(array)
     tmp = count.most_common()[0][0]
-    mean_ind = np.where(np.logical_and(array >= tmp - tmp*percentage/100,
-                                       array <= tmp + tmp*percentage/100))
+    mean_ind = np.where(np.logical_and(array >= tmp - tmp * percentage / 100,
+                                       array <= tmp + tmp * percentage / 100))
     mean_array = array[mean_ind]
     return np.mean(mean_array)
 

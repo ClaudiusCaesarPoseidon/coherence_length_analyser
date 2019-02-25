@@ -45,10 +45,7 @@ cdef extern from "c_written_functions.c" nogil:
     cpdef int is_admin_c "is_admin" ()
     char* vigenere_c "vigenere"(char*,char*) # cpdef -> memory leak
     void free_array(char*)
-#    cdef struct FrameRate:
-#        double min
-#        double max
-#        double intervall
+
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
@@ -82,100 +79,6 @@ cpdef ndarray fft_shift_py(double [:,::1] arr):
     numpy_array = np.asarray(array)
     return numpy_array
 
-@cython.boundscheck(False)
-@cython.wraparound(False)
-@cython.cdivision(True)
-cpdef int Number_Of_Cameras(char* path):
-    """gets number of availible uEye Cameras"""
-    cdef int number=0
-    number=uEye.is_getNumberofCameras(path)
-    return number
-
-@cython.boundscheck(False)
-@cython.wraparound(False)
-@cython.cdivision(True)
-def get_frame_extremes(HIDS cam, char* path):
-    cdef double min = 0
-    cdef double max = 0
-    cdef double intervall = 0
-    return uEye.is_GetFrameTimeRange(cam, min, max, intervall, path)
-
-@cython.boundscheck(False)
-@cython.wraparound(False)
-@cython.cdivision(True)
-cpdef double is_SetFrameRate(HIDS cam, double FPS, char* path):
-    return uEye.is_SetFrameRate(cam, FPS, path)
-
-@cython.boundscheck(False)
-@cython.wraparound(False)
-@cython.cdivision(True)
-cpdef tuple Init_Cam(char* path,int width=640, int heigth=480,int gain_boost=1):
-    """inits the uEye camera"""
-    cdef HIDS cam = uEye.is_InitCamera(path)
-    uEye.is_EnableAutoExit(cam,uEye.IS_ENABLE_AUTO_EXIT,path)
-    uEye.is_SetColorMode(cam,uEye.IS_CM_SENSOR_RAW8,path)
-    cdef int ret=uEye.is_SetExternalTrigger(cam, uEye.IS_SET_TRIGGER_SOFTWARE,path)
-    uEye.is_Blacklevel(cam,uEye.IS_BLACKLEVEL_CMD_SET_MODE,1,path)
-    uEye.is_AllocImageMem(cam,width,heigth,8)
-    uEye.is_SetImageMem(cam)
-    uEye.is_CaptureVideo(cam,uEye.IS_DONT_WAIT,path)
-    if gain_boost==1:
-        uEye.is_SetGainBoost(cam,uEye.IS_SET_GAINBOOST_ON,path)
-    else:
-        uEye.is_SetGainBoost(cam,uEye.IS_SET_GAINBOOST_OFF,path)
-    return cam,ret
-
-@cython.boundscheck(False)
-@cython.wraparound(False)
-@cython.cdivision(True)
-cpdef void BOOOOOOOOOOST(HIDS cam,np.npy_bool mode,char* path):
-    """set the gain boost mode of the camera"""
-    if mode==True:
-        uEye.is_SetGainBoost(cam,uEye.IS_SET_GAINBOOST_ON,path)
-    else:
-        uEye.is_SetGainBoost(cam,uEye.IS_SET_GAINBOOST_OFF,path)
-
-@cython.boundscheck(False)
-@cython.wraparound(False)
-@cython.cdivision(True)
-cpdef tuple Get_Values(HIDS cam,double exposure,char* path):
-    """gets the current exposure time and gain of the camera"""
-    cdef double expo=uEye.is_Exposure(cam,uEye.IS_EXPOSURE_CMD_GET_EXPOSURE,exposure,path)
-    cdef int gain=uEye.is_SetHardwareGain(cam,uEye.IS_GET_MASTER_GAIN,uEye.IS_IGNORE_PARAMETER,uEye.IS_IGNORE_PARAMETER,uEye.IS_IGNORE_PARAMETER,path)
-    return expo,gain
-
-@cython.boundscheck(False)
-@cython.wraparound(False)
-@cython.cdivision(True)
-cpdef tuple Set_Values(HIDS cam,double exposure,int gain,int blacklevel,automode,char* path):
-    """sets the exposure time and gain of the camera"""
-    cdef double expo
-    if automode is False:
-        uEye.is_SetHardwareGain(cam,gain,uEye.IS_IGNORE_PARAMETER,uEye.IS_IGNORE_PARAMETER,uEye.IS_IGNORE_PARAMETER,path)
-        expo=uEye.is_Exposure(cam,uEye.IS_EXPOSURE_CMD_SET_EXPOSURE,exposure,path)
-        uEye.is_Blacklevel(cam,uEye.IS_BLACKLEVEL_CMD_SET_OFFSET,blacklevel,path)
-    elif automode is True:
-        uEye.is_SetAutoParameter (cam,uEye.IS_SET_ENABLE_AUTO_GAIN,1,0,path)
-        uEye.is_SetAutoParameter (cam,uEye.IS_SET_ENABLE_AUTO_SHUTTER,1,0,path)
-    return Get_Values(cam,expo,path)
-
-@cython.boundscheck(False)
-@cython.wraparound(False)
-@cython.cdivision(True)
-cpdef int CopyImg(HIDS cam,ndarray ImageData):
-    """copys the image from the memory to a numpy array"""
-    cdef int ret
-    ret=uEye.is_CopyImageMem(cam,ImageData)
-    return ret
-
-@cython.boundscheck(False)
-@cython.wraparound(False)
-@cython.cdivision(True)
-cpdef int Exit_Cam(char* path,HIDS cam):
-    """exits the camera"""
-    cdef int ret
-    ret=uEye.is_ExitCamera(cam,path)
-    return ret
 
 @cython.boundscheck(False)
 @cython.wraparound(False)

@@ -51,7 +51,7 @@ char* concatenate(char* dest, char* src){
 	return desti;
 }
 
-int make_directory( char* name)
+int make_directory(char* name)
     {
 	return mkdir(name);
     }
