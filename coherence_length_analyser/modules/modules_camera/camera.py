@@ -168,6 +168,7 @@ class Camera(Widgetb):
         self.Cam_Active = True
         self.cam = came[0]
         self.ret = came[1]
+        self.pcImgMem, self.pid = came[2:4]
         self.accept_mode = self.Accept_Parameter.isEnabled()
         self.thread = start_position(self)
         self.thread.changePixmap.connect(self.setImage)
@@ -694,9 +695,9 @@ class Camera(Widgetb):
         self.cam_off = True
         self.ser.close()
         if self.Cam_Active is True:
-            functions.Exit_Cam(cam=self.cam)
+            functions.Exit_Cam(self.cam, self.pcImgMem, self.pid)
         if self.thread_run is True:
-            functions.Exit_Cam(cam=self.cam)
+            functions.Exit_Cam(self.cam, self.pcImgMem, self.pid)
         return super().closeEvent(event)
 
     def end_(self):
@@ -708,7 +709,7 @@ class Camera(Widgetb):
         self.cam_off = True
         self.ser.close()
         if self.Cam_Active is True:
-            functions.Exit_Cam(cam=self.cam)
+            functions.Exit_Cam(self.cam, self.pcImgMem, self.pid)
 
     def is_ends(self):
         self.stop = True

@@ -120,7 +120,7 @@ class picture_to_video(Widgetb):
         self.dname = QtWidgets.QFileDialog.getExistingDirectory(
             self, "Select Directory", self.parent.direc_path)
         self.th = choose_action(self)
-        self.th.emit.connect(self.get_action)
+        self.th.emitt.connect(self.get_action)
         self.th.no.connect(self.th_no)
         self.th.start()
 

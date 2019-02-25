@@ -13,13 +13,11 @@ import scipy.ndimage
 import scipy.signal
 import math
 from .resource_path import *
-from . import uEye
 
 from .cython.parallel import prange
 from numpy cimport ndarray
 cimport numpy as np
 cimport cython
-cimport coherence_length_analyser.lib.c_lib.uEye
 from libcpp cimport bool as bool_t
 from libc.stdint cimport uint32_t,int32_t
 from numpy cimport uint8_t

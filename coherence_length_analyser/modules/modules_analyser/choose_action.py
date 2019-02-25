@@ -4,7 +4,7 @@ from PySide2 import QtCore
 
 
 class choose_action(QtCore.QThread):
-    emit = QtCore.Signal(tuple)
+    emitt = QtCore.Signal(tuple)
     no = QtCore.Signal()
 
     def __init__(self, parent=None):
@@ -21,9 +21,9 @@ class choose_action(QtCore.QThread):
             self.files = s.files
             if s.files == []:
                 self.folders = get_all_folders(self.dname)
-                self.emit.emit((self.folders, 1))
+                self.emitt.emit((self.folders, 1))
             else:
-                self.emit.emit((self.files, 0))
+                self.emitt.emit((self.files, 0))
         else:
             print("No folder selected.")
             self.no.emit()

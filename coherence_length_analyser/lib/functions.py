@@ -54,13 +54,10 @@ def Init_Cam(width=640, heigth=480, gain_boost=1):
     width = ueye.int(width)
     heigth = ueye.int(heigth)
     bitspixel = ueye.int(8)
-    #pcImgMem = ueye.c_mem_p()
-    pcImgMem = ueye.c_char_p()
-    pid = ueye.int(0)
+    pcImgMem = ueye.c_mem_p()
+    pid = ueye.int()
     ueye.is_AllocImageMem(cam, width, heigth, bitspixel, pcImgMem, pid)
     ueye.is_SetImageMem(cam, pcImgMem, pid)
-#    ueye.is_AllocImageMem(cam, width, heigth, bitspixel)
-#    ueye.is_SetImageMem(cam)
     ueye.is_CaptureVideo(cam, ueye.IS_DONT_WAIT)
     if gain_boost == 1:
         ueye.is_SetGainBoost(cam, ueye.IS_SET_GAINBOOST_ON)
@@ -80,7 +77,7 @@ def BOOOOOOOOOOST(cam, mode):
 def Get_Values(cam, exposure):
     """gets the current exposure time and gain of the camera"""
     exposure = ueye.double(exposure)
-    expo = ueye.double()
+#    expo = ueye.double()
     gain = ueye.int()
     ueye.is_Exposure(
         cam,
@@ -93,7 +90,7 @@ def Get_Values(cam, exposure):
         ueye.IS_IGNORE_PARAMETER,
         ueye.IS_IGNORE_PARAMETER,
         ueye.IS_IGNORE_PARAMETER)
-    return expo.value, gain.value
+    return exposure.value, gain
 
 
 def Set_Values(cam, exposure, gain, blacklevel, automode):
@@ -119,23 +116,25 @@ def Set_Values(cam, exposure, gain, blacklevel, automode):
             ueye.IS_BLACKLEVEL_CMD_SET_OFFSET,
             blacklevel)
     elif automode is True:
-        ueye.is_SetAutoParameter(cam, ueye.IS_SET_ENABLE_AUTO_GAIN, 1, 0)
+        pval1 = ueye.double(1)
+        pval2 = ueye.double(0)
+        ueye.is_SetAutoParameter(cam, ueye.IS_SET_ENABLE_AUTO_GAIN, pval1, pval2)
+        pval1 = ueye.double(1)
+        pval2 = ueye.double(0)
         ueye.is_SetAutoParameter(
-            cam, ueye.IS_SET_ENABLE_AUTO_SHUTTER, 1, 0)
+            cam, ueye.IS_SET_ENABLE_AUTO_SHUTTER, pval1, pval2)
     return Get_Values(cam.value, expo.value)
 
 
-def CopyImg(cam, ImageData):
+def CopyImg(cam, ImageData, pcImgMem, pid):
     """copys the image from the memory to a numpy array"""
-    pcImgMem = ueye.c_mem_p()
-    #c_char_p()
-    pid = ueye.int(0)
-    ret = ueye.is_CopyImageMem (cam, pcImgMem, pid, ImageData.ctypes.data)
+    ret = ueye.is_CopyImageMem(cam, pcImgMem, pid, ImageData.ctypes.data)
     return ret
 
 
-def Exit_Cam(cam):
+def Exit_Cam(cam, pcImgMem, pid):
     """exits the camera"""
+    ueye.is_FreeImageMem(cam, pcImgMem, pid)
     ret = ueye.is_ExitCamera(cam)
     return ret
 

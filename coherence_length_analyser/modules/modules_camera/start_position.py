@@ -6,6 +6,7 @@ import cv2
 import scipy.signal
 import scipy.fftpack
 from PySide2 import QtCore, QtGui
+from pyueye import ueye
 
 
 def mean(lst):
@@ -33,7 +34,8 @@ class start_position(QtCore.QThread):
         ImageData = np.zeros((480, 640), dtype=np.uint8)
         while True:
             if self.parent.ret == 0:
-                functions.CopyImg(self.parent.cam, ImageData)
+                functions.CopyImg(self.parent.cam, ImageData, self.parent.pcImgMem, self.parent.pid)
+                self.msleep(100)
                 self.exposure, self.gain = functions.Get_Values(
                     self.parent.cam, self.exposure)
                 tup = (self.exposure, self.gain)

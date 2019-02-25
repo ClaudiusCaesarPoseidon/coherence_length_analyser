@@ -32,7 +32,6 @@ class Init_Thread(QtCore.QThread):
             cam = came[0]
             xxx = functions.get_frame_extremes(cam)
             tmp = VAL(**xxx)
-            print(tmp)
             try:
                 max_fps = 1 / tmp.min
             except ZeroDivisionError:
