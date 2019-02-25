@@ -55,7 +55,7 @@ def Init_Cam(width=640, heigth=480, gain_boost=1):
     #pcImgMem = ueye.c_mem_p()
     pcImgMem = ueye.c_char_p()
     pid = ueye.int(0)
-    ueye.is_AllocImageMem(cam, width, heigth,  bitspixel, ctypes.byref(pcImgMem), ctypes.byref(pid))
+    ueye.is_AllocImageMem(cam, width, heigth, bitspixel, pcImgMem, pid)
     ueye.is_SetImageMem(cam, pcImgMem, pid)
 #    ueye.is_AllocImageMem(cam, width, heigth, bitspixel)
 #    ueye.is_SetImageMem(cam)
