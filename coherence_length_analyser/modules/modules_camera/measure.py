@@ -88,7 +88,7 @@ class Measure(QtCore.QThread):
                         self.sleep(2)
                         start = False
                         exposure, gain = functions.Get_Values(
-                            self.parent.cam, exposure
+                            self.parent.cam, exposure)
                     exposure, gain = functions.Set_Values(
                         self.parent.cam, exposure, gain, 114, False)
                     functions.CopyImg(self.parent.cam, ImageData)
