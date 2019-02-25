@@ -12,7 +12,7 @@ import serial
 from .c_lib import c_funktionen
 from encodings.aliases import aliases
 from collections import Counter
-import pyueye
+from ueye import ueye
 # is_InitCamera
 # is_SetFrameRate
 # is_GetFrameTimeRange
@@ -24,7 +24,7 @@ import pyueye
 def Number_Of_Cameras():
     """gets number of availible uEye Cameras"""
     number = 0
-    pyueye.is_getNumberofCameras(number)
+    ueye.is_getNumberofCameras(number)
     return number
 
 
@@ -32,55 +32,55 @@ def get_frame_extremes(cam):
     min = 0
     max = 0
     intervall = 0
-    pyueye.is_GetFrameTimeRange(cam, min, max, intervall)
+    ueye.is_GetFrameTimeRange(cam, min, max, intervall)
     return {'max': max, 'min': min, 'intervall': intervall}
 
 
 def is_SetFrameRate(cam, FPS):
-    return pyueye.is_SetFrameRate(cam, FPS)
+    return ueye.is_SetFrameRate(cam, FPS)
 
 
 def Init_Cam(path, width=640, heigth=480, gain_boost=1):
     """inits the uEye camera"""
-    cam = pyueye.ueye.HIDS(0)
-    pyueye.is_InitCamera(cam, None)
-    pyueye.is_EnableAutoExit(cam, pyueye.IS_ENABLE_AUTO_EXIT)
-    pyueye.is_SetColorMode(cam, pyueye.IS_CM_SENSOR_RAW8, path)
-    ret = pyueye.is_SetExternalTrigger(cam, pyueye.IS_SET_TRIGGER_SOFTWARE)
-    pyueye.is_Blacklevel(cam, pyueye.IS_BLACKLEVEL_CMD_SET_MODE, 1)
-    pyueye.is_AllocImageMem(cam, width, heigth, 8)
-    pyueye.is_SetImageMem(cam)
-    pyueye.is_CaptureVideo(cam, pyueye.IS_DONT_WAIT)
+    cam = ueye.HIDS(0)
+    ueye.is_InitCamera(cam, None)
+    ueye.is_EnableAutoExit(cam, ueye.IS_ENABLE_AUTO_EXIT)
+    ueye.is_SetColorMode(cam, ueye.IS_CM_SENSOR_RAW8, path)
+    ret = ueye.is_SetExternalTrigger(cam, ueye.IS_SET_TRIGGER_SOFTWARE)
+    ueye.is_Blacklevel(cam, ueye.IS_BLACKLEVEL_CMD_SET_MODE, 1)
+    ueye.is_AllocImageMem(cam, width, heigth, 8)
+    ueye.is_SetImageMem(cam)
+    ueye.is_CaptureVideo(cam, ueye.IS_DONT_WAIT)
     if gain_boost == 1:
-        pyueye.is_SetGainBoost(cam, pyueye.IS_SET_GAINBOOST_ON)
+        ueye.is_SetGainBoost(cam, ueye.IS_SET_GAINBOOST_ON)
     else:
-        pyueye.is_SetGainBoost(cam, pyueye.IS_SET_GAINBOOST_OFF)
+        ueye.is_SetGainBoost(cam, ueye.IS_SET_GAINBOOST_OFF)
     return cam, ret
 
 
 def BOOOOOOOOOOST(cam, mode, path):
     """set the gain boost mode of the camera"""
     if mode is True:
-        pyueye.is_SetGainBoost(cam, pyueye.IS_SET_GAINBOOST_ON)
+        ueye.is_SetGainBoost(cam, ueye.IS_SET_GAINBOOST_ON)
     else:
-        pyueye.is_SetGainBoost(cam, pyueye.IS_SET_GAINBOOST_OFF)
+        ueye.is_SetGainBoost(cam, ueye.IS_SET_GAINBOOST_OFF)
 
 
 def Get_Values(cam, exposure, path):
     """gets the current exposure time and gain of the camera"""
     expo = 0.0
     gain = 0
-    pyueye.is_Exposure(
+    ueye.is_Exposure(
         cam,
-        pyueye.IS_EXPOSURE_CMD_GET_EXPOSURE,
+        ueye.IS_EXPOSURE_CMD_GET_EXPOSURE,
         exposure,
-        pyueye.ueye.sizeof(exposure))
-    gain = pyueye.is_SetHardwareGain(
+        ueye.ueye.sizeof(exposure))
+    gain = ueye.is_SetHardwareGain(
         cam,
-        pyueye.IS_GET_MASTER_GAIN,
-        pyueye.IS_IGNORE_PARAMETER,
-        pyueye.IS_IGNORE_PARAMETER,
-        pyueye.IS_IGNORE_PARAMETER)
+        ueye.IS_GET_MASTER_GAIN,
+        ueye.IS_IGNORE_PARAMETER,
+        ueye.IS_IGNORE_PARAMETER,
+        ueye.IS_IGNORE_PARAMETER)
     return expo, gain
 
 
@@ -88,39 +88,39 @@ def Set_Values(cam, exposure, gain, blacklevel, automode, path):
     """sets the exposure time and gain of the camera"""
     expo = 0.0
     if automode is False:
-        pyueye.is_SetHardwareGain(
+        ueye.is_SetHardwareGain(
             cam,
             gain,
-            pyueye.IS_IGNORE_PARAMETER,
-            pyueye.IS_IGNORE_PARAMETER,
-            pyueye.IS_IGNORE_PARAMETER,
+            ueye.IS_IGNORE_PARAMETER,
+            ueye.IS_IGNORE_PARAMETER,
+            ueye.IS_IGNORE_PARAMETER,
             path)
-        pyueye.is_Exposure(
+        ueye.is_Exposure(
             cam,
-            pyueye.IS_EXPOSURE_CMD_SET_EXPOSURE,
+            ueye.IS_EXPOSURE_CMD_SET_EXPOSURE,
             exposure,
-            pyueye.ueye.sizeof(exposure))
+            ueye.ueye.sizeof(exposure))
         expo = exposure
-        pyueye.is_Blacklevel(
+        ueye.is_Blacklevel(
             cam,
-            pyueye.IS_BLACKLEVEL_CMD_SET_OFFSET,
+            ueye.IS_BLACKLEVEL_CMD_SET_OFFSET,
             blacklevel)
     elif automode is True:
-        pyueye.is_SetAutoParameter(cam, pyueye.IS_SET_ENABLE_AUTO_GAIN, 1, 0)
-        pyueye.is_SetAutoParameter(
-            cam, pyueye.IS_SET_ENABLE_AUTO_SHUTTER, 1, 0)
+        ueye.is_SetAutoParameter(cam, ueye.IS_SET_ENABLE_AUTO_GAIN, 1, 0)
+        ueye.is_SetAutoParameter(
+            cam, ueye.IS_SET_ENABLE_AUTO_SHUTTER, 1, 0)
     return Get_Values(cam, expo, path)
 
 
 def CopyImg(cam, ImageData):
     """copys the image from the memory to a numpy array"""
-    ret = pyueye.is_CopyImageMem(cam, ImageData)
+    ret = ueye.is_CopyImageMem(cam, ImageData)
     return ret
 
 
 def Exit_Cam(cam):
     """exits the camera"""
-    ret = pyueye.is_ExitCamera(cam)
+    ret = ueye.is_ExitCamera(cam)
     return ret
 
 

@@ -224,15 +224,16 @@ class pyplot_cv2(QtCore.QThread):
                 section = cv2.cvtColor(
                     section, cv2.COLOR_GRAY2BGR)
                 section[self.ind] = [0, 0, 255]
-                cv2.imwrite(os.path.join(
-                    file_direc, file_name + "_alignment2.png"), c)
-                cv2.imwrite(
-                    os.path.join(
-                        file_direc,
-                        file_name +
-                        "_alignment_%d.png" %
-                        tmp_value),
-                    section)
+                if self.parent.demo is False:
+                    cv2.imwrite(os.path.join(
+                        file_direc, file_name + "_alignment2.png"), c)
+                    cv2.imwrite(
+                        os.path.join(
+                            file_direc,
+                            file_name +
+                            "_alignment_%d.png" %
+                            tmp_value),
+                        section)
 
                 section = functions.resize(
                     section, h_fft / h_sec, w_fft / w_sec)
@@ -288,11 +289,11 @@ class pyplot_cv2(QtCore.QThread):
                             e = j
                     print(
                         "The Coherence Length is:",
-                        (e - s) * step_width,
-                        s * step_width,
-                        e * step_width,
-                        e,
-                        s)
+                        (e - s) * step_width,)
+#                        s * step_width,
+#                        e * step_width,
+#                        e,
+#                        s)
                     self.ax.axvline(s * step_width, color="green")
                     self.ax.axvline(e * step_width, color="green")
                     self.parent.canvas.figure.text(
