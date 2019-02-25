@@ -48,7 +48,7 @@ def Init_Cam(width=640, heigth=480, gain_boost=1):
     ueye.is_EnableAutoExit(cam, ueye.IS_ENABLE_AUTO_EXIT)
     ueye.is_SetColorMode(cam, ueye.IS_CM_SENSOR_RAW8)
     ret = ueye.is_SetExternalTrigger(cam, ueye.IS_SET_TRIGGER_SOFTWARE)
-    ueye.is_Blacklevel(cam, ueye.IS_BLACKLEVEL_CMD_SET_MODE, 1)
+    ueye.is_Blacklevel(cam, ueye.IS_BLACKLEVEL_CMD_SET_MODE, 1,  ueye.sizeof(1))
     ueye.is_AllocImageMem(cam, width, heigth, 8)
     ueye.is_SetImageMem(cam)
     ueye.is_CaptureVideo(cam, ueye.IS_DONT_WAIT)
@@ -75,7 +75,7 @@ def Get_Values(cam, exposure):
         cam,
         ueye.IS_EXPOSURE_CMD_GET_EXPOSURE,
         exposure,
-        ueye.ueye.sizeof(exposure))
+        ueye.sizeof(exposure))
     gain = ueye.is_SetHardwareGain(
         cam,
         ueye.IS_GET_MASTER_GAIN,
