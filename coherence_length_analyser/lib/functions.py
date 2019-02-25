@@ -24,8 +24,9 @@ from pyueye import ueye
 def Number_Of_Cameras():
     """gets number of availible uEye Cameras"""
     number = 0
+    number = ctypes.c_int(number)
     ueye.is_GetNumberOfCameras(number)
-    return number
+    return number.value
 
 
 def get_frame_extremes(cam):
