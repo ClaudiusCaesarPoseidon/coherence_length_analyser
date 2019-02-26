@@ -85,7 +85,7 @@ class Count(Widgetb):
     def copy(self):
         self.Start.setDisabled(True)
         self.Copy.setDisabled(True)
-        self.Convert.SetDisabled(True)
+        self.Convert.setDisabled(True)
         self.Count.setDisabled(True)
         if self.folder is None:
             path = os.path.join(self.direc_path, "converted_videos")
