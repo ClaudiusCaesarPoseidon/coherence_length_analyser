@@ -3,6 +3,7 @@ from .count_lines import count_thread
 from .turn_thread import turn_thread
 from .search_folder import search_folder
 from .copy import copy_thread
+from .convert_thread import convert_thread
 from ...lib import functions
 from ..eigen_widgets import Widgetb
 from PySide2 import QtCore, QtWidgets, QtGui
@@ -27,6 +28,8 @@ class Count(Widgetb):
             self.Count.setDisabled(False)
         if os.path.exists(os.path.join(self.direc_path, "lines")) is True:
             self.Start.setDisabled(False)
+        if os.path.exists(os.path.join(self.direc_path, "lines.txt")) is True:
+            self.Convert.setDisabled(False)
         self.Evaluate.setDisabled(True)
         self.Evaluate.setVisible(False)
         self.Next.setDisabled(True)
@@ -81,6 +84,8 @@ class Count(Widgetb):
     def copy(self):
         self.Start.setDisabled(True)
         self.Copy.setDisabled(True)
+        self.Convert.SetDisabled(True)
+        self.Count.setDisabled(True)
         if self.folder is None:
             path = os.path.join(self.direc_path, "converted_videos")
         else:
@@ -105,6 +110,7 @@ class Count(Widgetb):
         self.Next.setVisible(True)
         self.Copy.setDisabled(True)
         self.Count.setDisabled(True)
+        self.Convert.setDisabled(True)
 
         self.path = os.path.join(self.direc_path, "lines")
         self.images = [os.path.join(self.path, item)
@@ -134,14 +140,28 @@ class Count(Widgetb):
         self.Copy.setDisabled(False)
         if os.path.exists(os.path.join(self.direc_path, "lines_csv")) is True:
             self.Count.setDisabled(False)
+        if os.path.exists(os.path.join(self.direc_path, "lines.txt")) is True:
+            self.Convert.setDisabled(False)
 
     def count(self):
         self.Start.setDisabled(True)
         self.Copy.setDisabled(True)
         self.Count.setDisabled(True)
+        self.Convert.setDisabled(True)
         self.th = count_thread(self)
         self.th.start()
         self.th.finished.connect(self.turn_end)
+
+    def convert(self):
+        self.Start.setDisabled(True)
+        self.Copy.setDisabled(True)
+        self.Count.setDisabled(True)
+        self.Convert.setDisabled(True)
+        path_in = os.path.join(self.direc_path, "lines.txt")
+        path_out = os.path.join(self.direc_path, "lines.csv")
+        self.th = convert_thread(self, path_in, path_out)
+        self.th.finished.connect(self.turn_end)
+
 
     @QtCore.Slot(QtGui.QImage)
     def setImage(self, image):
