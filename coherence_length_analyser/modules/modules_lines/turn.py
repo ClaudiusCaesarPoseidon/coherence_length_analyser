@@ -27,7 +27,8 @@ class Count(Widgetb):
         if os.path.exists(os.path.join(self.direc_path, "lines_csv")) is True:
             self.Count.setDisabled(False)
         if os.path.exists(os.path.join(self.direc_path, "lines")) is True:
-            self.Start.setDisabled(False)
+            if os.path.exists(os.path.join(self.direc_path, "angles.txt")) is True:
+                self.Start.setDisabled(False)
         if os.path.exists(os.path.join(self.direc_path, "lines.txt")) is True:
             self.Convert.setDisabled(False)
         self.Evaluate.setDisabled(True)
@@ -132,7 +133,8 @@ class Count(Widgetb):
 
     def turn_end(self):
         if os.path.exists(os.path.join(self.direc_path, "lines")) is True:
-            self.Start.setDisabled(False)
+            if os.path.exists(os.path.join(self.direc_path, "angles.txt")) is True:
+                self.Start.setDisabled(False)
         self.Start.setVisible(True)
         self.Evaluate.setDisabled(True)
         self.Evaluate.setVisible(False)
