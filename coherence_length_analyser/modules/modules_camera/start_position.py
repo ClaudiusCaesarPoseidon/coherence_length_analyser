@@ -34,13 +34,6 @@ class start_position(QtCore.QThread):
         ImageData = np.zeros((480, 640), dtype=np.uint8)
         while True:
             if self.parent.ret == 0:
-                rectAOI = ueye.IS_RECT()
-                rectAOI.s32X = 80
-                rectAOI.s32Y = 0
-                rectAOI.s32Width = 480
-                rectAOI.s32Height = 480
-                ueye.is_AOI(self.parent.cam, ueye.IS_AOI_IMAGE_SET_AOI, rectAOI, ueye.sizeof(rectAOI))
-
                 functions.CopyImg(self.parent.cam, ImageData, self.parent.pcImgMem, self.parent.pid)
                 self.msleep(100)
                 self.exposure, self.gain = functions.Get_Values(

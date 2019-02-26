@@ -51,12 +51,18 @@ def Init_Cam(width=640, heigth=480, gain_boost=1):
     ret = ueye.is_SetExternalTrigger(cam, ueye.IS_SET_TRIGGER_SOFTWARE)
     mode = ueye.int(0)
     ueye.is_Blacklevel(cam, ueye.IS_BLACKLEVEL_CMD_SET_MODE, mode,  ueye.sizeof(mode))
+    rectAOI = ueye.IS_RECT()
+    rectAOI.s32X = 80
+    rectAOI.s32Y = 0
+    rectAOI.s32Width = 480
+    rectAOI.s32Height = 480
+    ueye.is_AOI(cam, ueye.IS_AOI_IMAGE_SET_AOI, rectAOI, ueye.sizeof(rectAOI))
     width = ueye.int(width)
     heigth = ueye.int(heigth)
     bitspixel = ueye.int(8)
     pcImgMem = ueye.c_mem_p()
     pid = ueye.int()
-    ueye.is_AllocImageMem(cam, width, heigth, bitspixel, pcImgMem, pid)
+    ueye.is_AllocImageMem(cam, 480, heigth, bitspixel, pcImgMem, pid)
     ueye.is_SetImageMem(cam, pcImgMem, pid)
     ueye.is_CaptureVideo(cam, ueye.IS_DONT_WAIT)
     if gain_boost == 1:
