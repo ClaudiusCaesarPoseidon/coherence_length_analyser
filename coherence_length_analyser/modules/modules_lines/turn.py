@@ -162,7 +162,7 @@ class Count(Widgetb):
         path_out = os.path.join(self.direc_path, "lines.csv")
         self.th = convert_thread(self, path_in, path_out)
         self.th.finished.connect(self.turn_end)
-
+        self.th.start()
 
     @QtCore.Slot(QtGui.QImage)
     def setImage(self, image):
