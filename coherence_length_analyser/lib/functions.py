@@ -50,6 +50,7 @@ def Init_Cam(width=640, heigth=480, gain_boost=1):
     ueye.is_SetColorMode(cam, ueye.IS_CM_SENSOR_RAW8)
     ret = ueye.is_SetExternalTrigger(cam, ueye.IS_SET_TRIGGER_SOFTWARE)
     mode = ueye.int(0)
+    print(cam)
     ueye.is_Blacklevel(cam, ueye.IS_BLACKLEVEL_CMD_SET_MODE, mode,  ueye.sizeof(mode))
     rectAOI = ueye.IS_RECT()
     rectAOI.s32X = 55
