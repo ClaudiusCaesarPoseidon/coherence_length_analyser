@@ -41,7 +41,7 @@ class start_position(QtCore.QThread):
                 tup = (self.exposure, self.gain)
                 self.val.emit(tup)
                 self.img = ImageData.copy()
-                self.img = np.roll(self.img, -15, axis=0)
+                self.img = np.roll(self.img, 15, axis=0)
 #                self.img = np.roll(self.img, -40, axis=1)
 #                self.img = np.delete(self.img, np.s_[480:640], axis=1)
 
