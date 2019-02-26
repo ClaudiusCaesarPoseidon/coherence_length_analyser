@@ -31,7 +31,7 @@ class start_position(QtCore.QThread):
         super().__init__()
 
     def run(self):
-        ImageData = np.zeros((480, 640), dtype=np.uint8)
+        ImageData = np.zeros((480, 480), dtype=np.uint8)
         while True:
             if self.parent.ret == 0:
                 functions.CopyImg(self.parent.cam, ImageData, self.parent.pcImgMem, self.parent.pid)
