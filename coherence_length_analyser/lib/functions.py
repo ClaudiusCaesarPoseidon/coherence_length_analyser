@@ -52,7 +52,7 @@ def Init_Cam(width=640, heigth=480, gain_boost=1):
     mode = ueye.int(0)
     ueye.is_Blacklevel(cam, ueye.IS_BLACKLEVEL_CMD_SET_MODE, mode,  ueye.sizeof(mode))
     rectAOI = ueye.IS_RECT()
-    rectAOI.s32X = 80
+    rectAOI.s32X = 100
     rectAOI.s32Y = 0
     rectAOI.s32Width = 480
     rectAOI.s32Height = 480
