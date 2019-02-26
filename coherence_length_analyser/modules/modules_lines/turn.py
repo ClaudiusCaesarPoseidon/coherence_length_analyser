@@ -44,6 +44,7 @@ class Count(Widgetb):
         self.Next.clicked.connect(self.continue_)
         self.Count.clicked.connect(self.count)
         self.Open.clicked.connect(self.open_folder)
+        self.Convert.clicked.connect(self.convert)
 
     def set_Size(self):
         self.height = self.geometry().height()
