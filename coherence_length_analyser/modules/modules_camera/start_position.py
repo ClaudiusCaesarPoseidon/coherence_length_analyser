@@ -34,6 +34,13 @@ class start_position(QtCore.QThread):
         ImageData = np.zeros((480, 640), dtype=np.uint8)
         while True:
             if self.parent.ret == 0:
+                rectAOI = ueye.IS_RECT()
+                rectAOI.s32X = 80
+                rectAOI.s32Y = 0
+                rectAOI.s32Width = 480
+                rectAOI.s32Height = 480
+                ueye.is_AOI(self.parent.cam, ueye.IS_AOI_IMAGE_SET_AOI, rectAOI, ueye.sizeof(rectAOI))
+
                 functions.CopyImg(self.parent.cam, ImageData, self.parent.pcImgMem, self.parent.pid)
                 self.msleep(100)
                 self.exposure, self.gain = functions.Get_Values(
@@ -41,8 +48,8 @@ class start_position(QtCore.QThread):
                 tup = (self.exposure, self.gain)
                 self.val.emit(tup)
                 self.img = ImageData.copy()
-                self.img = np.roll(self.img, -40, axis=1)
-                self.img = np.delete(self.img, np.s_[480:640], axis=1)
+#                self.img = np.roll(self.img, -40, axis=1)
+#                self.img = np.delete(self.img, np.s_[480:640], axis=1)
 
                 unique, counts = np.unique(self.img, return_counts=True)
                 x = dict(zip(unique, counts))
