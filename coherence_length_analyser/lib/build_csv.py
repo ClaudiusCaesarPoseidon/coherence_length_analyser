@@ -58,7 +58,7 @@ def build_csv(path, out_path):
                 for i in range(1, length +1):
                     first_line.append("Kohärenzlänge %d"%i)
                     second_line.append("[µm]")
-            head = ','.join(first_line) + "\n" + ','.join(first_line) + "\n"
+            head = ','.join(first_line) + "\n" + ','.join(second_line) + "\n"
             tmp = head + tmp
             file.seek(0)
             file.write(tmp)
