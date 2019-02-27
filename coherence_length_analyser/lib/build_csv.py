@@ -9,7 +9,7 @@ def build_csv(path, out_path):
         csv_dict = {}
         for item in tmp:
             tempo = item[0].split("_")
-            glubber = item[0]
+            glubber = item[1]
             try:
                 current = tempo[-1]
                 temp = tempo[-2]
