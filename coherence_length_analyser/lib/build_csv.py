@@ -48,7 +48,7 @@ def build_csv(path, out_path):
         with open(out_path, "r+") as file:
             tmp = file.read()
             temp = tmp.split("\n")[0].split(",")
-            length = len(temp)
+            length = len(temp) - 4
             first_line = ["Strom", "Temperatur", "Anzahl", "Winkel"]
             second_line = ["[mA]", "[°C]", "[1]", "[°]"]
             if length == 1:
