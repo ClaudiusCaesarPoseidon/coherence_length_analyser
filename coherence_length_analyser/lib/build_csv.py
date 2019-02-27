@@ -9,6 +9,7 @@ def build_csv(path, out_path):
         csv_dict = {}
         for item in tmp:
             tempo = item[0].split("_")
+            print(tempo)
             current = tempo[-1]
             temp = tempo[-2]
             tempo = (item[-1].split(";")[-1]).replace("Kaiser ", "")
