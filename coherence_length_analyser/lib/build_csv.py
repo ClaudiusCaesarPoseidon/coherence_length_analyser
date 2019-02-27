@@ -48,8 +48,20 @@ def build_csv(path, out_path):
         with open(out_path, "r+") as file:
             tmp = file.read()
             temp = tmp.split("\n")[0].split(",")
-            print(len(temp), temp)
+            length = len(temp)
             first_line = ["Strom", "Temperatur", "Anzahl", "Winkel"]
+            second_line = ["[mA]", "[°C]", "[1]", "[°]"]
+            if length == 1:
+                first_line.append("Kohärenzlänge")
+                second_line.append("[µm]")
+            else:
+                for i in range(1, length +1):
+                    first_line.append("Kohärenzlänge %d"%i)
+                    second_line.append("[µm]")
+            head = ','.join(first_line) + "\n" + ','.join(first_line) + "\n"
+            tmp = head + tmp
+            file.seek(0)
+            file.write(tmp)
 
 
 
