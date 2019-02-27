@@ -45,6 +45,8 @@ def build_csv(path, out_path):
         temp = int(len(csv)/tmp)
         csv = csv.reshape(temp, tmp)
         save_txt(out_path, csv)
+        with open(out_path, "r") as file:
+            print(file.read())
 
 
 if __name__ == '__main__':
