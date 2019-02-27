@@ -9,16 +9,16 @@ def build_csv(path, out_path):
         csv_dict = {}
         for item in tmp:
             tempo = item[0].split("_")
-            print(item)
-#            glubber = item[1]
+
             try:
                 current = tempo[-1]
                 temp = tempo[-2]
+                glubber = item[1]
                 tempo = (item[-1].split(";")[-1]).replace("Kaiser ", "")
                 pos1 = tempo.find("(")
                 pos2 = tempo.find(")")
                 tempo = float(tempo.replace(tempo[pos1:pos2+1], "").split()[-1])
-                key = temp + '/' + current + "/"# + glubber
+                key = temp + '/' + current + "/" + glubber
                 tmp_value = csv_dict.get(key)
                 if tmp_value is not None:
                     tmp_value.append(tempo)
@@ -27,22 +27,22 @@ def build_csv(path, out_path):
                     csv_dict[key] = [tempo]
             except IndexError:
                 continue
-#        csv = None
-#        for item in csv_dict:
-#            item2 = item.split("/")
-#            temp = float(item2[0])
-#            current = float(item2[1])
-#            lines = float(item2[2])
-#            array = np.array([current, temp, lines])
-#            array = np.concatenate((array, csv_dict.get(item)))
-#            try:
-#                csv = np.concatenate((csv, array), axis=0)
-#            except UnboundLocalError:
-#                csv = array.copy()
-#        tmp = int(len(csv_dict.get(item)) + 2)
-#        temp = int(len(csv)/tmp)
-#        csv = csv.reshape(temp, tmp)
-#        save_txt(out_path, csv)
+        csv = None
+        for item in csv_dict:
+            item2 = item.split("/")
+            temp = float(item2[0])
+            current = float(item2[1])
+            lines = float(item2[2])
+            array = np.array([current, temp, lines])
+            array = np.concatenate((array, csv_dict.get(item)))
+            try:
+                csv = np.concatenate((csv, array), axis=0)
+            except UnboundLocalError:
+                csv = array.copy()
+        tmp = int(len(csv_dict.get(item)) + 2)
+        temp = int(len(csv)/tmp)
+        csv = csv.reshape(temp, tmp)
+        save_txt(out_path, csv)
 
 
 if __name__ == '__main__':
