@@ -27,7 +27,7 @@ def build_csv(path, out_path):
                     csv_dict[key] = [tempo]
             except IndexError:
                 continue
-        csv = None
+#        csv = None
         for item in csv_dict:
             item2 = item.split("/")
             temp = float(item2[0])
