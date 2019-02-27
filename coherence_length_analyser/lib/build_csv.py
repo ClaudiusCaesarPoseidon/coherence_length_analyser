@@ -31,7 +31,8 @@ def build_csv(path, out_path):
             item2 = item.split("/")
             temp = float(item2[0])
             current = float(item2[1])
-            array = np.array([current, temp])
+            lines = float(item2[2])
+            array = np.array([current, temp, lines])
             array = np.concatenate((array, csv_dict.get(item)))
             try:
                 csv = np.concatenate((csv, array), axis=0)
