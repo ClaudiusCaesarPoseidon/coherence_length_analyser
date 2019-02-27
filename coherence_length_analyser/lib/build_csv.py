@@ -13,12 +13,13 @@ def build_csv(path, out_path):
             try:
                 current = tempo[-1]
                 temp = tempo[-2]
-                glubber = item[1]
+                lines = item[1]
+                angle = item[2]
                 tempo = (item[-1].split(";")[-1]).replace("Kaiser ", "")
                 pos1 = tempo.find("(")
                 pos2 = tempo.find(")")
                 tempo = float(tempo.replace(tempo[pos1:pos2+1], "").split()[-1])
-                key = temp + '/' + current + "/" + glubber
+                key = temp + '/' + current + "/" + lines + '/' + angle
                 tmp_value = csv_dict.get(key)
                 if tmp_value is not None:
                     tmp_value.append(tempo)
@@ -33,7 +34,8 @@ def build_csv(path, out_path):
             temp = float(item2[0])
             current = float(item2[1])
             lines = float(item2[2])
-            array = np.array([current, temp, lines])
+            angle = float(item2[3])
+            array = np.array([current, temp, lines, angle])
             array = np.concatenate((array, csv_dict.get(item)))
             try:
                 csv = np.concatenate((csv, array), axis=0)
