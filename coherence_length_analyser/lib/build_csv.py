@@ -41,8 +41,9 @@ def build_csv(path, out_path):
                 csv = array.copy()
         tmp = int(len(csv_dict.get(item)) + 3)
         temp = int(len(csv)/tmp)
-        csv = csv.reshape(temp, tmp)
-        save_txt(out_path, csv)
+        print(csv)
+#        csv = csv.reshape(temp, tmp)
+#        save_txt(out_path, csv)
 
 
 if __name__ == '__main__':
