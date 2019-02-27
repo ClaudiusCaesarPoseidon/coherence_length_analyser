@@ -9,20 +9,22 @@ def build_csv(path, out_path):
         csv_dict = {}
         for item in tmp:
             tempo = item[0].split("_")
-            print(tempo)
-            current = tempo[-1]
-            temp = tempo[-2]
-            tempo = (item[-1].split(";")[-1]).replace("Kaiser ", "")
-            pos1 = tempo.find("(")
-            pos2 = tempo.find(")")
-            tempo = float(tempo.replace(tempo[pos1:pos2+1], "").split()[-1])
-            key = temp + '/' + current
-            tmp_value = csv_dict.get(key)
-            if tmp_value is not None:
-                tmp_value.append(tempo)
-                csv_dict[key] = tmp_value
-            else:
-                csv_dict[key] = [tempo]
+            try:
+                current = tempo[-1]
+                temp = tempo[-2]
+                tempo = (item[-1].split(";")[-1]).replace("Kaiser ", "")
+                pos1 = tempo.find("(")
+                pos2 = tempo.find(")")
+                tempo = float(tempo.replace(tempo[pos1:pos2+1], "").split()[-1])
+                key = temp + '/' + current
+                tmp_value = csv_dict.get(key)
+                if tmp_value is not None:
+                    tmp_value.append(tempo)
+                    csv_dict[key] = tmp_value
+                else:
+                    csv_dict[key] = [tempo]
+            except IndexError:
+                continue
 #        csv = None
         for item in csv_dict:
             item2 = item.split("/")
