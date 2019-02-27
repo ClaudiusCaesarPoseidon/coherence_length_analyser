@@ -39,7 +39,7 @@ def build_csv(path, out_path):
                 csv = np.concatenate((csv, array), axis=0)
             except UnboundLocalError:
                 csv = array.copy()
-        tmp = int(len(csv_dict.get(item)) + 2)
+        tmp = int(len(csv_dict.get(item)) + 3)
         temp = int(len(csv)/tmp)
         csv = csv.reshape(temp, tmp)
         save_txt(out_path, csv)
