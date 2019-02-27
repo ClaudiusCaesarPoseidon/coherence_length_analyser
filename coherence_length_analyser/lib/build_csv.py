@@ -45,8 +45,12 @@ def build_csv(path, out_path):
         temp = int(len(csv)/tmp)
         csv = csv.reshape(temp, tmp)
         save_txt(out_path, csv)
-        with open(out_path, "r") as file:
-            print(file.read())
+        with open(out_path, "r+") as file:
+            tmp = file.read()
+            temp = tmp.slit("\n")[0]
+            print(len(temp))
+            first_line = ["Strom", "Temperatur", "Anzahl", "Winkel"]
+
 
 
 if __name__ == '__main__':
