@@ -48,7 +48,7 @@ def build_csv(path, out_path):
         with open(out_path, "r+") as file:
             tmp = file.read()
             temp = tmp.split("\n")[0]
-            print(len(temp))
+            print(len(temp), temp)
             first_line = ["Strom", "Temperatur", "Anzahl", "Winkel"]
 
 
