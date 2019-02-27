@@ -9,6 +9,7 @@ def build_csv(path, out_path):
         csv_dict = {}
         for item in tmp:
             tempo = item[0].split("_")
+            glubber = item[0]
             try:
                 current = tempo[-1]
                 temp = tempo[-2]
@@ -16,7 +17,7 @@ def build_csv(path, out_path):
                 pos1 = tempo.find("(")
                 pos2 = tempo.find(")")
                 tempo = float(tempo.replace(tempo[pos1:pos2+1], "").split()[-1])
-                key = temp + '/' + current
+                key = temp + '/' + current +"/" + glubber
                 tmp_value = csv_dict.get(key)
                 if tmp_value is not None:
                     tmp_value.append(tempo)
