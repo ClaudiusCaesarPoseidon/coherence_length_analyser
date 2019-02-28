@@ -5,6 +5,7 @@ from ..eigen_widgets import Stream, Widgetb
 from .section_test import section_test
 from .picture_to_video import picture_to_video
 from .pyplot_cv2 import pyplot_cv2
+from .get_video import get_video
 import os
 import timeit
 import sys
@@ -14,17 +15,6 @@ from ConvertQt import uic
 
 
 monitor_format = functions.monitor_format
-
-
-def index_containing_substring(the_list, substring):
-    for i, s in enumerate(the_list):
-        if substring in s and s.endswith('.avi'):
-            return i
-    return None
-
-
-def hasNumber(inputString):
-    return any(char.isdigit() for char in inputString)
 
 
 class Analyser(Widgetb):
@@ -188,20 +178,25 @@ class Analyser(Widgetb):
 
     def start_raum(self):
         path = self.dname
-        tmp = [x[0] for x in os.walk(path) if hasNumber(x[0]) is True]
+#        tmp = [x[0] for x in os.walk(path) if hasNumber(x[0]) is True]
         self.files = []
         self.demo = False
-        for item in tmp:
-            x = os.listdir(item)
-            if self.Calculate.isChecked() is True:
-                index = index_containing_substring(x, "Kaiser")
-                if index is None:
-                    index = index_containing_substring(x, "Boxcar")
-            else:
-                index = index_containing_substring(x, "Boxcar")
-                if index is None:
-                    index = index_containing_substring(x, "Kaiser")
-            self.files.append(os.path.join(item, x[index]))
+
+        get = get_video(path)
+        self.files = get.get(self.Windows.currentText())
+
+#        for item in tmp:
+#            x = os.listdir(item)
+#            if self.Calculate.isChecked() is True:
+#                index = index_containing_substring(x, "Kaiser")
+#                if index is None:
+#                    index = index_containing_substring(x, "Boxcar")
+#            else:
+#                index = index_containing_substring(x, "Boxcar")
+#                if index is None:
+#                    index = index_containing_substring(x, "Kaiser")
+#            self.files.append(os.path.join(item, x[index]))
+
         if len(self.files) > 0:
             try:
                 self.canvas.figure.delaxes(self.th.ax)
