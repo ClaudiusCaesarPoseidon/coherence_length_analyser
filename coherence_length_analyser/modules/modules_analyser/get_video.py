@@ -14,7 +14,7 @@ def hasNumber(inputString):
 
 class get_video:
     def __init__(self, path):
-        self.order = ['Kaiser', 'Gauss', 'Hanning', 'Hamming', 'Hanning', 'Boxcar']
+        self.order = ['Kaiser', 'Gauss', 'Hanning', 'Hamming', 'Hanning', 'Slepian', 'Boxcar']
         self.folders = [x[0] for x in os.walk(path) if hasNumber(x[0]) is True]
         self.files = None
 
