@@ -26,11 +26,14 @@ class count_thread(QtCore.QThread):
 
     def run(self):
         path = os.path.join(self.direc_path, "lines_csv")
+
+        # loads angle.txt and converts it to a list
         with open(os.path.join(self.direc_path, "angles.txt"), "r") as file:
             tmp = file.read()
         tmp = tmp.split("\n")
         tmp[:] = [x.split('\t') for x in tmp]
-        print(tmp)
+
+        # parses the list multiple list by columns
         names = get_column(tmp, 0)
         angles = get_column(tmp, 1)
         lc = []
@@ -39,7 +42,6 @@ class count_thread(QtCore.QThread):
                 lc.append(get_column(tmp, i))
             except IndexError:
                 break
-
         z = lc[0]
         lc = [y for y in lc if z[0] not in y]
         lc.insert(0, z)
@@ -63,6 +65,8 @@ class count_thread(QtCore.QThread):
         tmp = [[item, item2] for item, item2 in zip(angles, lc)]
         self.values = VAL(**dict(zip(names, tmp)))
         tmp = [os.path.join(path, item) for item in os.listdir(path)]
+        print(tmp)
+
         for item in tmp:
             a = np.loadtxt(item, delimiter=",")
             a = a.transpose()
