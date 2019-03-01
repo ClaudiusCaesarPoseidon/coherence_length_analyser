@@ -14,6 +14,7 @@ class Check_FFT(Dialog):
     def __init__(self, parent=None, filename=None, max_=2):
         super().__init__()
         self.parent = parent
+        # loads the widgets from the ui file
         file = functions.resource_path(os.path.join("ui", "check_fft.ui"))
         uic.loadUi(file, self)
         self.Close.clicked.connect(self.close)
@@ -42,6 +43,7 @@ class Check_FFT(Dialog):
         self.setWindowFlags(QtCore.Qt.FramelessWindowHint)
 
     def set_Size(self):
+        # sets the fontsize of the widgets according to window size
         height = int(self.geometry().height())
         fontsize = (height / 50)
         font_button = QtGui.QFont()

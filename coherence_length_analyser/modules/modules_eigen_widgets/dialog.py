@@ -10,6 +10,7 @@ class Dialog(QtWidgets.QDialog):
         self.resized.connect(self.set_Size)
 
     def set_Size(self):
+        # sets the fontsize of the widgets according to window size
         pass
 
     def resizeEvent(self, event):

@@ -14,4 +14,5 @@
 # pylint: disable=C0103
 # pylint: disable=E1101
 
+# loads the main class of the modules_camera submodule
 from .modules_camera.camera import Camera

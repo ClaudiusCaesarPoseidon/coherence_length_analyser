@@ -15,6 +15,7 @@ class screen_size_dialog(Dialog):
         self.setWindowFlags(self.windowFlags() |
                             QtCore.Qt.WindowSystemMenuHint |
                             QtCore.Qt.WindowMinMaxButtonsHint)
+        # loads the widgets from the ui file
         file = functions.resource_path(
             os.path.join("ui", "screen_size_dialog.ui"))
         uic.loadUi(file, self)
@@ -22,6 +23,7 @@ class screen_size_dialog(Dialog):
         self.resized.connect(self.resize)
 
     def resize(self):
+        # sets the fontsize of the widgets according to window size
         self.height = int(self.geometry().height())
         fontsize = (self.height / 75)
         font_button = QtGui.QFont()

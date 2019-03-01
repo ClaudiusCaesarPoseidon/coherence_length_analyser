@@ -33,6 +33,7 @@ ctypedef fused my_type:
     double
     long long
 
+# import the external c-functions
 cdef extern from "c_written_functions.c" nogil:
     void fft_shift(double*,int,int)
     void save_txt_c "save_txt" (char*,int*,int,int)
@@ -49,7 +50,7 @@ cdef extern from "c_written_functions.c" nogil:
 @cython.wraparound(False)
 @cython.cdivision(True)
 cpdef int save_txt_int(unicode name,my_type [:,:] array):
-    """Saves a 2-D array to a csv file"""
+    """Saves a 2-D int array to a csv file"""
     cdef int row=array.shape[0]
     cdef int column=array.shape[1]
     save_txt_c(name.encode("UTF-8"),<int *>&array[0][0],row,column)
@@ -59,7 +60,7 @@ cpdef int save_txt_int(unicode name,my_type [:,:] array):
 @cython.wraparound(False)
 @cython.cdivision(True)
 cpdef int save_txt_double(unicode name,my_type [:,:] array):
-    """Saves a 2-D array to a csv file"""
+    """Saves a 2-D float array to a csv file"""
     cdef int row=array.shape[0]
     cdef int column=array.shape[1]
     save_txt_double_c(name.encode("UTF-8"),<double *>&array[0][0],row,column)
@@ -149,6 +150,7 @@ cdef double round_cy(double a,int b=0) nogil:
 @cython.wraparound(False)
 @cython.cdivision(True)
 cpdef ndarray round_array(ndarray a, int b=0):
+    """rounds the whole array"""
     cdef Py_ssize_t i
     cdef int length = a.shape[0]
     cdef double[::1] array_view = a
@@ -160,6 +162,7 @@ cpdef ndarray round_array(ndarray a, int b=0):
 @cython.wraparound(False)
 @cython.cdivision(True)
 cpdef ndarray cross(ndarray array, range_cross=0):
+    """creates a black cross in the center"""
     cdef int row=array.shape[0]-1
     cdef int col=array.shape[1]-1
     cdef int rowh = int((row+1)/2)
@@ -185,6 +188,7 @@ cpdef ndarray cross(ndarray array, range_cross=0):
 @cython.wraparound(False)
 @cython.cdivision(True)
 cpdef ndarray border(ndarray array):
+    """sets the image border to 0"""
     cdef int row = array.shape[0]
     cdef int col = array.shape[1]
     cdef Py_ssize_t i, j

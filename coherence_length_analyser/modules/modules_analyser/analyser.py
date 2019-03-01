@@ -30,6 +30,7 @@ class Analyser(Widgetb):
         self.config = config
         file_path = sys.argv[0]
         self.dir_path = os.path.dirname(file_path)
+        # loads the widgets from the ui file
         file = functions.resource_path(
             os.path.join("ui", "fft_peak_analyser.ui"))
         uic.loadUi(file, self)
@@ -117,6 +118,8 @@ class Analyser(Widgetb):
         self.stopped = False
 
     def set_Size(self):
+        # sets the fontsize of the widgets according to window size
+        # sets the widget size according to window size
         self.height = int(self.geometry().height())
         self.width = int(self.geometry().width())
         value = monitor_format()

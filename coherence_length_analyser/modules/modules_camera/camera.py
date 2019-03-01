@@ -48,6 +48,7 @@ class Camera(Widgetb):
             with open(self.pos_path, "a+") as file:
                 file.write("0,0\n0,0")
         self.position = np.loadtxt(self.pos_path, delimiter=',')
+        # loads the widgets from the ui file
         file = functions.resource_path(os.path.join(
             "ui", "interference_pattern_camera.ui"))
         file = functions.resource_path(os.path.join("ui", "new_camera.ui"))
@@ -275,6 +276,7 @@ class Camera(Widgetb):
         self.valueChanged_m.emit(value)
 
     def set_Size(self):
+        # sets the fontsize of the widgets according to window size
         self.height = int(self.geometry().height())
         self.width = int(self.geometry().width())
         self.fontsize = (self.height / 75)

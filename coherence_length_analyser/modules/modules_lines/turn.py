@@ -17,6 +17,7 @@ class Count(Widgetb):
         self.config = config
         if self.parent is not None:
             self.direc_path = self.parent.direc_path
+        # loads the widgets from the ui file
         file = functions.resource_path(os.path.join("ui", "turn.ui"))
         uic.loadUi(file, self)
         self.resized.connect(self.set_Size)
@@ -51,6 +52,7 @@ class Count(Widgetb):
         self.Convert.clicked.connect(self.convert)
 
     def set_Size(self):
+        # sets the fontsize of the widgets according to window size
         self.height = self.geometry().height()
         self.img_height = self.height // 2
         fontsize = (self.height / 75)

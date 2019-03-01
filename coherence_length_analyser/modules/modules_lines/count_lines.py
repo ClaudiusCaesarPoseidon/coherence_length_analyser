@@ -30,6 +30,7 @@ class count_thread(QtCore.QThread):
             tmp = file.read()
         tmp = tmp.split("\n")
         tmp[:] = [x.split('\t') for x in tmp]
+        print(tmp)
         names = get_column(tmp, 0)
         angles = get_column(tmp, 1)
         lc = []
@@ -59,7 +60,6 @@ class count_thread(QtCore.QThread):
             pass
         lc = tmp
 
-#        lc = get_column(tmp, 4)
         tmp = [[item, item2] for item, item2 in zip(angles, lc)]
         self.values = VAL(**dict(zip(names, tmp)))
         tmp = [os.path.join(path, item) for item in os.listdir(path)]
@@ -68,7 +68,6 @@ class count_thread(QtCore.QThread):
             a = a.transpose()
             a = np.delete(a, (0), axis=0)
             b = ((a[0] + a[1] + a[2]) // 3 + 0.0).astype(np.uint8)
-
             N = 5
             length = len(b)
             procent = int(length / 100)
@@ -94,8 +93,6 @@ class count_thread(QtCore.QThread):
             temp = scipy.signal.find_peaks(b, prominence=10)
             result = len(temp[0])
             self.dirname = os.path.splitext(os.path.basename(item))[0]
-            #print(getattr(self.values, self.dirname))
-            #value = '\t'.join(self.values[self.dirname])
             value = '\t'.join(getattr(self.values, self.dirname))
             print(self.dirname + "\t" + str(result) + "\t" + value)
             with open(os.path.join(self.direc_path, "lines.txt"), "a+") as file:

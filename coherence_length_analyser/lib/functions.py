@@ -13,12 +13,6 @@ from .c_lib import c_funktionen
 from encodings.aliases import aliases
 from collections import Counter
 from pyueye import ueye
-# is_InitCamera
-# is_SetFrameRate
-# is_GetFrameTimeRange
-# is_getNumberofCameras
-# is_Exposure
-# is_SetHardwareGain
 
 
 def Number_Of_Cameras():
@@ -29,6 +23,7 @@ def Number_Of_Cameras():
 
 
 def get_frame_extremes(cam):
+    """returns the maximum and minumum time bewtween frames"""
     min = ueye.double(0)
     max = ueye.double(0)
     intervall = ueye.double(0)
@@ -37,6 +32,7 @@ def get_frame_extremes(cam):
 
 
 def is_SetFrameRate(cam, FPS):
+    """sets the framerate of the uEye camera"""
     FPS = ueye.double(FPS)
     newFPS = ueye.double()
     return ueye.is_SetFrameRate(cam, FPS, newFPS)
@@ -44,31 +40,49 @@ def is_SetFrameRate(cam, FPS):
 
 def Init_Cam(width=640, heigth=480, gain_boost=1):
     """inits the uEye camera"""
+    # inits next available cam
     cam = ueye.HIDS(0)
     ueye.is_InitCamera(cam, None)
+
     ueye.is_EnableAutoExit(cam, ueye.IS_ENABLE_AUTO_EXIT)
+
+    # sets the Colourmode of the camera
     ueye.is_SetColorMode(cam, ueye.IS_CM_SENSOR_RAW8)
+
+    # sets the trigger
     ret = ueye.is_SetExternalTrigger(cam, ueye.IS_SET_TRIGGER_SOFTWARE)
     mode = ueye.int(0)
+
+    # sets the blacklevel
     ueye.is_Blacklevel(
         cam,
         ueye.IS_BLACKLEVEL_CMD_SET_MODE,
         mode,
         ueye.sizeof(mode))
+
+    #sets the size of the image
     rectAOI = ueye.IS_RECT()
     rectAOI.s32X = 44
     rectAOI.s32Y = 0
     rectAOI.s32Width = 480
     rectAOI.s32Height = 480
     ueye.is_AOI(cam, ueye.IS_AOI_IMAGE_SET_AOI, rectAOI, ueye.sizeof(rectAOI))
+
+    # allocates memory with given size
     width = ueye.int(width)
     heigth = ueye.int(heigth)
     bitspixel = ueye.int(8)
     pcImgMem = ueye.c_mem_p()
     pid = ueye.int()
     ueye.is_AllocImageMem(cam, 480, heigth, bitspixel, pcImgMem, pid)
+
+    # sets the image memory as active
     ueye.is_SetImageMem(cam, pcImgMem, pid)
+
+    # activates video mode
     ueye.is_CaptureVideo(cam, ueye.IS_DONT_WAIT)
+
+    # sets gain boost mode
     if gain_boost == 1:
         ueye.is_SetGainBoost(cam, ueye.IS_SET_GAINBOOST_ON)
     else:
@@ -87,7 +101,6 @@ def BOOOOOOOOOOST(cam, mode):
 def Get_Values(cam, exposure):
     """gets the current exposure time and gain of the camera"""
     exposure = ueye.double(exposure)
-#    expo = ueye.double()
     gain = ueye.int()
     ueye.is_Exposure(
         cam,
@@ -108,6 +121,8 @@ def Set_Values(cam, exposure, gain, blacklevel, automode):
     exposure = ueye.double(exposure)
     expo = ueye.double()
     gain = ueye.int(gain)
+    # sets the exposure time and gain with the values
+    # or sets them automatically
     if automode is False:
         ueye.is_SetHardwareGain(
             cam,
@@ -171,23 +186,8 @@ def encode(string):
             pass
 
 
-# def get_frame_extremes(cam, path):
-#    """returns the maximum and minumum frame rate"""
-#    return c_funktionen.get_frame_extremes(cam, path)
-#
-#
-# def is_SetFrameRate(cam, FPS, path):
-#    """sets the frame rate"""
-#    return c_funktionen.is_SetFrameRate(cam, FPS, path)
-
-
-def dll_path_uEye():
-    """returns the path of the uEye_api.dll"""
-    return c_funktionen.dll_path_uEye()
-
-
 def resource_path(path):
-    """returns correct path in script an in Pyinstaller exe"""
+    """returns correct path in script and in Pyinstaller exe"""
     return c_funktionen.resource_path(path)
 
 
@@ -212,42 +212,6 @@ def save_txt(name, array):
 def fft_shift_py(array):
     """switches 1st and 3rd, and 2nd and 4th quadrant of image"""
     return c_funktionen.fft_shift_py(array)
-
-
-# def Number_Of_Cameras(path):
-#    """returns the number of available uEye cameras"""
-#    return c_funktionen.Number_Of_Cameras(path)
-#
-#
-# def Init_Cam(path, width=640, height=480, gain_boost=1):
-#    """inits the uEye camera"""
-#    return c_funktionen.Init_Cam(path, width, height, gain_boost)
-#
-#
-# def BOOOOOOOOOOST(cam, mode, path):
-#    """switches gain goost on or off"""
-#    return c_funktionen.BOOOOOOOOOOST(cam, mode, path)
-#
-#
-# def Get_Values(cam, exposure, path):
-#    """get the current values of exposure time and gain"""
-#    return c_funktionen.Get_Values(cam, exposure, path)
-#
-#
-# def Set_Values(cam, exposure, gain, blacklevel, automode, path):
-#    """sets the values of exposure time and gain"""
-#    return c_funktionen.Set_Values(
-#        cam, exposure, gain, blacklevel, automode, path)
-#
-#
-# def CopyImg(cam, ImageData):
-#    """copy image from memory to array"""
-#    return c_funktionen.CopyImg(cam, ImageData)
-#
-#
-# def Exit_Cam(path, cam):
-#    """closes the uEye camera"""
-#    return c_funktionen.Exit_Cam(path, cam)
 
 
 def vigenere(string, key):
@@ -281,8 +245,11 @@ def fft_cv2_clip(dft):
 
 def ifft_cv2(dft):
     """calculates the 2d ifft from the dft"""
+    # calculates the fft
     img_back = cv2.idft(dft)
     img_back = cv2.magnitude(img_back[:, :, 0], img_back[:, :, 1])
+
+    # converts the fft to uint8
     maxx = np.amax(img_back)
     img_back = np.divide(img_back, maxx)
     img_back = np.multiply(img_back, 255).astype(np.uint8)
@@ -294,22 +261,21 @@ def build_directory(directory):
     try:
         ret = c_funktionen.build_directory(directory)
     except TypeError:
-        #       ret = c_funktionen.build_directory(directory.encode("cp1252"))
         ret = c_funktionen.build_directory(encode(directory))
     return ret
 
 
 def remove_directory(directory):
-    """removes the directory"""
+    """recursivly removes the directory"""
     try:
         ret = c_funktionen.remove_directory(directory)
     except TypeError:
-        #        ret = c_funktionen.remove_directory(directory.encode("cp1252"))
         ret = c_funktionen.remove_directory(encode(directory))
     return ret
 
 
 def is_64():
+    """checks if the programm is run with 64-bit"""
     return True if ctypes.sizeof(ctypes.c_voidp) == 8 else False
 
 
@@ -334,8 +300,13 @@ def unique_array(lst):
 def set_list(lst):
     """returns a list of all tuple in the nested tuple input list"""\
         """excluding multiples"""
+    # flatten list
     lst = [x for item in lst for x in item]
+
+    # get a unique set and convert to list
     lst = list(set(lst))
+
+    # sorts the list
     lst.sort(key=lambda x: (x[0], x[1]))
     return lst
 
@@ -353,6 +324,7 @@ def set_list(lst):
 
 
 def check_dtype(array, dtype):
+    """checks if the type of the array is the dtype"""
     if isinstance(array, np.ndarray) and array.dtype == dtype\
             and array.flags.contiguous:
         return True
@@ -362,10 +334,17 @@ def check_dtype(array, dtype):
 
 def min__(array, percentage):
     """calculates the lower threshold of the array"""
+    # rounds the array to 2 decimal places if is it floating number format
     if check_dtype(array, np.uint8) is False:
         array = round_array(array, 2)
+
+    # gets a dictionary if the number of occurences of values in the array
+    # and the most common value in the array
     count = Counter(array)
     tmp = count.most_common()[0][0]
+
+    # calculates the mean of the values, which are no more 'precentage' higher
+    # or lower than the most common value
     mean_ind = np.where(np.logical_and(array >= tmp - tmp * percentage / 100,
                                        array <= tmp + tmp * percentage / 100))
     mean_array = array[mean_ind]
@@ -381,6 +360,7 @@ def threshold(array, percentage):
 
 
 def monitor_format():
+    """gets the size of the first monitor"""
     return get_monitors()[0].width / get_monitors()[0].height
 
 
@@ -563,14 +543,18 @@ def gauss(width):
 
 
 def x(start, number, step_width):
+    """returns an array, that begins at start has *number* elements with """\
+    """*step width*"""
     return start + np.arange(number) * step_width
 
 
 def substring_in_list(substring, lst):
+    """checks if substring is in list of strings"""
     return any(substring in x for x in lst)
 
 
 class VAL(dict):
+    """creates a dictionary, whose items can be accesed like a class"""
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.__dict__.update(**kwargs)
@@ -581,21 +565,15 @@ class VAL(dict):
 
 
 def inting(string):
+    """converts string to an integer if possible, else returns None"""
     try:
         return int(string)
     except ValueError:
         return None
 
 
-def Dll_Path():
-    if ctypes.sizeof(ctypes.c_voidp) == 4:
-        dll_path = dll_path_uEye().encode("UTF-8")
-    else:
-        dll_path = dll_path_uEye().encode("UTF-8")
-    return dll_path
-
-
 def toggle(button):
+    """toggle the Qt Button"""
     if button.isChecked() is True:
         button.setChecked(False)
         button.setEnabled(True)
@@ -605,6 +583,7 @@ def toggle(button):
 
 
 def isascii(string):
+    """checks if all characters in the string a available in the ASCII-table"""
     try:
         return string.isascii()
     except AttributeError:

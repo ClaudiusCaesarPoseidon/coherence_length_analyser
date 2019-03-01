@@ -9,6 +9,7 @@ class PythonQtError(RuntimeError):
 
 
 def get_available_modules():
+    '''gets a list of all availible modules'''
     package_list = []
     for dist in pkg_resources.working_set:
         package_list.append(dist.project_name.replace('Python', ''))
@@ -19,6 +20,7 @@ def get_available_modules():
 
 
 def get_qt_module():
+    """returns the preferred Qt binding"""
     list_of_packages = get_available_modules()
     if 'PySide2' in list_of_packages:
         return 'pyside2'

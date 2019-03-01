@@ -8,6 +8,8 @@
 # pylint: disable=R0201
 # pylint: disable=R1705
 # pylint: disable=E1101
+
+# loads the content of the modules_eigen_widgets submodule
 from .modules_eigen_widgets.dialog import Dialog
 from .modules_eigen_widgets.widget import Widget
 from .modules_eigen_widgets.widgetb import Widgetb

@@ -10,4 +10,5 @@
 # pylint: disable=R0915
 # pylint: disable=E1101
 
+# loads the main class of the modules_master submodule
 from .modules_master.master import Master

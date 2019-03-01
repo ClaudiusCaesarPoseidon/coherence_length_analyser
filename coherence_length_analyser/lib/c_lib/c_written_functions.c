@@ -5,10 +5,7 @@
 #include <windows.h>
 #include <string.h>
 #include <math.h>
-//#include <stdbool.h>
-//typedef int bool;
-//#define false 0
-//#define true 1
+
 typedef enum
 {
     false = 0,
@@ -18,11 +15,6 @@ typedef enum
 
 typedef bool (*IsUserAnAdminFunc)();
 
-//typedef struct FrameRate {
-//    double min;
-//    double max;
-//    double intervall;
-//}FrameRate;
 
 size_t strlcpy(char *dest, const char *src, size_t n)
 {
@@ -47,7 +39,6 @@ char* concatenate(char* dest, char* src){
 	static char desti[100];
 	strcpy(desti,dest);
 	strcat(desti,src);
-//	printf("%s",desti);
 	return desti;
 }
 
@@ -78,7 +69,6 @@ int build(char* name){
 		array[i]=dest;
 		}
 		dump=dump+make_directory(array[i]);
-//		printf("%d\n",dump);
 	}
 	if (dump<0){dump=-1;}
 	return dump;
@@ -92,7 +82,6 @@ int remove_c(char* name){
     int dump=0;
     int Len=-1;
     array[i]=strtok(name,"\\");
-    //strcpy(message_ecran[i], texte7);
     while(array[i]!=NULL){array[++i]=strtok(NULL,"\\");}
     while(array[++Len]!=NULL){;}
 
@@ -103,15 +92,11 @@ int remove_c(char* name){
             array[i]=dest;
         }
         strcpy(arr[i],array[i]);
-//        printf("%s\n",array[i]);
     }
     printf("\n");
     for (i=Len-1;i>=0;i--){
-//    	printf("%s\n",arr[i]);
         dump=dump+delete_directory(arr[i]);
-//        printf("%d\n",dump);
     }
-    //if (dump<0){dump=-1;}
     return dump;
 }
 
@@ -141,17 +126,17 @@ void save_txt_double(char* name,double *array,int row,int column)
 	fclose(fp1);
 	}
 
-void save_img(char* name,int *array,int row, int column){
-	char *named;
-	FILE *f;
-	int i;
-	named=concatenate(name,".pgm");
-	f = fopen(named, "wb");
-	fprintf(f, "P5\n%i %i 255\n", column, row);
-	for (i=0; i<row*column; ++i) {
-		 fputc(array[i], f);   // 0 .. 255
-	}
-}
+//void save_img(char* name,int *array,int row, int column){
+//	char *named;
+//	FILE *f;
+//	int i;
+//	named=concatenate(name,".pgm");
+//	f = fopen(named, "wb");
+//	fprintf(f, "P5\n%i %i 255\n", column, row);
+//	for (i=0; i<row*column; ++i) {
+//		 fputc(array[i], f);   // 0 .. 255
+//	}
+//}
 
 void fft_shift(double* arr,int column,int row)
 	{
@@ -182,10 +167,8 @@ int* createArray(int column, int row)
 {
 	int i;
 	int *arr=calloc(row * column, sizeof(int));
-//	int *arr = new int[row*column]();
 	for (i=0;i<row*column;i++){
 			arr[i]=i/column+i%column;
-			//arr[i]=i;
 	}
     return arr;
 }
@@ -195,50 +178,48 @@ void destroyArray(int* arr)
     free(arr);
 }
 
-void square_array(int* arr,int column,int row,int threshold,int min,int max){
-	int i;
-	for (i=0;i<row*column;i++)
-	{
-		if (arr[i]<threshold)
-		{
-			arr[i]=min;
-		}
-		else
-		{
-			arr[i]=max;
-		}
-	}
-}
-
-void truncuate_array(int* arr,int column,int row,int threshold,int min){
-	int i;
-	for (i=0;i<row*column;i++)
-	{
-		if (arr[i]<threshold)
-		{
-			arr[i]=min;
-		}
-	}
-}
-
-void resize(int* arr,int column_old,int row_old,int column_new,int row_new,int* array){
-    int i,k;//,p1,p2,p3,p4,p5;
-    //int *array=calloc(row_new * column_new, sizeof(int));
-    for (i=0;i<row_new*column_new;i++){
-        k=(int)(((int)i/column_new)/((double)row_new/(double)row_old))*column_old+(int)((i%column_new)/((double)column_new/(double)column_old));
-        array[i]=arr[k];
-//        printf("%d\t%d\n",i,k);
-    }
-}
-
-void circle(int* arr,int column,int row,int radius,int i_m,int j_m){
-	int i,j,g;
-	for(g=0;g<row*column;g++){
-		i=g/column;
-		j=g%column;
-		if (sqrt(pow(i-i_m,2)+pow(j-j_m,2))<=radius){arr[g]=0;}
-	}
-}
+//void square_array(int* arr,int column,int row,int threshold,int min,int max){
+//	int i;
+//	for (i=0;i<row*column;i++)
+//	{
+//		if (arr[i]<threshold)
+//		{
+//			arr[i]=min;
+//		}
+//		else
+//		{
+//			arr[i]=max;
+//		}
+//	}
+//}
+//
+//void truncuate_array(int* arr,int column,int row,int threshold,int min){
+//	int i;
+//	for (i=0;i<row*column;i++)
+//	{
+//		if (arr[i]<threshold)
+//		{
+//			arr[i]=min;
+//		}
+//	}
+//}
+//
+//void resize(int* arr,int column_old,int row_old,int column_new,int row_new,int* array){
+//    int i,k;
+//    for (i=0;i<row_new*column_new;i++){
+//        k=(int)(((int)i/column_new)/((double)row_new/(double)row_old))*column_old+(int)((i%column_new)/((double)column_new/(double)column_old));
+//        array[i]=arr[k];
+//    }
+//}
+//
+//void circle(int* arr,int column,int row,int radius,int i_m,int j_m){
+//	int i,j,g;
+//	for(g=0;g<row*column;g++){
+//		i=g/column;
+//		j=g%column;
+//		if (sqrt(pow(i-i_m,2)+pow(j-j_m,2))<=radius){arr[g]=0;}
+//	}
+//}
 
 int is_admin(void){
     HINSTANCE Shell32Dll = LoadLibrary("Shell32.dll");
@@ -279,32 +260,6 @@ char* vigenere(char* str,char* key){
 	return message;
 }
 
-//
-//main(){
-//	char string[]="asddsfg\\sdfdsf\\sdfsd\\sdf\\sdfljk\\sdf";
-//	int row=100;
-//	int column=100;
-//	int i,j;
-//	int *arr=createArray(column,row);
-////	for (i=0;i<row;i++){
-////		for (j=0;j<column;j++){
-////			printf("%d\t",*(arr+i*row+j));
-////		}
-////		printf("\n");
-////	}
-//	printf("\n");
-//	int i_m=row/2;
-//	int j_m=column/2;
-//	circle(arr,column,row,1,i_m,j_m);
-////	for (i=0;i<row;i++){
-////		for (j=0;j<column;j++){
-////			printf("%d\t",*(arr+i*row+j));
-////		}
-////		printf("\n");
-////	}
-//	save_img("abc",arr,column,row);
-//	destroyArray(arr);
-//}
 
 main(){
 int a=is_admin();

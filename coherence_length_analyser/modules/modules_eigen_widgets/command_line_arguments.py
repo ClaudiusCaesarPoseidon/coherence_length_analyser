@@ -9,6 +9,7 @@ class Command_Line_Arguments(QtWidgets.QDialog):
 
     def __init__(self):
         super().__init__()
+        # loads the widgets from the ui file
         file = functions.resource_path(
             os.path.join("ui", "Command_Line_Arguments.ui"))
         uic.loadUi(file, self)
@@ -22,17 +23,6 @@ class Command_Line_Arguments(QtWidgets.QDialog):
     def parse_text(self, text):
         self.text_list = text.split(" ")
         val = 0
-#        for item in self.text_list:
-#            if item in("-win", "--windowed"):
-#                val += 1
-#            if item in("-b", "--borderless"):
-#                val += 10
-#            if item in("-min", "--minimised"):
-#                val += 100
-#            if item in("-int", "--interactive"):
-#                val += 1000
-#            if item in("-ipy", "--ipython"):
-#                val += 10000
         return val
 
     def end(self):
@@ -46,6 +36,7 @@ class Command_Line_Arguments(QtWidgets.QDialog):
             event.accept()
 
     def set_Size(self):
+        # sets the fontsize of the widgets according to window size
         self.height = int(self.geometry().height())
         fontsize = (self.height / 30)
         font_button = QtGui.QFont()

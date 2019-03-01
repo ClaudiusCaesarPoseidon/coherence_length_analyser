@@ -32,6 +32,7 @@ class Angle(Widgetb):
         self.config = config
         if self.parent is not None:
             self.direc_path = self.parent.direc_path
+        # loads the widgets from the ui file
         file = functions.resource_path(os.path.join("ui", "angle.ui"))
         uic.loadUi(file, self)
         self.resized.connect(self.set_Size)
@@ -49,6 +50,7 @@ class Angle(Widgetb):
         self.Open_Folder.clicked.connect(self.open_folder)
 
     def set_Size(self):
+        # sets the fontsize of the widgets according to window size
         self.height = int(self.geometry().height())
         self.width = int(self.geometry().width())
         self.label_height = int(self.height / 2)

@@ -25,12 +25,15 @@
 # pylint: disable=W0611
 # pylint: disable=E1101
 
+# loads the main class of the modules_analyser submodule
 from .modules_analyser.analyser import Analyser
 from ..lib import functions
 import matplotlib
 import warnings
 from ..lib.get_qt_module import get_qt_module
 warnings.filterwarnings('error', category=UserWarning, module="matplotlib")
+
+# sets MAtplotlib to use the preferred Qt binding for display
 if functions.is_pyinstaller() is False:
     tmp = get_qt_module()
     if tmp in ('pyside2', 'pyqt5'):

@@ -9,7 +9,8 @@ from PySide2 import QtCore
 
 default_imread = cv2.imread
 
-
+# replaces the imread function, which can not read images whose path
+# contains non ASCII characters
 def imread(path, mode=1):
     if functions.isascii(path) is True:
         return default_imread(path, mode)
@@ -28,6 +29,7 @@ class copy_thread(QtCore.QThread):
             self.direc_path = self.parent.direc_path
 
     def run(self):
+        # loads images from multiple folders and saves them in one folder
         cv2.imread = imread
         files = self.parent.files
         new_direc = os.path.join(self.direc_path, "lines")
