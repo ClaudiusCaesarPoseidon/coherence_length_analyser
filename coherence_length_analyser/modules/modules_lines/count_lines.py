@@ -49,13 +49,16 @@ class count_thread(QtCore.QThread):
         for j in range(len(lc[0])):
             for i in range(len(lc)):
                 if ')' in lc[i][j] and ');' not in lc[i][j]:
-                    tmp.append(lc[i][j] + "ö")
+                    tmp.append(lc[i][j] + "ö") # adds ö at file line end
                 else:
                     tmp.append(lc[i][j])
-        print(tmp)
+        # convert list to string
         tmp = (' '.join(tmp))
+        # add space at the begging
         tmp = " " + tmp
+        # split string at every ö
         tmp = tmp.split("ö")
+        # removes empty string
         try:
             tmp.remove("")
         except ValueError:
@@ -65,7 +68,7 @@ class count_thread(QtCore.QThread):
         tmp = [[item, item2] for item, item2 in zip(angles, lc)]
         self.values = VAL(**dict(zip(names, tmp)))
         tmp = [os.path.join(path, item) for item in os.listdir(path)]
-#        print(tmp)
+        print(tmp)
 
         for item in tmp:
             a = np.loadtxt(item, delimiter=",")
