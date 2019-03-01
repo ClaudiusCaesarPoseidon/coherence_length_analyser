@@ -6,7 +6,6 @@ import cv2
 import scipy.signal
 import scipy.fftpack
 from PySide2 import QtCore, QtGui
-from pyueye import ueye
 
 
 def mean(lst):
@@ -34,7 +33,11 @@ class start_position(QtCore.QThread):
         ImageData = np.zeros((480, 480), dtype=np.uint8)
         while True:
             if self.parent.ret == 0:
-                functions.CopyImg(self.parent.cam, ImageData, self.parent.pcImgMem, self.parent.pid)
+                functions.CopyImg(
+                    self.parent.cam,
+                    ImageData,
+                    self.parent.pcImgMem,
+                    self.parent.pid)
                 self.msleep(100)
                 self.exposure, self.gain = functions.Get_Values(
                     self.parent.cam, self.exposure)
@@ -42,20 +45,12 @@ class start_position(QtCore.QThread):
                 self.val.emit(tup)
                 self.img = ImageData.copy()
                 self.img = np.roll(self.img, 15, axis=0)
-#                self.img = np.roll(self.img, -40, axis=1)
-#                self.img = np.delete(self.img, np.s_[480:640], axis=1)
 
                 unique, counts = np.unique(self.img, return_counts=True)
                 x = dict(zip(unique, counts))
                 x = {i: x.get(i, 0) for i in range(256)}
-                z = [x.get(i) * i for i in range(256)]
+#                z = [x.get(i) * i for i in range(256)]
                 y = x.get(255)
-                i = 0
-#                while y < 25:
-#                    y = x.get(255-i)
-#                    i += 1
-#                self.White.emit((y, 255 - i, functions.round(mean(z))))
-                self.White.emit(functions.round(np.mean(self.img)))
 
                 dft = functions.dft(self.img)
                 fft = functions.fft_cv2(dft)
@@ -160,4 +155,3 @@ class start_position(QtCore.QThread):
                     pass
             if self.parent.cam_off is True:
                 break
-#            self.msleep(33)

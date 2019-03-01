@@ -1,12 +1,10 @@
 from PIL import Image, ImageEnhance
 import os
-#import timeit
 import shutil
-#import subprocess
 import numpy as np
 import cv2
 from ...lib import functions
-from .ffmpeg_python import convert
+from .analyser_miscellaneous import convert
 from PySide2 import QtCore
 
 
@@ -103,7 +101,6 @@ class ptv_thread(QtCore.QThread):
                     os.path.dirname(img), '..', "output"))
                 if os.path.isdir(path_output) is False:
                     functions.build_directory(path_output)
-#                    os.makedirs(path_output)
                 if self.parent.Mirror_Image.isChecked() is True:
                     a = cv2.flip(a, 1)
                 if self.parent.Subtract_Background.isChecked() is True:
@@ -167,28 +164,14 @@ class ptv_thread(QtCore.QThread):
                     elif self.parent.value == 10:
                         self.parent.value = 0
                         os.remove(ffmpeg_vid_path)
-                        self.choice == "ja"
+                        self.choice = "ja"
                         break
             if self.choice == "nein":
                 break
             if self.choice == "again":
                 continue
-#            cmd = [self.parent.parent.ffmpeg_path, '-i',
-#                   ffmpeg_img_path, '-qscale', '0', ffmpeg_vid_path]
-#            cmd = [self.parent.parent.ffmpeg_python_path, '-i',
-#                   os.path.dirname(ffmpeg_img_path), '-o', ffmpeg_vid_path]
-#            p = subprocess.Popen(cmd)  # no window , creationflags=0x08000000
-#            a = timeit.default_timer()
-#            while True:
-#                if p.poll() is not None:
-#                    break
-#                if timeit.default_timer() - a > 2:
-#                    print("Processing")
-#                    a = timeit.default_timer()
             convert(os.path.dirname(ffmpeg_img_path), ffmpeg_vid_path, 2)
             shutil.rmtree(os.path.dirname(ffmpeg_img_path))
-#            if p.poll() is not None:
-#                break
             if self.choice == "ja":
                 break
             break

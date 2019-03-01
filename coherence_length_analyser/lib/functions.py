@@ -50,7 +50,11 @@ def Init_Cam(width=640, heigth=480, gain_boost=1):
     ueye.is_SetColorMode(cam, ueye.IS_CM_SENSOR_RAW8)
     ret = ueye.is_SetExternalTrigger(cam, ueye.IS_SET_TRIGGER_SOFTWARE)
     mode = ueye.int(0)
-    ueye.is_Blacklevel(cam, ueye.IS_BLACKLEVEL_CMD_SET_MODE, mode,  ueye.sizeof(mode))
+    ueye.is_Blacklevel(
+        cam,
+        ueye.IS_BLACKLEVEL_CMD_SET_MODE,
+        mode,
+        ueye.sizeof(mode))
     rectAOI = ueye.IS_RECT()
     rectAOI.s32X = 44
     rectAOI.s32Y = 0
@@ -124,7 +128,8 @@ def Set_Values(cam, exposure, gain, blacklevel, automode):
     elif automode is True:
         pval1 = ueye.double(1)
         pval2 = ueye.double(0)
-        ueye.is_SetAutoParameter(cam, ueye.IS_SET_ENABLE_AUTO_GAIN, pval1, pval2)
+        ueye.is_SetAutoParameter(
+            cam, ueye.IS_SET_ENABLE_AUTO_GAIN, pval1, pval2)
         pval1 = ueye.double(1)
         pval2 = ueye.double(0)
         ueye.is_SetAutoParameter(

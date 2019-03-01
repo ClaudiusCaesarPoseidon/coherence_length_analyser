@@ -306,8 +306,8 @@ char* vigenere(char* str,char* key){
 //	destroyArray(arr);
 //}
 
-//main(){
-//int a=is_admin();
-//printf("%d\n",a);
-//
-//}
+main(){
+int a=is_admin();
+printf("%d\n",a);
+
+}

@@ -91,11 +91,13 @@ class Measure(QtCore.QThread):
                             self.parent.cam, exposure)
                     exposure, gain = functions.Set_Values(
                         self.parent.cam, exposure, gain, 114, False)
-                    functions.CopyImg(self.parent.cam, ImageData,self.parent.pcImgMem, self.parent.pid)
+                    functions.CopyImg(
+                        self.parent.cam,
+                        ImageData,
+                        self.parent.pcImgMem,
+                        self.parent.pid)
                     self.img = ImageData.copy()
                     self.img = np.roll(self.img, 15, axis=0)
-#                    self.img = np.roll(self.img, -40, axis=1)
-#                    self.img = np.delete(self.img, np.s_[480:640], axis=1)
                     dft = functions.dft(self.img)
                     fft = functions.fft_cv2(dft)
                     fft = functions.fft_shift_py(

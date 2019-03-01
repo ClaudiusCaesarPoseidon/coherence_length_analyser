@@ -16,7 +16,6 @@ from ConvertQt import uic
 
 
 inting = functions.inting
-#Dll_Path = functions.Dll_Path
 toggle = functions.toggle
 
 
@@ -34,7 +33,6 @@ class Camera(Widgetb):
 
     def __init__(self, parent=None, config=None):
         super().__init__()
-#        self.dll_path = Dll_Path()
         self.parent = parent
         if self.parent is not None:
             self.direc_path = self.parent.direc_path
@@ -674,21 +672,21 @@ class Camera(Widgetb):
             self.failed = False
             self.pos = None
 
-    def start(self):
-        self.i = 0
-        self.Right.setDisabled(True)
-        self.Left.setDisabled(True)
-        self.Start.setDisabled(True)
-        self.Reset.setDisabled(True)
-        self.Stop.setDisabled(False)
-        self.Not_Measuring = False
-        self.th = Measure(parent=self)
-        self.th.do.connect(self.set_info)
-        self.th.changePixmap.connect(self.setImage)
-        self.th.finished.connect(self.reset)
-        self.th.finished.connect(self.reset2)
-        self.th.finished.connect(self.reset3)
-        self.th.start()
+#    def start(self):
+#        self.i = 0
+#        self.Right.setDisabled(True)
+#        self.Left.setDisabled(True)
+#        self.Start.setDisabled(True)
+#        self.Reset.setDisabled(True)
+#        self.Stop.setDisabled(False)
+#        self.Not_Measuring = False
+#        self.th = Measure(parent=self)
+#        self.th.do.connect(self.set_info)
+#        self.th.changePixmap.connect(self.setImage)
+#        self.th.finished.connect(self.reset)
+#        self.th.finished.connect(self.reset2)
+#        self.th.finished.connect(self.reset3)
+#        self.th.start()
 
     def closeEvent(self, event):
         self.ends = True

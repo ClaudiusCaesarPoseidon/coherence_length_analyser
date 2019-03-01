@@ -11,6 +11,5 @@ class convert_thread(QtCore.QThread):
         self.input = input
         self.output = output
 
-
     def run(self):
         build_csv(self.input, self.output)

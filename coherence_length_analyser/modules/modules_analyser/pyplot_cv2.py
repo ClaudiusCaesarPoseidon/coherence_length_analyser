@@ -104,7 +104,7 @@ class pyplot_cv2(QtCore.QThread):
                                                   tmp_value, col -
                                                   tmp_value:col +
                                                   tmp_value]
-                                    tempo = tuple(index)  # index[0]
+                                    tempo = tuple(index)
                                     ind.append(tempo)
                                     inde.append(section[tempo])
                                     try:
@@ -182,20 +182,8 @@ class pyplot_cv2(QtCore.QThread):
                         h_sec, w_sec = section.shape
                         data.append(section[self.ind])
                         x.append(step_width * i)
-
-#                        if i == np.argmax(np.array(data)):
-#                            cv2.imwrite(os.path.join(
-#                                file_direc, file_name + "_alignment2.png"), c)
-#                            cv2.imwrite(
-#                                os.path.join(
-#                                    file_direc,
-#                                    file_name +
-#                                    "_alignment_%d.png" %
-#                                    tmp_value),
-#                                section)
                         i += 1
             if video is True and self.parent.ends is False:
-                #                length = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
                 data_a = np.array(data)
                 tmp_for_filter = self.parent.Filter_Switch.currentIndex()
                 data_a = choose_filter(data_a, tmp_for_filter, x)
@@ -250,16 +238,6 @@ class pyplot_cv2(QtCore.QThread):
                     self.parent.cv2_height,
                     QtCore.Qt.KeepAspectRatio)
                 self.changePixmap.emit(p_cv2)
-#                cv2.imwrite(os.path.join(
-#                    file_direc, file_name + "_alignment2.png"), c)
-#                cv2.imwrite(
-#                    os.path.join(
-#                        file_direc,
-#                        file_name +
-#                        "_alignment_%d.png" %
-#                        tmp_value),
-#                    section)
-
                 print("The third run is to determine the coherence length.")
                 print("Please wait.")
             if video is True and self.parent.ends is False:
@@ -289,11 +267,7 @@ class pyplot_cv2(QtCore.QThread):
                             e = j
                     print(
                         "The Coherence Length is:",
-                        (e - s) * step_width,)
-#                        s * step_width,
-#                        e * step_width,
-#                        e,
-#                        s)
+                        (e - s) * step_width)
                     self.ax.axvline(s * step_width, color="green")
                     self.ax.axvline(e * step_width, color="green")
                     self.parent.canvas.figure.text(

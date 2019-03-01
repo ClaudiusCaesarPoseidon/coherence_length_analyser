@@ -5,7 +5,7 @@ from ..eigen_widgets import Stream, Widgetb
 from .section_test import section_test
 from .picture_to_video import picture_to_video
 from .pyplot_cv2 import pyplot_cv2
-from .get_video import get_video
+from .analyser_miscellaneous import get_video
 import os
 import timeit
 import sys
@@ -178,25 +178,10 @@ class Analyser(Widgetb):
 
     def start_raum(self):
         path = self.dname
-#        tmp = [x[0] for x in os.walk(path) if hasNumber(x[0]) is True]
         self.files = []
         self.demo = False
-
         get = get_video(path)
         self.files = get.get(self.Windows.currentText())
-
-#        for item in tmp:
-#            x = os.listdir(item)
-#            if self.Calculate.isChecked() is True:
-#                index = index_containing_substring(x, "Kaiser")
-#                if index is None:
-#                    index = index_containing_substring(x, "Boxcar")
-#            else:
-#                index = index_containing_substring(x, "Boxcar")
-#                if index is None:
-#                    index = index_containing_substring(x, "Kaiser")
-#            self.files.append(os.path.join(item, x[index]))
-
         if len(self.files) > 0:
             try:
                 self.canvas.figure.delaxes(self.th.ax)
@@ -231,7 +216,6 @@ class Analyser(Widgetb):
             tmp = ''.join(['(', [x.split("\t")
                                  for x in tmp.split("\n")][0][-1].split("(")[-1]])
             tup = eval(tmp)
-#            print(tup)
             self.Spin_Row.setValue(tup[0])
             self.Spin_Col.setValue(tup[1])
             self.Use.setChecked(True)

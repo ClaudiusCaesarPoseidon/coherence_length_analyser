@@ -18,7 +18,8 @@ def build_csv(path, out_path):
                 tempo = (item[-1].split(";")[-1]).replace("Kaiser ", "")
                 pos1 = tempo.find("(")
                 pos2 = tempo.find(")")
-                tempo = float(tempo.replace(tempo[pos1:pos2+1], "").split()[-1])
+                tempo = float(tempo.replace(
+                    tempo[pos1:pos2 + 1], "").split()[-1])
                 key = temp + '/' + current + "/" + lines + '/' + angle
                 tmp_value = csv_dict.get(key)
                 if tmp_value is not None:
@@ -42,7 +43,7 @@ def build_csv(path, out_path):
             except UnboundLocalError:
                 csv = array.copy()
         tmp = int(len(csv_dict.get(item)) + 4)
-        temp = int(len(csv)/tmp)
+        temp = int(len(csv) / tmp)
         csv = csv.reshape(temp, tmp)
         save_txt(out_path, csv)
         with open(out_path, "r+") as file:
@@ -55,8 +56,8 @@ def build_csv(path, out_path):
                 first_line.append("Kohärenzlänge")
                 second_line.append("[µm]")
             else:
-                for i in range(1, length +1):
-                    first_line.append("Kohärenzlänge %d"%i)
+                for i in range(1, length + 1):
+                    first_line.append("Kohärenzlänge %d" % i)
                     second_line.append("[µm]")
             head = ','.join(first_line) + "\n" + ','.join(second_line) + "\n"
             tmp = head + tmp
@@ -64,7 +65,7 @@ def build_csv(path, out_path):
             file.write(tmp)
 
 
-
 if __name__ == '__main__':
-    csvv = build_csv(r"C:\Users\Haarmeyer\OUT\coherence_length_analyser\lines.txt")
+    csvv = build_csv(
+        r"C:\Users\Haarmeyer\OUT\coherence_length_analyser\lines.txt")
     print(csvv)

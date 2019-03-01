@@ -1,9 +1,8 @@
 from ..eigen_widgets import Widgetb
 from ...lib import functions
 from .choose_action import choose_action
-from .all_folders import get_all_folders
 from .ptv_thread import ptv_thread
-from .search import search
+from .analyser_miscellaneous import search
 from .dialogg import Dialogg
 import hashlib
 import os
@@ -201,7 +200,6 @@ class picture_to_video(Widgetb):
         self.files = s.files
         self.th = ptv_thread(self)
         self.th.finished.connect(self.mid_all)
-#        self.th.finished.connect(self.end_all)
         self.th.exists.connect(self.exist)
         self.th.start()
 

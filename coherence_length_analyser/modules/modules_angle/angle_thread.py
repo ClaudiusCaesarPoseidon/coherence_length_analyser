@@ -84,7 +84,6 @@ class angle_thread(QtCore.QThread):
             dump = file.read().split("\n")
         if dump[0] == '':
             del dump[0]
-#        dump = []
         i = 0
         for line in dump:
             if self.dirname in line:

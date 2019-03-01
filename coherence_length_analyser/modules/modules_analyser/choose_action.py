@@ -1,5 +1,5 @@
-from .all_folders import get_all_folders
-from .search import search
+from .analyser_miscellaneous import get_all_folders
+from .analyser_miscellaneous import search
 from PySide2 import QtCore
 
 

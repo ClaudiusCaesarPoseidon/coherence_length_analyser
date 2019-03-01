@@ -67,16 +67,7 @@ class section_test(QtCore.QThread):
                             pass
                         section = functions.resize(
                             section, h_fft / h_sec, w_fft / w_sec)
-#                        try:
                         res = np.concatenate((c, fft, section), axis=1)
-#                        except ValueError:
-#                            h_sec, w_sec = section.shape
-#                            tmp1 = np.zeros((1,h_sec), dtype=np.uint8)
-#                            tmp2 = np.zeros((h_sec+1,1), dtype=np.uint8)
-#                            section = np.concatenate((section,tmp1), axis=0)
-#                            section = np.concatenate((section,tmp2), axis=1)
-#                            res = np.concatenate((c, fft, section), axis=1)
-#                        res = cv2.cvtColor(res, cv2.COLOR_GRAY2BGR)
                         convertToQtFormat = qimage2ndarray.array2qimage(
                             res).rgbSwapped()
                         p = convertToQtFormat.scaled(
