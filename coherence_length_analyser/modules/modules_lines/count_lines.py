@@ -37,14 +37,14 @@ class count_thread(QtCore.QThread):
         names = get_column(tmp, 0)
         angles = get_column(tmp, 1)
         lc = []
-        for i in range(2, 100):
+        for i in range(2, 100): # everything after name and angle
             try:
                 lc.append(get_column(tmp, i))
             except IndexError:
                 break
-        z = lc[0]
-        lc = [y for y in lc if z[0] not in y]
-        lc.insert(0, z)
+        z = lc[0] # window name
+        lc = [y for y in lc if z[0] not in y] # remove the window name from the list
+        lc.insert(0, z) # insert the window name once at the beginning
         tmp = []
         for j in range(len(lc[0])):
             for i in range(len(lc)):
@@ -52,7 +52,7 @@ class count_thread(QtCore.QThread):
                     tmp.append(lc[i][j] + "ö")
                 else:
                     tmp.append(lc[i][j])
-
+        print(tmp)
         tmp = (' '.join(tmp))
         tmp = " " + tmp
         tmp = tmp.split("ö")
@@ -65,7 +65,7 @@ class count_thread(QtCore.QThread):
         tmp = [[item, item2] for item, item2 in zip(angles, lc)]
         self.values = VAL(**dict(zip(names, tmp)))
         tmp = [os.path.join(path, item) for item in os.listdir(path)]
-        print(tmp)
+#        print(tmp)
 
         for item in tmp:
             a = np.loadtxt(item, delimiter=",")
