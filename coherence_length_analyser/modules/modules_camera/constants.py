@@ -4,7 +4,7 @@ from ...lib import functions
 max_back = -2500
 max_for = 2500
 
-path = functions.resource_path(os.path.join("data","motor_extrema.txt"))
+path = functions.resource_path(os.path.join("data", "motor_extrema.txt"))
 # loads the extremas for the motor from file or creates it with default values
 try:
     with open(path, "r") as file:

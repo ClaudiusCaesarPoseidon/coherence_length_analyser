@@ -5,6 +5,7 @@ from matplotlib.figure import Figure
 
 class Canvas(QtWidgets.QWidget):
     """subclass of QWidget which displays a Matplotlib plot"""
+
     def __init__(self, parent=None):
         super().__init__()
         self.parent = parent

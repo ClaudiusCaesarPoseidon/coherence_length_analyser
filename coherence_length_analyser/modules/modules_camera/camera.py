@@ -33,7 +33,7 @@ class Camera(Widgetb):
 
     def __init__(self, parent=None, config=None):
         """load widget from ui file, connect signals to slots and initialise"""\
-        """class attribute"""
+            """class attribute"""
         super().__init__()
         self.parent = parent
         if self.parent is not None:

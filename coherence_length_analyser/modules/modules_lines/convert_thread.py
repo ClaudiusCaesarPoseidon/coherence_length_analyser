@@ -4,6 +4,7 @@ from PySide2 import QtCore
 
 class convert_thread(QtCore.QThread):
     """builds csv from input file"""
+
     def __init__(self, parent=None, input="lines.txt", output="lines.csv"):
         super().__init__()
         self.parent = parent

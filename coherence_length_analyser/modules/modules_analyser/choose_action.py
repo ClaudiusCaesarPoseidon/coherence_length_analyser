@@ -4,6 +4,7 @@ from PySide2 import QtCore
 
 
 class choose_action(QtCore.QThread):
+    """chooese file or folder evaluation"""
     emitt = QtCore.Signal(tuple)
     no = QtCore.Signal()
 

@@ -3,6 +3,7 @@ from PySide2 import QtCore
 
 
 class motor_movement(QtCore.QThread):
+    """moves the motor"""
     do = QtCore.Signal()
 
     def __init__(self, parent=None, number=1, mode="forward"):
@@ -12,6 +13,7 @@ class motor_movement(QtCore.QThread):
         self.parent = parent
 
     def run(self):
+        # moves motor and saves position
         for i in range(self.number):
             if self.mode == "forward":
                 tmp = self.parent.position.copy()

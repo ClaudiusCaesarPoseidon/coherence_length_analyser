@@ -37,19 +37,20 @@ class count_thread(QtCore.QThread):
         names = get_column(tmp, 0)
         angles = get_column(tmp, 1)
         lc = []
-        for i in range(2, 100): # everything after name and angle
+        for i in range(2, 100):  # everything after name and angle
             try:
                 lc.append(get_column(tmp, i))
             except IndexError:
                 break
-        z = lc[0] # window name
-        lc = [y for y in lc if z[0] not in y] # remove the window name from the list
-        lc.insert(0, z) # insert the window name once at the beginning
+        z = lc[0]  # window name
+        # remove the window name from the list
+        lc = [y for y in lc if z[0] not in y]
+        lc.insert(0, z)  # insert the window name once at the beginning
         tmp = []
         for j in range(len(lc[0])):
             for i in range(len(lc)):
                 if ')' in lc[i][j] and ');' not in lc[i][j]:
-                    tmp.append(lc[i][j] + "ö") # adds ö at file line end
+                    tmp.append(lc[i][j] + "ö")  # adds ö at file line end
                 else:
                     tmp.append(lc[i][j])
 

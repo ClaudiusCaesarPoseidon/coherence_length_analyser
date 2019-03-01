@@ -14,6 +14,8 @@ from ConvertQt import uic
 default_imread = cv2.imread
 
 
+# replaces the imread function, which can not read images whose path
+# contains non ASCII characters
 def imread(path, mode=1):
     if path.isascii() is True:
         return default_imread(path, mode)
@@ -26,6 +28,8 @@ def imread(path, mode=1):
 
 class Angle(Widgetb):
     def __init__(self, parent=None, config=None):
+        """load widget from ui file, connect signals to slots and initialise"""\
+            """class attribute"""
         cv2.imread = imread
         super().__init__()
         self.parent = parent

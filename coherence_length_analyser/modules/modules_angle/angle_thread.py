@@ -46,13 +46,14 @@ class angle_thread(QtCore.QThread):
             pass
 
     def run(self):
+        # calculates the position of the middle and the peak
         x_0 = self.value
         y_0 = self.value
         tmp = find(self.image)
         xx = np.where(self.image == tmp)
         y = [xx[0][0]][0]
         x = [xx[1][0]][0]
-        if y == y_0:
+        if y == y_0:  # depending of quadrant of peak
             y = [xx[0][1]][0]
         if x == y_0:
             x = [xx[1][1]][0]
@@ -73,12 +74,15 @@ class angle_thread(QtCore.QThread):
 #        else:
 #            cv2.line(self.image, (x1, 0), (x2, self.image.shape[0]), (0, 0, 255))
 
+        # calculates angle withz atan2
         dx = x - x_0
         dy = -1 * (y - y_0)
         angle = math.atan2(dy, dx) * 180 / math.pi
         angle = round(angle, 2)
         if angle < 0:
             angle += 180
+
+        # saves angle in text file
         with open(os.path.join(self.direc_path, "angles.txt"), "a+") as file:
             file.seek(0)
             dump = file.read().split("\n")

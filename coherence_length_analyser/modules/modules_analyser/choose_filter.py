@@ -23,6 +23,7 @@ def medfilt(x, k):
 
 
 def choose_filter(array, value, x):
+    """choses a filter for smoothing"""
     try:
         if value == 0:
             pass

@@ -6,6 +6,7 @@ substring_in_list = functions.substring_in_list
 
 class search_folder:
     """gets all relevent images in folder"""
+
     def __init__(self, path):
         self.path = path
         self.tmp = next(os.walk(path))[1]

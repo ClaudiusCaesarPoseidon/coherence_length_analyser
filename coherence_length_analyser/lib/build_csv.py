@@ -51,7 +51,7 @@ def build_csv(path, out_path):
             if csv is not None:
                 csv = np.concatenate((csv, array), axis=0)
             else:
-               csv = array.copy()
+                csv = array.copy()
 
         # reshapes the array to 2D
         tmp = int(len(csv_dict.get(item)) + 4)

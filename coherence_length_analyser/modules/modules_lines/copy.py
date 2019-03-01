@@ -11,6 +11,8 @@ default_imread = cv2.imread
 
 # replaces the imread function, which can not read images whose path
 # contains non ASCII characters
+
+
 def imread(path, mode=1):
     if functions.isascii(path) is True:
         return default_imread(path, mode)

@@ -6,7 +6,8 @@ from PySide2 import QtCore, QtGui
 
 class Widgetb(Dialog):
     """Subclasses QDaialog to include a function the use the print functio"""\
-    """the print to a QTextEdit"""
+        """the print to a QTextEdit"""
+
     def __init__(self, parent=None, config=None):
         super().__init__()
         self.parent = parent

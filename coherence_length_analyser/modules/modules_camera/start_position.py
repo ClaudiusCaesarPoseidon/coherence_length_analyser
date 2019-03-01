@@ -13,6 +13,7 @@ def mean(lst):
 
 
 class start_position(QtCore.QThread):
+    """shows the video from the camera and emits the parameters"""
     changePixmap = QtCore.Signal(QtGui.QImage)
     changePixmap2 = QtCore.Signal(QtGui.QImage)
     angle = QtCore.Signal(int)
@@ -46,12 +47,6 @@ class start_position(QtCore.QThread):
                 self.img = ImageData.copy()
                 self.img = np.roll(self.img, 15, axis=0)
 
-                unique, counts = np.unique(self.img, return_counts=True)
-                x = dict(zip(unique, counts))
-                x = {i: x.get(i, 0) for i in range(256)}
-#                z = [x.get(i) * i for i in range(256)]
-                y = x.get(255)
-
                 dft = functions.dft(self.img)
                 fft = functions.fft_cv2(dft)
                 fft = functions.fft_shift_py(
@@ -83,7 +78,7 @@ class start_position(QtCore.QThread):
                     self.parent.bild_height,
                     QtCore.Qt.KeepAspectRatio)
                 self.changePixmap.emit(p)
-                # angle + lines
+                # calculates angle and number of maxima in pattern
                 x_0 = int(w_sec / 2)
                 y_0 = int(h_sec / 2)
                 try:

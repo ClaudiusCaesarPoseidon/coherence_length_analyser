@@ -5,6 +5,8 @@ substring_in_list = functions.substring_in_list
 
 
 class search_folder:
+    """searches the folder for files"""
+
     def __init__(self, path, window):
         self.path = path
         self.tmp = next(os.walk(path))[1]

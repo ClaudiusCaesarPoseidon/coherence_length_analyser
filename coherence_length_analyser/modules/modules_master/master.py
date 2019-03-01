@@ -30,6 +30,7 @@ build_directory = functions.build_directory
 
 class Master(Widget):
     """GUI for choosing the subprograms"""
+
     def __init__(self, config=None):
         super().__init__()
         # loads the widgets from the ui file

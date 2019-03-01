@@ -3,6 +3,7 @@ from PySide2 import QtCore
 
 
 class move_pos(QtCore.QThread):
+    """moves the motor to position"""
     do = QtCore.Signal()
 
     def __init__(self, parent=None, mode="forward", number=1):
@@ -16,6 +17,7 @@ class move_pos(QtCore.QThread):
         self.do.emit()
 
     def run(self):
+        # moves motor to position
         while True:
             self.th = motor_movement(
                 self.parent, number=self.number, mode=self.mode)
@@ -34,6 +36,7 @@ class move_pos(QtCore.QThread):
             self.mode = "backward"
         elif self.mode == "backward":
             self.mode = "forward"
+        # if the motor isn't exactly on position it moves a few steps back
         if self.parent.position[0][0] != self.parent.pos and self.parent.ends is False:
             while True:
                 self.th = motor_movement(self.parent, number=1, mode=self.mode)

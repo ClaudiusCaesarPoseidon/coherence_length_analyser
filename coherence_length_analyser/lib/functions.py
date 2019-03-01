@@ -60,7 +60,7 @@ def Init_Cam(width=640, heigth=480, gain_boost=1):
         mode,
         ueye.sizeof(mode))
 
-    #sets the size of the image
+    # sets the size of the image
     rectAOI = ueye.IS_RECT()
     rectAOI.s32X = 44
     rectAOI.s32Y = 0
@@ -544,7 +544,7 @@ def gauss(width):
 
 def x(start, number, step_width):
     """returns an array, that begins at start has *number* elements with """\
-    """*step width*"""
+        """*step width*"""
     return start + np.arange(number) * step_width
 
 
@@ -555,6 +555,7 @@ def substring_in_list(substring, lst):
 
 class VAL(dict):
     """creates a dictionary, whose items can be accesed like a class"""
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.__dict__.update(**kwargs)

@@ -1,4 +1,4 @@
-from .analyse_everything import everything
+#from .analyse_everything import everything
 from ..check_fft import Check_FFT
 from ...lib import functions
 from ..eigen_widgets import Stream, Widgetb
@@ -19,8 +19,9 @@ monitor_format = functions.monitor_format
 
 class Analyser(Widgetb):
     def __init__(self, parent=None, config=None):
+        """load widget from ui file, connect signals to slots and initialise"""\
+            """class attribute"""
         super(Analyser, self).__init__()
-
         self.parent = parent
         if self.parent is not None:
             self.direc_path = self.parent.direc_path
@@ -110,7 +111,7 @@ class Analyser(Widgetb):
         self.Start_All.clicked.connect(self.s_a)
         self.Start_All.setVisible(False)
         self.i = 0
-        self.Start_Everything.clicked.connect(self.start_everything)
+#        self.Start_Everything.clicked.connect(self.start_everything)
         self.Stop.clicked.connect(self.stop)
         self.Start_Raum.clicked.connect(self.start_raum)
         self.Open_Folder.clicked.connect(self.open_folder)
@@ -453,6 +454,7 @@ class Analyser(Widgetb):
             self.Windows.setDisabled(False)
 
     def s_a(self):
+        # sets self.i to 0
         self.i = 0
         self.start_all()
 
@@ -489,10 +491,10 @@ class Analyser(Widgetb):
         self.Windows.setDisabled(True)
         self.th.finished.connect(self.end_all)
 
-    def start_everything(self):
-        self.th_glub = everything(self)
-        self.th_glub.start()
-        self.th_glub.finished.connect(self.enable)
+#    def start_everything(self):
+#        self.th_glub = everything(self)
+#        self.th_glub.start()
+#        self.th_glub.finished.connect(self.enable)
 
     def stop(self):
         self.stopped = True
@@ -514,10 +516,11 @@ class Analyser(Widgetb):
         print("END, elapsed time: %0.2f" % (self.tic - self.toc), " s")
 
     def wheelEvent(self, event):
+        # connect scrolling of mouse to scrollbar
         try:
-            tmp = event.delta()
+            tmp = event.delta()  # Qt4
         except AttributeError:
-            tmp = event.angleDelta().y()
+            tmp = event.angleDelta().y()  # Qt5
         finally:
             if self.tmp is True:
                 if tmp > 0:

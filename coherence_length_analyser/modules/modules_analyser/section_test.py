@@ -8,6 +8,7 @@ from PySide2 import QtCore, QtGui
 
 
 class section_test(QtCore.QThread):
+    """displays the video, the FFT, and the resizeable center of the FFT"""
     changePixmap = QtCore.Signal(QtGui.QImage)
 
     def __init__(self, parent=None):

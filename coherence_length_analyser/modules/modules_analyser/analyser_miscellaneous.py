@@ -9,6 +9,8 @@ natsort_key = natsort_keygen()
 default_imread = cv2.imread
 
 
+# replaces the imread function, which can not read images whose path
+# contains non ASCII characters
 def imread(path, mode=1):
     if functions.isascii(path) is True:
         return default_imread(path, mode)
@@ -20,6 +22,7 @@ def imread(path, mode=1):
 
 
 def convert(image_folder, vid_path, time):
+    """converts an image folder to a video (.avi)"""
     cv2.imread = imread
     images = [img for img in os.listdir(image_folder)]
     images.sort(key=natsort_key)
@@ -37,16 +40,20 @@ def convert(image_folder, vid_path, time):
 
 
 def hasNumber(inputString):
+    """check if string contains any number"""
     return any(char.isdigit() for char in inputString)
 
 
 def get_all_folders(path):
+    """get list of folders"""
     return [
         x[0] for x in os.walk(path) if 'converted_videos' not in x[0]
         and hasNumber(x[0]) is True]
 
 
 class search():
+    """searches for files in path"""
+
     def __init__(self, path, files=''):
         self.path = path
         self.files = []
@@ -68,6 +75,7 @@ class search():
 
 
 def index_containing_substring(the_list, substring):
+    """get index of substring in list"""
     for i, s in enumerate(the_list):
         if substring in s and s.endswith('.avi'):
             return i
@@ -75,6 +83,8 @@ def index_containing_substring(the_list, substring):
 
 
 class get_video:
+    """gets video with window"""
+
     def __init__(self, path):
         self.order = [
             'Kaiser',

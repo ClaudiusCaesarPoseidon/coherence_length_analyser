@@ -11,6 +11,9 @@ from PySide2 import QtCore, QtGui
 
 default_imwrite = cv2.imwrite
 
+# replaces the imwrite function, which can not read images whose path
+# contains non ASCII characters
+
 
 def imwrite(path, image):
     if path.isascii() is True:
@@ -44,6 +47,7 @@ class Measure(QtCore.QThread):
         self.th = None
 
     def run(self):
+        # create unique directory
         self.string_direc = datetime.datetime.now().strftime("%Y-%m-%d_%H.%M.%S") + "_" + self.ID.text() + \
             "_" + self.Max_Width.text() + '_' + self.Temperature.text() + \
             "_" + self.Current.text()
@@ -52,6 +56,7 @@ class Measure(QtCore.QThread):
         os.makedirs(self.string_direc2, exist_ok=True)
         ret1 = functions.build_directory(self.string_direc)
         functions.remove_directory(self.string_direc)
+
         self.parent.thread_run = True
         if self.parent.failed is True:
             ret1 = 1
@@ -91,6 +96,7 @@ class Measure(QtCore.QThread):
                             self.parent.cam, exposure)
                     exposure, gain = functions.Set_Values(
                         self.parent.cam, exposure, gain, 114, False)
+                    # copy image from memory to numpy array
                     functions.CopyImg(
                         self.parent.cam,
                         ImageData,
@@ -98,10 +104,14 @@ class Measure(QtCore.QThread):
                         self.parent.pid)
                     self.img = ImageData.copy()
                     self.img = np.roll(self.img, 15, axis=0)
+
+                    # calculate fft
                     dft = functions.dft(self.img)
                     fft = functions.fft_cv2(dft)
                     fft = functions.fft_shift_py(
                         fft.astype(np.float64)).astype(np.uint8)
+
+                    # display image
                     res = np.concatenate((self.img, fft), axis=0)
                     convertToQtFormat = qimage2ndarray.gray2qimage(res)
                     p = convertToQtFormat.scaled(
@@ -109,6 +119,8 @@ class Measure(QtCore.QThread):
                         self.parent.bild_height,
                         QtCore.Qt.KeepAspectRatio)
                     self.changePixmap.emit(p)
+
+                    # save imgae in directory
                     print("step\t" + str(self.j + 1) + "/" + str(self.max_int)
                           + "\t " + str(self.parent.i) + "/" +
                           str(self.parent.number_of_measurements))
@@ -128,6 +140,8 @@ class Measure(QtCore.QThread):
                         tmp5 = tmp1 + tmp2 + tmp3 + tmp4
                         cv2.imwrite(os.path.join(
                             self.string_direc2, tmp5), self.img)
+
+                    # end if max width is reached
                     if self.i < float(self.Max_Width.text()):
                         for k in range(int(self.number.text())):
                             if self.parent.failed is True:
@@ -149,7 +163,6 @@ class Measure(QtCore.QThread):
                         self.i += self.step
                         self.j += 1
                         self.msleep(150)
-#                        self.msleep(self.parent.sleep_time)
                     else:
                         self.ends = True
                 if self.i >= float(self.Max_Width.text()):

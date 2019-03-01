@@ -6,7 +6,11 @@ from ConvertQt import uic
 
 
 class Dialogg(Dialog):
+    """dialog which return diffrent values"""
+
     def __init__(self, parent=None):
+        """load widget from ui file, connect signals to slots and initialise"""\
+            """class attribute"""
         super().__init__()
         self.parent = parent
         file = functions.resource_path(os.path.join("ui", "dialog.ui"))

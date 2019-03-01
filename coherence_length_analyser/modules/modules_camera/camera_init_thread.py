@@ -38,7 +38,7 @@ class Init_Thread(QtCore.QThread):
             except ZeroDivisionError:
                 max_fps = 15
 
-            #sets framerate to maximum
+            # sets framerate to maximum
             functions.is_SetFrameRate(cam, max_fps)
             print("Camera Connected. Starting.")
         else:

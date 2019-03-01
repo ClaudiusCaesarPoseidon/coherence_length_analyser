@@ -12,6 +12,8 @@ default_imread = cv2.imread
 default_imwrite = cv2.imwrite
 
 
+# replaces the imread function, which can not read images whose path
+# contains non ASCII characters
 def imread(path, mode=1):
     if functions.isascii(path) is True:
         return default_imread(path, mode)
@@ -22,6 +24,8 @@ def imread(path, mode=1):
             return np.asarray(Image.open(path).convert('RGB'))
 
 
+# replaces the imwrite function, which can not read images whose path
+# contains non ASCII characters
 def imwrite(path, image):
     if functions.isascii(path) is True:
         return default_imwrite(path, image)
@@ -67,6 +71,8 @@ class ptv_thread(QtCore.QThread):
     def run(self):
         cv2.imread = imread
         cv2.imwrite = imwrite
+
+        # builds name of video
         part1 = os.path.splitext(os.path.basename(self.files[0]))[0]
         gname = os.path.dirname(self.files[0])
         timestamp = os.path.basename(gname)
@@ -81,6 +87,8 @@ class ptv_thread(QtCore.QThread):
         while True:
             self.choice = ''
             extra_name = ""
+
+            # builds name of video with extra arguments
             if self.parent.Subtract_Background.isChecked() is True:
                 extra_name += "b"
             if self.parent.Mirror_Image.isChecked() is True:
@@ -92,6 +100,9 @@ class ptv_thread(QtCore.QThread):
             window = self.get_window_function(
                 self.parent.Windows.currentText(), width)
             i = 0
+
+            # loads the images, multiplys them with the window function
+            # and saves the min an temporary folder
             for img in self.files:
                 a = (cv2.imread(img, 0) * window).astype(np.uint8)
                 if i == 0:
@@ -170,7 +181,11 @@ class ptv_thread(QtCore.QThread):
                 break
             if self.choice == "again":
                 continue
+
+            # converts the images to video
             convert(os.path.dirname(ffmpeg_img_path), ffmpeg_vid_path, 2)
+
+            # removes the temporary folder
             shutil.rmtree(os.path.dirname(ffmpeg_img_path))
             if self.choice == "ja":
                 break

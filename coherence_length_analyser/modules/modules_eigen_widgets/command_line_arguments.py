@@ -10,7 +10,7 @@ class Command_Line_Arguments(Dialog):
 
     def __init__(self):
         """load widget from ui file, connect signals to slots and initialise"""\
-        """class attribute"""
+            """class attribute"""
         super().__init__()
         # loads the widgets from the ui file
         file = functions.resource_path(

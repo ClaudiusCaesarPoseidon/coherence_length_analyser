@@ -4,7 +4,7 @@ from .choose_action import choose_action
 from .ptv_thread import ptv_thread
 from .analyser_miscellaneous import search
 from .dialogg import Dialogg
-import hashlib
+#import hashlib
 import os
 from PySide2 import QtCore, QtWidgets, QtGui
 from ConvertQt import uic
@@ -12,7 +12,9 @@ from ConvertQt import uic
 
 class picture_to_video(Widgetb):
     def __init__(self, parent=None):
-        super(picture_to_video, self).__init__()
+        """load widget from ui file, connect signals to slots and initialise"""\
+            """class attribute"""
+        super().__init__()
         self.parent = parent
         self.is_end = False
         self.value = 0
@@ -23,12 +25,12 @@ class picture_to_video(Widgetb):
         self.Close.clicked.connect(self.close)
         self.Start.clicked.connect(self.start)
         self.ChooseFolder.clicked.connect(self.get_folder)
-        self.Windows.currentIndexChanged.connect(self.changed_box)
+#        self.Windows.currentIndexChanged.connect(self.changed_box)
         self.CustomFunction.setVisible(False)
         self.Password.setVisible(False)
         self.Name.setVisible(False)
-        self.Password.returnPressed.connect(self.login)
-        self.Name.returnPressed.connect(self.login)
+#        self.Password.returnPressed.connect(self.login)
+#        self.Name.returnPressed.connect(self.login)
         self.Password.setEchoMode(QtWidgets.QLineEdit.Password)
         index = self.Windows.findText("Custom")
         self.Windows.removeItem(index)
@@ -75,41 +77,41 @@ class picture_to_video(Widgetb):
         self.resized.connect(self.set_Size)
         self.Convert_All.clicked.connect(self.start_all)
 
-    def login(self):
-        if self.Name.text() == 'Zeraora':
-            pword_check = hashlib.md5(functions.vigenere(
-                "Plasmafäuste", self.Name.text()).encode("UTF-8")).hexdigest()
-            pword = hashlib.md5(
-                functions.vigenere(
-                    self.Password.text(),
-                    self.Name.text()).encode("UTF-8")).hexdigest()
-            if pword == pword_check:
-                self.Windows.addItem("Custom")
-                self.Password.setVisible(False)
-                self.Password.setDisabled(True)
-                self.Name.setVisible(False)
-                self.Name.setDisabled(True)
-                print("Custom functions activated")
-            else:
-                print("Please enter the right password")
-        else:
-            try:
-                pword_check = self.user_dict[self.Name.text()]
-                pword = hashlib.md5(
-                    functions.vigenere(
-                        self.Password.text(),
-                        self.Name.text()).encode("UTF-8")).hexdigest()
-                if pword == pword_check:
-                    self.Windows.addItem("Custom")
-                    self.Password.setVisible(False)
-                    self.Password.setDisabled(True)
-                    self.Name.setVisible(False)
-                    self.Name.setDisabled(True)
-                    print("Custom functions activated")
-                else:
-                    print("Please enter the right password")
-            except (KeyError, TypeError):
-                print("User not recognised.")
+#    def login(self):
+#        if self.Name.text() == 'Zeraora':
+#            pword_check = hashlib.md5(functions.vigenere(
+#                "Plasmafäuste", self.Name.text()).encode("UTF-8")).hexdigest()
+#            pword = hashlib.md5(
+#                functions.vigenere(
+#                    self.Password.text(),
+#                    self.Name.text()).encode("UTF-8")).hexdigest()
+#            if pword == pword_check:
+#                self.Windows.addItem("Custom")
+#                self.Password.setVisible(False)
+#                self.Password.setDisabled(True)
+#                self.Name.setVisible(False)
+#                self.Name.setDisabled(True)
+#                print("Custom functions activated")
+#            else:
+#                print("Please enter the right password")
+#        else:
+#            try:
+#                pword_check = self.user_dict[self.Name.text()]
+#                pword = hashlib.md5(
+#                    functions.vigenere(
+#                        self.Password.text(),
+#                        self.Name.text()).encode("UTF-8")).hexdigest()
+#                if pword == pword_check:
+#                    self.Windows.addItem("Custom")
+#                    self.Password.setVisible(False)
+#                    self.Password.setDisabled(True)
+#                    self.Name.setVisible(False)
+#                    self.Name.setDisabled(True)
+#                    print("Custom functions activated")
+#                else:
+#                    print("Please enter the right password")
+#            except (KeyError, TypeError):
+#                print("User not recognised.")
 
     def get_folder(self):
         self.ChooseFolder.setDisabled(True)
@@ -128,6 +130,7 @@ class picture_to_video(Widgetb):
 
     def get_action(self, tup):
         data, mode = tup
+        # chooses files or folders
         if mode == 0:
             self.files = data
             self.Start.setDisabled(False)
@@ -147,13 +150,13 @@ class picture_to_video(Widgetb):
         else:
             raise OSError("Not Possible, You Hacker!")
 
-    def changed_box(self):
-        if self.Windows.currentText() == "Custom":
-            self.CustomFunction.setDisabled(False)
-            self.CustomFunction.setVisible(True)
-        else:
-            self.CustomFunction.setDisabled(True)
-            self.CustomFunction.setVisible(False)
+#    def changed_box(self):
+#        if self.Windows.currentText() == "Custom":
+#            self.CustomFunction.setDisabled(False)
+#            self.CustomFunction.setVisible(True)
+#        else:
+#            self.CustomFunction.setDisabled(True)
+#            self.CustomFunction.setVisible(False)
 
     def exist(self, value):
         self.dialogg = Dialogg(self)
@@ -223,6 +226,8 @@ class picture_to_video(Widgetb):
         self.Switch.setDisabled(False)
 
     def set_Size(self):
+        # sets the fontsize of the widgets according to window size
+        # sets the widget size according to window size
         self.height = int(self.geometry().height())
         self.width = int(self.geometry().width())
         fontsize = (self.height / 75)
