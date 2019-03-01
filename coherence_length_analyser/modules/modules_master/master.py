@@ -38,7 +38,7 @@ class Master(Widget):
         self.Close.clicked.connect(self.close)
         self.Analyse_Pictures.clicked.connect(self.analyse)
         self.Take_Pictures.clicked.connect(self.camera)
-        self.Register.clicked.connect(self.register)
+#        self.Register.clicked.connect(self.register)
         self.Register.setVisible(False)
         self.Evaluate.clicked.connect(self.evaluate)
         self.Count.clicked.connect(self.count)
