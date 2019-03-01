@@ -250,6 +250,7 @@ class Analyser(Widgetb):
         self.Close.setDisabled(True)
         self.Start_Raum.setDisabled(True)
         self.Open_Folder.setDisabled(True)
+        self.Windows.setDisabled(True)
 
     def mid_2_raum(self):
         self.i += 1
@@ -275,6 +276,7 @@ class Analyser(Widgetb):
         self.Close.setDisabled(False)
         self.Start_Raum.setDisabled(False)
         self.Open_Folder.setDisabled(False)
+        self.Windows.setDisabled(False)
         self.stopped = False
         self.tic = timeit.default_timer()
         print("END, elapsed time: %0.2f" % (self.tic - self.toc), " s")
@@ -381,6 +383,7 @@ class Analyser(Widgetb):
         self.Close.setDisabled(True)
         self.Start_Raum.setDisabled(True)
         self.Open_Folder.setDisabled(True)
+        self.Windows.setDisabled(True)
         self.toc = timeit.default_timer()
 
     def enable(self):
@@ -400,6 +403,7 @@ class Analyser(Widgetb):
         self.Close.setDisabled(False)
         self.Start_Raum.setDisabled(False)
         self.Open_Folder.setDisabled(False)
+        self.Windows.setDisabled(False)
         self.end()
 
     def test_section(self):
@@ -425,6 +429,7 @@ class Analyser(Widgetb):
             self.Spin_Col.setEnabled(True)
             self.Start_Raum.setDisabled(True)
             self.Open_Folder.setDisabled(True)
+            self.Windows.setDisabled(True)
         else:
             self.thread_pause = True
             self.section_thread.start()
@@ -442,6 +447,7 @@ class Analyser(Widgetb):
             self.Spin_Col.setEnabled(False)
             self.Start_Raum.setDisabled(False)
             self.Open_Folder.setDisabled(False)
+            self.Windows.setDisabled(False)
 
     def s_a(self):
         self.i = 0
@@ -477,6 +483,7 @@ class Analyser(Widgetb):
         self.Filter_Switch.setDisabled(True)
         self.toc = timeit.default_timer()
         self.Start_Everything.setDisabled(True)
+        self.Windows.setDisabled(True)
         self.th.finished.connect(self.end_all)
 
     def start_everything(self):
