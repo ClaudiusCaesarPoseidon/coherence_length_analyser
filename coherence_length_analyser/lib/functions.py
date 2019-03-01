@@ -575,6 +575,10 @@ class VAL(dict):
         super().__init__(*args, **kwargs)
         self.__dict__.update(**kwargs)
 
+    def __setitem__(self, key, item):
+        super().__setitem__(key, item)
+        self.__dict__[key] = item
+
 
 def inting(string):
     try:
