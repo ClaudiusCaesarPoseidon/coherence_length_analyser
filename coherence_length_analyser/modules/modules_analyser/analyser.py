@@ -1,5 +1,5 @@
 #from .analyse_everything import everything
-from ..check_fft import Check_FFT
+#from ..check_fft import Check_FFT
 from ...lib import functions
 from ..eigen_widgets import Stream, Widgetb
 from .section_test import section_test
@@ -73,7 +73,7 @@ class Analyser(Widgetb):
         self.oPen.clicked.connect(self.Open)
         self.Convert.clicked.connect(self.convert)
         self.resized.connect(self.set_Size)
-        self.Check_FFT.clicked.connect(self.show_fft)
+#        self.Check_FFT.clicked.connect(self.show_fft)
         if self.Convert.sizeHint().width() >= self.Convert.geometry().width():
             self.Convert.setText("Convert Pictures\nto Video")
         self.Open_Demo.clicked.connect(self.open_demo)
@@ -311,9 +311,9 @@ class Analyser(Widgetb):
         elif self.Open_Demo.isEnabled() is False and self.demo is True:
             self.Open_Demo.setEnabled(True)
 
-    def show_fft(self):
-        Dialog = Check_FFT(parent=self, filename=self.fname, max_=2)
-        Dialog.exec()
+#    def show_fft(self):
+#        Dialog = Check_FFT(parent=self, filename=self.fname, max_=2)
+#        Dialog.exec()
 
     @QtCore.Slot(QtGui.QImage)
     def setImage(self, image):
