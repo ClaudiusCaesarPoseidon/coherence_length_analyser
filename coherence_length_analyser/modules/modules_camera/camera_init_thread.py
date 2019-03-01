@@ -49,4 +49,4 @@ class Init_Thread(QtCore.QThread):
             self.emit1.emit((ser, came))
         else:
             # does not activate buttons if not connected
-            self.emit2.emit()
+            self.emit2.emit((ser, came))
