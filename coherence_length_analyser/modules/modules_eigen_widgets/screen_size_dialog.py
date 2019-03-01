@@ -8,6 +8,8 @@ from ConvertQt import uic
 
 class screen_size_dialog(Dialog):
     def __init__(self, parent=None):
+        """load widget from ui file, connect signals to slots and initialise"""\
+        """class attribute"""
         super().__init__()
         self.parent = parent
         self.default_stdout = sys.stdout

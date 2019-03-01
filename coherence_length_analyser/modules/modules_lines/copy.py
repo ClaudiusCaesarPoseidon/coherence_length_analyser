@@ -33,12 +33,16 @@ class copy_thread(QtCore.QThread):
         cv2.imread = imread
         files = self.parent.files
         new_direc = os.path.join(self.direc_path, "lines")
+
+        # remove directory before saving new files
         try:
             shutil.rmtree(new_direc)
         except FileNotFoundError:
             pass
+        # builds the removed directory new
         if os.path.exists(new_direc) is False:
             functions.build_directory(new_direc)
+
         for item in files:
             img = cv2.imread(item)
             tmp1 = os.path.basename(os.path.dirname(item))

@@ -14,6 +14,7 @@ class Init_Thread(QtCore.QThread):
         self.parent = parent
 
     def run(self):
+        # connects the arduino and the camera
         print("Connect Motor Controll")
         ser = functions.list_connect()
         number_of_cameras = functions.Number_Of_Cameras()
@@ -36,12 +37,16 @@ class Init_Thread(QtCore.QThread):
                 max_fps = 1 / tmp.min
             except ZeroDivisionError:
                 max_fps = 15
+
+            #sets framerate to maximum
             functions.is_SetFrameRate(cam, max_fps)
             print("Camera Connected. Starting.")
         else:
             print("No Camera Detected. Please connect uEye Camera.")
             connect = False
         if connect is True:
+            # activates buttons if connected
             self.emit1.emit((ser, came))
         else:
+            # does not activate buttons if not connected
             self.emit2.emit()

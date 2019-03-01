@@ -12,6 +12,8 @@ from ConvertQt import uic
 
 class Count(Widgetb):
     def __init__(self, parent=None, config=None):
+        """load widget from ui file, connect signals to slots and initialise"""\
+        """class attribute"""
         super().__init__()
         self.parent = parent
         self.config = config

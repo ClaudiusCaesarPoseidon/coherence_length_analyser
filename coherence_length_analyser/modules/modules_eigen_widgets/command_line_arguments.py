@@ -1,13 +1,16 @@
 import os
+from .dialog import Dialog
 from ...lib import functions
 from PySide2 import QtCore, QtWidgets, QtGui
 from ConvertQt import uic
 
 
-class Command_Line_Arguments(QtWidgets.QDialog):
+class Command_Line_Arguments(Dialog):
     resized = QtCore.Signal()
 
     def __init__(self):
+        """load widget from ui file, connect signals to slots and initialise"""\
+        """class attribute"""
         super().__init__()
         # loads the widgets from the ui file
         file = functions.resource_path(
@@ -28,12 +31,6 @@ class Command_Line_Arguments(QtWidgets.QDialog):
     def end(self):
         val = self.parse_text(self.Input.text())
         self.done(val)
-
-    def keyPressEvent(self, event):
-        if event.key() == QtCore.Qt.Key_Escape:
-            event.ignore()
-        else:
-            event.accept()
 
     def set_Size(self):
         # sets the fontsize of the widgets according to window size

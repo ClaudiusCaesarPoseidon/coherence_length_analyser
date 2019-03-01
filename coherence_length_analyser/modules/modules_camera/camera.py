@@ -32,6 +32,8 @@ class Camera(Widgetb):
     valueChanged_m = QtCore.Signal(object)
 
     def __init__(self, parent=None, config=None):
+        """load widget from ui file, connect signals to slots and initialise"""\
+        """class attribute"""
         super().__init__()
         self.parent = parent
         if self.parent is not None:
@@ -58,7 +60,7 @@ class Camera(Widgetb):
         self.Close.clicked.connect(self.close)
         self.Accept_Parameter.clicked.connect(self.accept)
         self.Reset.clicked.connect(self.reset)
-        self.Start.clicked.connect(self.start)
+#        self.Start.clicked.connect(self.start)
         self.Left.clicked.connect(partial(self.move_motor, 'backward'))
         self.Right.clicked.connect(partial(self.move_motor, 'forward'))
         self.ends = False
@@ -123,6 +125,7 @@ class Camera(Widgetb):
         self.exposure_saved = self.exposure_current
 
     def set_gui_values(self):
+        # prints the current settings of the camera and pattern to the GUI
         temp = self.Values_GUI.toPlainText().split("\n")
         tmp = [y.split("\t") for y in temp]
         tmp[0][5] = str(self.angle)
@@ -136,6 +139,7 @@ class Camera(Widgetb):
         self.Values_GUI.setPlainText(tmp)
 
     def set_info(self):
+        # prints the current position of the motor
         tmp = self.tmp.copy()
         tmp[0] = tmp[0] + "\tMaximum available length: " + \
             str(int(functions.round(max_for - self.position[0][0])))
@@ -314,6 +318,7 @@ class Camera(Widgetb):
             QtCore.QSize(0, int(4 / 8 * self.bild_height)))
 
     def goto(self, value=None):
+        # moves the motor to the new position
         if value is False:
             try:
                 number = int(self.Step_Width.text())
@@ -476,6 +481,7 @@ class Camera(Widgetb):
         self.lines = None
 
     def accept(self):
+        # checks if the parameters are ok
         if functions.string_is_int(self.Current.text()) is True\
                 and functions.string_is_int(self.Temperature.text()) is True\
                 or inting(self.Temperature.text()) == -1\
@@ -721,6 +727,7 @@ class Camera(Widgetb):
         self.check_end = True
 
     def keyPressEvent(self, event):
+        # moves the motor with left and right arrow keys
         if event.key() == QtCore.Qt.Key_Left and self.Not_Measuring is True:
             self.Left.click()
         elif event.key() == QtCore.Qt.Key_Right and self.Not_Measuring is True:
@@ -728,6 +735,7 @@ class Camera(Widgetb):
         event.accept()
 
     def check(self):
+        # checks if the motorposition is ok
         if (self.position[0][0] <= max_back or self.position[0]
                 [0] >= max_for) and self.failed is False:
             self.check_failed()
@@ -736,6 +744,7 @@ class Camera(Widgetb):
             self.check_not_failed()
 
     def check_failed(self):
+        # disables the motor
         if self.position[0][0] <= -max_back:
             self.Left.setDisabled(True)
             self.Left_Max.setDisabled(True)

@@ -52,6 +52,7 @@ class count_thread(QtCore.QThread):
                     tmp.append(lc[i][j] + "ö") # adds ö at file line end
                 else:
                     tmp.append(lc[i][j])
+
         # convert list to string
         tmp = (' '.join(tmp))
         # add space at the begging
@@ -65,16 +66,24 @@ class count_thread(QtCore.QThread):
             pass
         lc = tmp
 
+        # create dictionary with names as key and; angle and coherence length
+        # as values
         tmp = [[item, item2] for item, item2 in zip(angles, lc)]
         self.values = VAL(**dict(zip(names, tmp)))
+
+        # list of csv files
         tmp = [os.path.join(path, item) for item in os.listdir(path)]
-        print(tmp)
 
         for item in tmp:
+            # loads the csv file into a numpy array
             a = np.loadtxt(item, delimiter=",")
             a = a.transpose()
             a = np.delete(a, (0), axis=0)
+
+            # convert the array to graysacle
             b = ((a[0] + a[1] + a[2]) // 3 + 0.0).astype(np.uint8)
+
+            # smooth the graph with FFT- and savitzky-golay filter
             N = 5
             length = len(b)
             procent = int(length / 100)
@@ -97,8 +106,12 @@ class count_thread(QtCore.QThread):
             N = 51
             O = 11
             b = scipy.signal.savgol_filter(b, N, O)
+
+            # find peaks
             temp = scipy.signal.find_peaks(b, prominence=10)
             result = len(temp[0])
+
+            # save result in file (append)
             self.dirname = os.path.splitext(os.path.basename(item))[0]
             value = '\t'.join(getattr(self.values, self.dirname))
             print(self.dirname + "\t" + str(result) + "\t" + value)

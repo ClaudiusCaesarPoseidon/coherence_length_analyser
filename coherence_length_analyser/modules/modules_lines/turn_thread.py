@@ -10,7 +10,8 @@ from PySide2 import QtCore, QtGui, QtTest
 
 default_imread = cv2.imread
 
-
+# replaces the imread function, which can not read images whose path
+# contains non ASCII characters
 def imread(path, mode=1):
     if functions.isascii(path) is True:
         return default_imread(path, mode)
@@ -22,6 +23,7 @@ def imread(path, mode=1):
 
 
 class turn_thread(QtCore.QThread):
+    """builds csv files for line counting from images"""
     changePixmap = QtCore.Signal(QtGui.QImage)
     changePixmap2 = QtCore.Signal(QtGui.QImage)
 
@@ -34,15 +36,20 @@ class turn_thread(QtCore.QThread):
     def run(self):
         cv2.imread = imread
         new_direc = os.path.join(self.direc_path, "lines_csv")
+        # remove directory before saving new files
         try:
             shutil.rmtree(new_direc)
         except FileNotFoundError:
             pass
+        # builds the removed directory new
         if os.path.exists(new_direc) is False:
             functions.build_directory(new_direc)
+
         for item, file in zip(self.parent.images, self.parent.angles):
             if self.parent.end_loop is True:
                 break
+
+            # load image and display it
             self.parent.Evaluate.setDisabled(False)
             self.parent.Next.setDisabled(True)
             self.parent.Row.setDisabled(True)
@@ -65,6 +72,8 @@ class turn_thread(QtCore.QThread):
                 QtTest.QTest.qWait(10)
                 if self.parent.cont is True:
                     break
+
+            # rotate image
             self.parent.Evaluate.setDisabled(True)
             self.parent.Next.setDisabled(False)
             self.parent.cont = False
@@ -73,6 +82,7 @@ class turn_thread(QtCore.QThread):
             row = self.img.shape[0]
             roww = row // 2
             self.parent.Row.setMaximum(row - 1)
+            # display the rotated image
             convertToQtFormat = qimage2ndarray.array2qimage(
                 self.img).rgbSwapped()
             p = convertToQtFormat.scaled(
@@ -80,16 +90,21 @@ class turn_thread(QtCore.QThread):
                 self.parent.img_height,
                 QtCore.Qt.KeepAspectRatio)
             self.changePixmap2.emit(p)
+
             while True:
                 self.parent.Row.setDisabled(False)
                 self.parent.Row.setValue(roww)
                 row = self.parent.Row.value()
                 img = self.img.copy()
+
+                # take a slice of the image (middle)
                 tmp = img[row].copy()
                 x = np.arange(tmp.shape[0])
                 named = os.path.join(
                     self.direc_path, "lines_csv", name + ".csv")
+                # save the slice
                 functions.save_txt(named, np.column_stack((x, tmp)))
+                # draw line and display it
                 img[row, 0:-1] = [0, 0, 255]
                 convertToQtFormat = qimage2ndarray.array2qimage(
                     img).rgbSwapped()

@@ -2,6 +2,7 @@ from PySide2 import QtCore, QtWidgets
 
 
 class Dialog(QtWidgets.QDialog):
+    """Subclasses QDialog to ignore the escape key"""
     resized = QtCore.Signal()
 
     def __init__(self, parent=None):
