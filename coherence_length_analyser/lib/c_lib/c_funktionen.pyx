@@ -72,8 +72,8 @@ cpdef char* encode(unicode string):
             return string.encode(codec)
         except UnicodeEncodeError:
             pass
-        finally:
-            print(codec)
+#        finally:
+#            print(codec)
 
 
 @cython.boundscheck(False)
