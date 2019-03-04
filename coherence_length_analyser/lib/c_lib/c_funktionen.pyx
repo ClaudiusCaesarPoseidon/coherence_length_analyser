@@ -95,12 +95,17 @@ cpdef list get_recursive_list(unicode path):
     return direc_list
 #    print(_mkdir)
 
-
+@cython.boundscheck(False)
+@cython.wraparound(False)
+@cython.cdivision(True)
 cpdef make_dirs(unicode path):
     direc_list = get_recursive_list(path)
     for item in direc_list:
         print(encode(item))
-        _mkdir(encode(item))
+        try:
+            _mkdir(encode(item))
+        except SystemError:
+            pass
 
 
 @cython.boundscheck(False)
