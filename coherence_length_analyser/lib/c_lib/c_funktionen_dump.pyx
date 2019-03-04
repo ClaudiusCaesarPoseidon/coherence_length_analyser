@@ -43,17 +43,15 @@ cdef extern from "c_written_functions.c" nogil:
     void fft_shift(double*,int,int)
     void save_txt_c "save_txt" (char*,int*,int,int)
     void save_txt_double_c "save_txt_double" (char*,double*,int,int)
-    int build(char*)
-    int remove_c(char*)
     void square_array_c "square_array" (int*,int,int,int,int,int)
     void truncuate_array_c "truncuate_array" (int*,int,int,int,int)
     double round_c(double)
     void circle_c "circle"(int*,int,int,int,int,int)
     void save_img(char*,int*,int,int)
-    int is_admin_c "is_admin" ()
     char* vigenere_c "vigenere"(char*,char*)
-    void free_array(char*)
-
+    cpdef int build_directory "build"(char*)
+    cpdef int remove_directory "remove_c"(char*)
+    cpdef int is_admin_c "is_admin" ()
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
@@ -284,3 +282,18 @@ def rotate_1d(ndarray hori_m,int number):
         M=cv2.getRotationMatrix2D((x/2,x/2),i/div,1)
         img = cv2.warpAffine(img,M,(x,x))
     return img
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
+@cython.cdivision(True)
+cpdef str vigenere(str string,str key):
+    """encodes the text with an vigenere cipher"""
+    string_p=string.encode("UTF-8")
+    key_p=key.encode("UTF-8")
+    cdef char* string_c=string_p
+    cdef char* key_c=key_p
+    string_c=vigenere_c(string_c,key_c)
+    try:
+        return string_c.decode("UTF-8")
+    finally:
+        free(string_c)

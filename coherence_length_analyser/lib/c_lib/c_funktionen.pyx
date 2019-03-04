@@ -38,12 +38,23 @@ cdef extern from "c_written_functions.c" nogil:
     void fft_shift(double*,int,int)
     void save_txt_c "save_txt" (char*,int*,int,int)
     void save_txt_double_c "save_txt_double" (char*,double*,int,int)
-    cpdef int build_directory "build"(char*)
-    cpdef int remove_directory "remove_c"(char*)
+#    cpdef int build_directory "build"(char*)
+#    cpdef int remove_directory "remove_c"(char*)
     cpdef double round_c(double)
-    cpdef int is_admin_c "is_admin" ()
-    char* vigenere_c "vigenere"(char*,char*) # cpdef -> memory leak
-    void free_array(char*)
+#    cpdef int is_admin_c "is_admin" ()
+#    char* vigenere_c "vigenere"(char*,char*) # cpdef -> memory leak
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
+@cython.cdivision(True)
+cpdef build_directory(unidoce string):
+    return os.makedirs(string, exists=True)
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
+@cython.cdivision(True)
+cpdef remove_directory(unidoce string):
+    return os.removedirs(string, exists=True)
 
 
 @cython.boundscheck(False)
@@ -75,6 +86,21 @@ cpdef ndarray fft_shift_py(double [:,::1] arr):
     cdef int heigth=arr.shape[0]
     cdef double[:,::1] array=arr.copy()
     fft_shift(<double*>&array[0][0],width,heigth)
+    numpy_array = np.asarray(array)
+    return numpy_array
+
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
+@cython.cdivision(True)
+cpdef ndarray fft_shift_cy(double [:,::1] arr):
+    """Swicthes the 1st and 3rd; and the 2nd the 4th quadrant"""
+    cdef int width=arr.shape[1]
+    cdef int heigth=arr.shape[0]
+    cdef double[:,::1] array=arr.copy().reshape(width * height)
+
+#    fft_shift(<double*>&array[0][0],width,heigth)
+
     numpy_array = np.asarray(array)
     return numpy_array
 
@@ -227,18 +253,3 @@ cpdef ndarray maxi(ndarray array, int threshold=195, int rangee=3, range_cross=0
     cond1c = border(cond1c).astype(np.bool)
     b=np.argwhere(cond1c==True)
     return b
-
-@cython.boundscheck(False)
-@cython.wraparound(False)
-@cython.cdivision(True)
-cpdef str vigenere(str string,str key):
-    """encodes the text with an vigenere cipher"""
-    string_p=string.encode("UTF-8")
-    key_p=key.encode("UTF-8")
-    cdef char* string_c=string_p
-    cdef char* key_c=key_p
-    string_c=vigenere_c(string_c,key_c)
-    try:
-        return string_c.decode("UTF-8")
-    finally:
-        free(string_c)

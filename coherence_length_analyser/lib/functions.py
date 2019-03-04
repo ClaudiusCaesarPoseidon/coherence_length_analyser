@@ -214,9 +214,9 @@ def fft_shift_py(array):
     return c_funktionen.fft_shift_py(array)
 
 
-def vigenere(string, key):
-    """encodes the string with vigenère-cipher"""
-    return c_funktionen.vigenere(string, key)
+#def vigenere(string, key):
+#    """encodes the string with vigenère-cipher"""
+#    return c_funktionen.vigenere(string, key)
 
 
 def dft(img):
@@ -454,7 +454,8 @@ def is_float(s):
 
 def is_admin():
     """check if the script was run as an administrator"""
-    is_admin_ = c_funktionen.is_admin_c() != 0
+    is_admin_ = ctypes.windll.shell32.IsUserAnAdmin() != 0
+#    is_admin_ = c_funktionen.is_admin_c() != 0
     return is_admin_
 
 
