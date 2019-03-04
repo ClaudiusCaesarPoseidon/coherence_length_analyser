@@ -67,7 +67,8 @@ cpdef list get_recursive_list(unicode path):
         direc = os.path.join(last_direc, item)
         last_direc = direc
         direc_list.append(direc)
-    del direc_list[0]
+    if os.path.isabs(path) is True:
+        del direc_list[0]
     return direc_list
 #    print(_mkdir)
 
