@@ -43,9 +43,8 @@ cdef extern from "direct.h":
 cpdef glubber(unicode path):
     lst = os.path.normpath(path).split(os.sep)
     if os.path.isabs(path) is True:
-        lst[0] = os.path.join(lst[0], os.sep)
-        lst[0] = os.path.join(lst[0], lst[1])
-        del lst[1]
+        tmp = lst[0]
+        del lst[0]
     print(lst)
 #    print(_mkdir)
 
