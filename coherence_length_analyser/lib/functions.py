@@ -465,7 +465,7 @@ def is_pyinstaller():
     try:
         sys._MEIPASS
         return True
-    except Exception:
+    except AttributeError:
         return False
 
 
