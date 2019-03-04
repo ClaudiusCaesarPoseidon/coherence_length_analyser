@@ -45,7 +45,13 @@ cpdef glubber(unicode path):
     if os.path.isabs(path) is True:
         tmp = lst[0]
         del lst[0]
-    print(lst)
+    direc_list = []
+    last_direc = ""
+    for item in lst:
+        direc = os.path.join(last_direc, item)
+        last_direc = direc
+        direc_list.append(direc)
+    print(lst, direc_list)
 #    print(_mkdir)
 
 
