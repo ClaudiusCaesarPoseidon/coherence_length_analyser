@@ -37,29 +37,44 @@ ctypedef fused my_type:
 cdef extern from "direct.h":
     _mkdir(char*)
 
+
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.cdivision(True)
-cpdef glubber(unicode path):
-    tmp = None
-    lst = os.path.normpath(path).split(os.sep)
-    if os.path.isabs(path) is True:
-        if 'nt' in os.name:
-            tmp = lst[0]
-            tmp = os.path.join(tmp, os.sep)
+cpdef list splitall(unicode path):
+    allparts = []
+    while 1:
+        parts = os.path.split(path)
+        if parts[0] == path:  # sentinel for absolute paths
+            allparts.insert(0, parts[0])
+            break
+        elif parts[1] == path: # sentinel for relative paths
+            allparts.insert(0, parts[1])
+            break
         else:
-            tmp = "/"
-        del lst[0]
+            path = parts[0]
+            allparts.insert(0, parts[1])
+    return allparts
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
+@cython.cdivision(True)
+cpdef list get_recursive_list(unicode path):
+    lst = splitall(path)
     direc_list = []
     last_direc = ""
     for item in lst:
         direc = os.path.join(last_direc, item)
         last_direc = direc
         direc_list.append(direc)
-    if tmp is not None:
-        direc_list = [os.path.join(tmp, x) for x in direc_list]
-    print(lst, direc_list)
+    return direc_list
 #    print(_mkdir)
+
+
+cpdef make_dirs(unicode path):
+    direc_list = get_recursive_list(path)
+    for item in direc_list:
+        print(item)
 
 
 @cython.boundscheck(False)
