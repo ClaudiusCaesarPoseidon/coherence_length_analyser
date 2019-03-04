@@ -37,8 +37,10 @@ ctypedef fused my_type:
 cdef extern from "direct.h":
     _mkdir(char*)
 
-
-cdef glubber():
+@cython.boundscheck(False)
+@cython.wraparound(False)
+@cython.cdivision(True)
+cpdef glubber():
     print(_mkdir)
 
 
