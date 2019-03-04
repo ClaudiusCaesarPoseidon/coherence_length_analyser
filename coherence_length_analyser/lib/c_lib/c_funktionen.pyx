@@ -41,8 +41,7 @@ cdef extern from "direct.h":
 @cython.wraparound(False)
 @cython.cdivision(True)
 cpdef glubber(unicode path):
-    tmp = path.split(os.sep)
-    print(tmp)
+    print(os.path.normpath(path).split(os.sep))
 #    print(_mkdir)
 
 
