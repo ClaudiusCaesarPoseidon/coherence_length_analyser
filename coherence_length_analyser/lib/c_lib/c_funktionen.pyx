@@ -9,11 +9,13 @@ import serial
 import timeit
 import os
 from encodings.aliases import aliases
+import sys
+_names = sys.builtin_module_names
 
 import scipy.ndimage
 import scipy.signal
 import math
-from .resource_path import *
+#from .resource_path import *
 
 from .cython.parallel import prange
 from numpy cimport ndarray
@@ -35,12 +37,20 @@ ctypedef fused my_type:
     double
     long long
 
-#cdef extern from "direct.h":
-#    _mkdir(char*)
+@cython.boundscheck(False)
+@cython.wraparound(False)
+@cython.cdivision(True)
+cpdef unicode resource_path(unicode relative_path):
+    """Get absolute path to resource, works for dev and for PyInstaller"""
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+        if os.path.exists(os.path.abspath(relative_path)) is True:
+            base_path=os.path.abspath(".")
+    except AttributeError:
+        base_path = os.path.abspath(".")
 
-cdef extern from "sys/stat.h":
-    mkdir(char*)
-
+    return os.path.join(base_path, relative_path)
 
 
 cpdef list get_codecs(limiter=None):
@@ -96,17 +106,26 @@ cpdef list get_recursive_list(unicode path):
     if os.path.isabs(path) is True:
         del direc_list[0]
     return direc_list
-#    print(_mkdir)
 
-@cython.boundscheck(False)
 @cython.wraparound(False)
+@cython.boundscheck(False)
 @cython.cdivision(True)
-cpdef make_dirs(unicode path):
+cpdef build_directory(unicode path):
     direc_list = get_recursive_list(path)
     for item in direc_list:
         print(encode(item))
-        mkdir(encode(item))
-
+        #item = direc_list[-1]
+        if 'nt' in _names:
+            from nt import mkdir
+            import ntpath as os_path
+        else:
+            from posix import mkdir
+            import posixpath as os_path
+        try:
+            mkdir(encode(item), mode=0o777)
+        except OSError:
+            if os_path.isdir(item) is False:
+                raise
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
@@ -143,17 +162,17 @@ cpdef double round_c(double number) nogil:
     return <double>(<int>(number + 0.5)) if number >= 0\
       else <double>(<int>(number - 0.5))
 
-@cython.boundscheck(False)
-@cython.wraparound(False)
-@cython.cdivision(True)
-cpdef build_directory(unicode string):
-    return os.makedirs(string, exists=True)
+#@cython.boundscheck(False)
+#@cython.wraparound(False)
+#@cython.cdivision(True)
+#cpdef build_directory(unicode string):
+#    return os.makedirs(string, exists_ok=True)
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.cdivision(True)
 cpdef remove_directory(unicode string):
-    return os.removedirs(string, exists=True)
+    return os.removedirs(string)
 
 
 @cython.boundscheck(False)
