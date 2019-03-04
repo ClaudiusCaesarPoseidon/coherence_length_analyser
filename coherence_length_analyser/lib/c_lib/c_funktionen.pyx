@@ -222,6 +222,8 @@ cpdef ndarray resize(my_type[:,::1] a,double h_param, double w_param):
         dtype = np.longlong
     elif my_type is uint8_t:
         dtype=np.uint8
+    elif my_type is float:
+        dtype = np.float32
     result = np.zeros((heigth, width), dtype=dtype)
     cdef my_type[:,::1] result_view = result
     for j in prange(heigth, nogil=True):
@@ -249,6 +251,8 @@ cpdef ndarray resize_colour(my_type[:,:,::1] a,double h_param, double w_param):
         dtype = np.longlong
     elif my_type is uint8_t:
         dtype=np.uint8
+    elif my_type is float:
+        dtype = np.float32
     result = np.zeros((heigth, width,3), dtype=dtype)
     cdef my_type[:,:,::1] result_view = result
     for j in prange(heigth, nogil=True):
