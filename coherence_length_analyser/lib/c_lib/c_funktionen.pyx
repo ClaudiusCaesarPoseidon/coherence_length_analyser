@@ -8,6 +8,7 @@ import numpy as np
 import serial
 import timeit
 import os
+from encodings.aliases import aliases
 
 import scipy.ndimage
 import scipy.signal
@@ -36,6 +37,28 @@ ctypedef fused my_type:
 
 cdef extern from "direct.h":
     _mkdir(char*)
+
+
+
+cpdef list get_codecs(limiter=None):
+    """gets all available codecs"""
+    if limiter is not None:
+        if isinstance(limiter, str):
+            return [x for x in set(aliases.values()) if limiter in x]
+        else:
+            raise ValueError("Limiter must be a string.")
+    else:
+        return list(set(aliases.values()))
+
+
+cpdef char* encode(unicode string):
+    """encodes the string with the appropriate codec"""
+    codecs = get_codecs('cp')
+    for codec in codecs:
+        try:
+            return string.encode(codec)
+        except UnicodeEncodeError:
+            pass
 
 
 @cython.boundscheck(False)
@@ -76,8 +99,8 @@ cpdef list get_recursive_list(unicode path):
 cpdef make_dirs(unicode path):
     direc_list = get_recursive_list(path)
     for item in direc_list:
-        print(item)
-        _mkdir(item)
+        print(encode(item))
+#        _mkdir(encode(item))
 
 
 @cython.boundscheck(False)

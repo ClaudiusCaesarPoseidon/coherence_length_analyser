@@ -10,7 +10,7 @@ from PIL import Image, ImageChops
 import serial.tools.list_ports
 import serial
 from .c_lib import c_funktionen
-from encodings.aliases import aliases
+#from encodings.aliases import aliases
 from collections import Counter
 from pyueye import ueye
 
@@ -165,25 +165,29 @@ def Exit_Cam(cam, pcImgMem, pid):
     return ret
 
 
-def get_codecs(limiter=None):
-    """gets all available codecs"""
-    if limiter is not None:
-        if isinstance(limiter, str):
-            return [x for x in set(aliases.values()) if limiter in x]
-        else:
-            raise ValueError("Limiter must be a string.")
-    else:
-        return list(set(aliases.values()))
-
+#def get_codecs(limiter=None):
+#    """gets all available codecs"""
+#    if limiter is not None:
+#        if isinstance(limiter, str):
+#            return [x for x in set(aliases.values()) if limiter in x]
+#        else:
+#            raise ValueError("Limiter must be a string.")
+#    else:
+#        return list(set(aliases.values()))
+#
+#
+#def encode(string):
+#    """encodes the string with the appropriate codec"""
+#    codecs = get_codecs('cp')
+#    for codec in codecs:
+#        try:
+#            return string.encode(codec)
+#        except UnicodeEncodeError:
+#            pass
 
 def encode(string):
     """encodes the string with the appropriate codec"""
-    codecs = get_codecs('cp')
-    for codec in codecs:
-        try:
-            return string.encode(codec)
-        except UnicodeEncodeError:
-            pass
+    return c_funktionen.encode(string)
 
 
 def resource_path(path):
