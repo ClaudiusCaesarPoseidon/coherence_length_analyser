@@ -44,7 +44,11 @@ cpdef glubber(unicode path):
     tmp = None
     lst = os.path.normpath(path).split(os.sep)
     if os.path.isabs(path) is True:
-        tmp = lst[0]
+        if 'nt' in os.name:
+            tmp = lst[0]
+            tmp = os.path.join(tmp, os.sep)
+        else:
+            tmp = "/"
         del lst[0]
     direc_list = []
     last_direc = ""
