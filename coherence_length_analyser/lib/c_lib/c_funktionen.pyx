@@ -41,6 +41,7 @@ cdef extern from "direct.h":
 @cython.wraparound(False)
 @cython.cdivision(True)
 cpdef glubber(unicode path):
+    tmp = None
     lst = os.path.normpath(path).split(os.sep)
     if os.path.isabs(path) is True:
         tmp = lst[0]
@@ -51,6 +52,8 @@ cpdef glubber(unicode path):
         direc = os.path.join(last_direc, item)
         last_direc = direc
         direc_list.append(direc)
+    if tmp is not None:
+        direc_list = [os.path.join(tmp, x) for x in direc_list]
     print(lst, direc_list)
 #    print(_mkdir)
 
