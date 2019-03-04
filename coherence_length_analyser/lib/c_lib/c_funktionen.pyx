@@ -21,7 +21,8 @@ cimport cython
 from libcpp cimport bool as bool_t
 from libc.stdint cimport uint32_t,int32_t
 from numpy cimport uint8_t
-from libc.stdlib cimport free
+#from libc.stdlib cimport free
+from libc.stdio cimport FILE, fopen, fprintf, fclose
 
 ctypedef uint32_t DWORD
 ctypedef DWORD HIDS
@@ -35,38 +36,45 @@ ctypedef fused my_type:
 
 # import the external c-functions
 cdef extern from "c_written_functions.c" nogil:
-    void fft_shift(double*,int,int)
+#    void fft_shift(double*,int,int)
     void save_txt_c "save_txt" (char*,int*,int,int)
     void save_txt_double_c "save_txt_double" (char*,double*,int,int)
 #    cpdef int build_directory "build"(char*)
 #    cpdef int remove_directory "remove_c"(char*)
-    cpdef double round_c(double)
+#    cpdef double round_c(double)
 #    cpdef int is_admin_c "is_admin" ()
 #    char* vigenere_c "vigenere"(char*,char*) # cpdef -> memory leak
 
+#!!!!
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.cdivision(True)
-cpdef build_directory(unidoce string):
-    return os.makedirs(string, exists=True)
-
-@cython.boundscheck(False)
-@cython.wraparound(False)
-@cython.cdivision(True)
-cpdef remove_directory(unidoce string):
-    return os.removedirs(string, exists=True)
-
-
-@cython.boundscheck(False)
-@cython.wraparound(False)
-@cython.cdivision(True)
-cpdef int save_txt_int(unicode name,my_type [:,:] array):
+cpdef int save_txt_int(unicode name,my_type [:,::1] array):
     """Saves a 2-D int array to a csv file"""
+    tmp = name.encode("UTF-8")
+    cdef char* name_c = tmp
     cdef int row=array.shape[0]
     cdef int column=array.shape[1]
-    save_txt_c(name.encode("UTF-8"),<int *>&array[0][0],row,column)
+    cdef FILE *fp1
+    fp1 = fopen(name_c, "wb")
+    cdef int i
+#    cdef my_type [:,::1] arr = array
+    for i in range(row*column):
+        if i%column < column-1:
+            fprintf(fp1, "%d%s"%(array[i],","))
+        else:
+            fprintf(fp1, "%d%s"%(array[i],"\n"))
+#        fprintf(fp1, "%d%s",arr[i],
+#                ("," if i%column < column-1 else "\n")
+#                )
+
+    fclose(fp1)
+#    save_txt_c(name.encode("UTF-8"),<int *>&array[0][0],row,column)
     return 1
 
+
+
+#!!!!
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.cdivision(True)
@@ -77,32 +85,55 @@ cpdef int save_txt_double(unicode name,my_type [:,:] array):
     save_txt_double_c(name.encode("UTF-8"),<double *>&array[0][0],row,column)
     return 1
 
-@cython.boundscheck(False)
-@cython.wraparound(False)
-@cython.cdivision(True)
-cpdef ndarray fft_shift_py(double [:,::1] arr):
-    """Swicthes the 1st and 3rd; and the 2nd the 4th quadrant"""
-    cdef int width=arr.shape[1]
-    cdef int heigth=arr.shape[0]
-    cdef double[:,::1] array=arr.copy()
-    fft_shift(<double*>&array[0][0],width,heigth)
-    numpy_array = np.asarray(array)
-    return numpy_array
 
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.cdivision(True)
-cpdef ndarray fft_shift_cy(double [:,::1] arr):
+cpdef double round_c(double number) nogil:
+    return <double>(<int>(number + 0.5)) if number >= 0\
+      else <double>(<int>(number - 0.5))
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
+@cython.cdivision(True)
+cpdef build_directory(unicode string):
+    return os.makedirs(string, exists=True)
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
+@cython.cdivision(True)
+cpdef remove_directory(unicode string):
+    return os.removedirs(string, exists=True)
+
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
+@cython.cdivision(True)
+cpdef ndarray fft_shift(ndarray arr):
     """Swicthes the 1st and 3rd; and the 2nd the 4th quadrant"""
-    cdef int width=arr.shape[1]
-    cdef int heigth=arr.shape[0]
-    cdef double[:,::1] array=arr.copy().reshape(width * height)
-
-#    fft_shift(<double*>&array[0][0],width,heigth)
-
-    numpy_array = np.asarray(array)
-    return numpy_array
+    cdef Py_ssize_t width=arr.shape[1]
+    cdef Py_ssize_t height=arr.shape[0]
+    arra = arr.copy()
+    arra = arra.reshape(width * height)
+    cdef double[::1] array = arra
+    cdef Py_ssize_t r_h = <int>(width/2)
+    cdef Py_ssize_t c_h = <int>(height/2)
+    cdef Py_ssize_t m1to3 = height*c_h+c_h
+    cdef Py_ssize_t m2to4 = height*c_h-c_h
+    cdef Py_ssize_t i
+    cdef double tmp
+    for i in prange(width*height, nogil=True):
+        if i/width < r_h and i%width < c_h:
+            tmp = array[i+m1to3]
+            array[i+m1to3] = array[i];
+            array[i] = tmp;
+        elif i/width < r_h and i%width >= c_h:
+            tmp = array[i+m2to4];
+            array[i+m2to4] = array[i];
+            array[i] = tmp;
+    arra = arra.reshape(height, width)
+    return arra
 
 
 @cython.boundscheck(False)

@@ -211,7 +211,7 @@ def save_txt(name, array):
 
 def fft_shift_py(array):
     """switches 1st and 3rd, and 2nd and 4th quadrant of image"""
-    return c_funktionen.fft_shift_py(array)
+    return c_funktionen.fft_shift(array)
 
 
 #def vigenere(string, key):

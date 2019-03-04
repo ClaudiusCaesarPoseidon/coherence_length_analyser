@@ -2,3 +2,4 @@ include coherence_length_analyser\lib\c_lib\uEye.pxd
 include coherence_length_analyser\lib\c_lib\*.h
 include coherence_length_analyser\lib\c_lib\c_written_functions.c
 include coherence_length_analyser\lib\c_lib\uEye_c.c
+include coherence_length_analyser\modules\modules_camera\motor_extrema.txt

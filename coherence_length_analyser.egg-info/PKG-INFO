@@ -1,0 +1,19 @@
+Metadata-Version: 2.1
+Name: coherence-length-analyser
+Version: 1.0.0
+Summary: Module for master thesis
+Home-page: UNKNOWN
+Author: Thilo Haarmeyer
+Author-email: haarmeyer@out-ev.de
+License: UNKNOWN
+Description: # Example Package
+        
+        This is a simple example package. You can use
+        [Github-flavored Markdown](https://guides.github.com/features/mastering-markdown/)
+        to write your content.
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.6
+Classifier: Programming Language :: Python :: 3.7
+Classifier: License :: OSI Approved :: MIT License
+Description-Content-Type: text/markdown

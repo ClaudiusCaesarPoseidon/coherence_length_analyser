@@ -6,14 +6,14 @@
 #include <string.h>
 #include <math.h>
 
-typedef enum
-{
-    false = 0,
-    true  = 1,
-} bool;
-
-
-typedef bool (*IsUserAnAdminFunc)();
+//typedef enum
+//{
+//    false = 0,
+//    true  = 1,
+//} bool;
+//
+//
+//typedef bool (*IsUserAnAdminFunc)();
 
 
 //size_t strlcpy(char *dest, const char *src, size_t n)
@@ -30,10 +30,10 @@ typedef bool (*IsUserAnAdminFunc)();
 //    return len;
 //}
 
-double round_c(double number)
-{
-	return (number >= 0) ? (double)(int)(number + 0.5) : (double)(int)(number - 0.5);
-}
+//double round_c(double number)
+//{
+//	return (number >= 0) ? (double)(int)(number + 0.5) : (double)(int)(number - 0.5);
+//}
 
 //char* concatenate(char* dest, char* src){
 //	static char desti[100];
@@ -138,30 +138,30 @@ void save_txt_double(char* name,double *array,int row,int column)
 //	}
 //}
 
-void fft_shift(double* arr,int column,int row)
-	{
-	int i;
-	double tmp;
-	int r_h=row/2;
-	int c_h=column/2;
-	int m1to3=row*c_h+c_h;
-	int m2to4=row*c_h-c_h;
-	for(i=0;i<row*column;i++)
-		{
-		if (i/column <r_h && i%column<c_h)
-			{
-			tmp=arr[i+m1to3];
-			arr[i+m1to3]=arr[i];
-			arr[i]=tmp;
-			}
-		else if (i/column <r_h && i%column>=c_h)
-			{
-			tmp=arr[i+m2to4];
-			arr[i+m2to4]=arr[i];
-			arr[i]=tmp;
-			}
-		}
-	}
+//void fft_shift(double* arr,int column,int row)
+//	{
+//	int i;
+//	double tmp;
+//	int r_h=row/2;
+//	int c_h=column/2;
+//	int m1to3=row*c_h+c_h;
+//	int m2to4=row*c_h-c_h;
+//	for(i=0;i<row*column;i++)
+//		{
+//		if (i/column <r_h && i%column<c_h)
+//			{
+//			tmp=arr[i+m1to3];
+//			arr[i+m1to3]=arr[i];
+//			arr[i]=tmp;
+//			}
+//		else if (i/column <r_h && i%column>=c_h)
+//			{
+//			tmp=arr[i+m2to4];
+//			arr[i+m2to4]=arr[i];
+//			arr[i]=tmp;
+//			}
+//		}
+//	}
 
 //int* createArray(int column, int row)
 //{
@@ -261,8 +261,8 @@ void fft_shift(double* arr,int column,int row)
 //}
 
 
-main(){
-int a=is_admin();
-printf("%d\n",a);
-
-}
+//main(){
+//int a=is_admin();
+//printf("%d\n",a);
+//
+//}

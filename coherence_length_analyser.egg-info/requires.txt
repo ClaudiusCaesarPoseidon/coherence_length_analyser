@@ -1,0 +1,13 @@
+opencv-python
+numpy
+pillow
+PySide2
+scipy
+pyserial
+matplotlib
+qimage2ndarray
+pymediainfo
+natsort
+screeninfo
+qtconsole
+pyueye

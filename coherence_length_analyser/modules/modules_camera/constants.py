@@ -1,10 +1,14 @@
 import os
-from ...lib import functions
+#from ...lib import functions
 
-max_back = -2500
-max_for = 2500
+__location__ = os.path.realpath(
+    os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
-path = functions.resource_path(os.path.join("data", "motor_extrema.txt"))
+#max_back = -2500
+#max_for = 2500
+
+#path = functions.resource_path(os.path.join("data", "motor_extrema.txt"))
+path = os.path.join(__location__, "motor_extrema.txt")
 # loads the extremas for the motor from file or creates it with default values
 try:
     with open(path, "r") as file:

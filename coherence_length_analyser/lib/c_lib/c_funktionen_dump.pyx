@@ -297,3 +297,15 @@ cpdef str vigenere(str string,str key):
         return string_c.decode("UTF-8")
     finally:
         free(string_c)
+
+@cython.boundscheck(False)
+@cython.wraparound(False)
+@cython.cdivision(True)
+cpdef ndarray fft_shift_py(double [:,::1] arr):
+    """Swicthes the 1st and 3rd; and the 2nd the 4th quadrant"""
+    cdef int width=arr.shape[1]
+    cdef int height=arr.shape[0]
+    cdef double[:,::1] array=arr.copy()
+    fft_shift(<double*>&array[0][0],width,height)
+    numpy_array = np.asarray(array)
+    return numpy_array
