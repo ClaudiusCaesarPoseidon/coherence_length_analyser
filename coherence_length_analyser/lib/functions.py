@@ -3,6 +3,7 @@ import ctypes
 import math
 import imghdr
 import cv2
+import os
 import numpy as np
 import scipy.signal
 from screeninfo import get_monitors
@@ -263,20 +264,22 @@ def ifft_cv2(dft):
 
 def build_directory(directory):
     """recursivly builds the directory"""
-    try:
-        ret = c_funktionen.build_directory(directory)
-    except TypeError:
-        ret = c_funktionen.build_directory(encode(directory))
-    return ret
+    os.makedirs(directory, exist_ok=True)
+#    try:
+#        ret = c_funktionen.build_directory(directory)
+#    except TypeError:
+#        ret = c_funktionen.build_directory(encode(directory))
+#    return ret
 
 
 def remove_directory(directory):
     """recursivly removes the directory"""
-    try:
-        ret = c_funktionen.remove_directory(directory)
-    except TypeError:
-        ret = c_funktionen.remove_directory(encode(directory))
-    return ret
+    os.removedirs(directory)
+#    try:
+#        ret = c_funktionen.remove_directory(directory)
+#    except TypeError:
+#        ret = c_funktionen.remove_directory(encode(directory))
+#    return ret
 
 
 def is_64():
