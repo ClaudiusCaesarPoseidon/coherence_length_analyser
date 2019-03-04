@@ -35,8 +35,11 @@ ctypedef fused my_type:
     double
     long long
 
-cdef extern from "direct.h":
-    _mkdir(char*)
+#cdef extern from "direct.h":
+#    _mkdir(char*)
+
+cdef extern from "sys/stat.h":
+    mkdir(char*)
 
 
 
@@ -102,7 +105,7 @@ cpdef make_dirs(unicode path):
     direc_list = get_recursive_list(path)
     for item in direc_list:
         print(encode(item))
-        _mkdir(encode(item))
+        mkdir(encode(item))
 
 
 @cython.boundscheck(False)
