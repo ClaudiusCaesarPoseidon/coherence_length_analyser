@@ -11,8 +11,8 @@ def setup_():
         long_description = fh.read()
 
     ext_modules = [
-        Extension('coherence_length_analyser.lib.c_lib.resource_path', [
-                  os.path.join('coherence_length_analyser', 'lib', 'c_lib', 'resource_path.pyx')],),
+#        Extension('coherence_length_analyser.lib.c_lib.resource_path', [
+#                  os.path.join('coherence_length_analyser', 'lib', 'c_lib', 'resource_path.pyx')],),
 #        Extension('coherence_length_analyser.lib.c_lib.defines', [
 #                  os.path.join('coherence_length_analyser', 'lib', 'c_lib', 'defines.pyx')],),
 #        Extension('coherence_length_analyser.lib.c_lib.enum_c_value', [
