@@ -203,10 +203,11 @@ def round_array(array, b=0):
 
 def save_txt(name, array):
     """save 2d array to csv"""
-    if array.dtype == np.double:
-        return c_funktionen.save_txt_double(name, array)
-    else:
-        return c_funktionen.save_txt_int(name, array)
+    return c_funktionen.save_txt(name, array)
+#    if array.dtype == np.double:
+#        return c_funktionen.save_txt_double(name, array)
+#    else:
+#        return c_funktionen.save_txt_int(name, array)
 
 
 def fft_shift_py(array):
@@ -286,15 +287,15 @@ def arreq_in_list(myarr, list_arrays):
             elem, myarr)), False)
 
 
-def unique_array(lst):
-    """returns a list of all arrays in the input list"""\
-        """excluding multiples"""
-    f = []
-    for item in lst:
-        for jtem in item:
-            if arreq_in_list(jtem, f) is False:
-                f.append(jtem)
-    return f
+#def unique_array(lst):
+#    """returns a list of all arrays in the input list"""\
+#        """excluding multiples"""
+#    f = []
+#    for item in lst:
+#        for jtem in item:
+#            if arreq_in_list(jtem, f) is False:
+#                f.append(jtem)
+#    return f
 
 
 def set_list(lst):
@@ -323,19 +324,19 @@ def set_list(lst):
 #    return np.amin(array)
 
 
-def check_dtype(array, dtype):
-    """checks if the type of the array is the dtype"""
-    if isinstance(array, np.ndarray) and array.dtype == dtype\
-            and array.flags.contiguous:
-        return True
-    else:
-        return False
+#def check_dtype(array, dtype):
+#    """checks if the type of the array is the dtype"""
+#    if isinstance(array, np.ndarray) and array.dtype == dtype\
+#            and array.flags.contiguous:
+#        return True
+#    else:
+#        return False
 
 
 def min__(array, percentage):
     """calculates the lower threshold of the array"""
     # rounds the array to 2 decimal places if is it floating number format
-    if check_dtype(array, np.uint8) is False:
+    if np.issubdtype(array.dtype, np.integer) is False:
         array = round_array(array, 2)
 
     # gets a dictionary if the number of occurences of values in the array

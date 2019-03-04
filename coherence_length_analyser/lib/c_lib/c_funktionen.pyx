@@ -34,57 +34,33 @@ ctypedef fused my_type:
     double
     long long
 
-# import the external c-functions
-cdef extern from "c_written_functions.c" nogil:
-#    void fft_shift(double*,int,int)
-    void save_txt_c "save_txt" (char*,int*,int,int)
-    void save_txt_double_c "save_txt_double" (char*,double*,int,int)
-#    cpdef int build_directory "build"(char*)
-#    cpdef int remove_directory "remove_c"(char*)
-#    cpdef double round_c(double)
-#    cpdef int is_admin_c "is_admin" ()
-#    char* vigenere_c "vigenere"(char*,char*) # cpdef -> memory leak
 
-#!!!!
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.cdivision(True)
-cpdef int save_txt_int(unicode name,my_type [:,::1] array):
+cpdef int save_txt(unicode name,ndarray array):
     """Saves a 2-D int array to a csv file"""
-    tmp = name.encode("UTF-8")
-    cdef char* name_c = tmp
+    temp = name.encode("UTF-8")
+    cdef char* name_c = temp
     cdef int row=array.shape[0]
     cdef int column=array.shape[1]
     cdef FILE *fp1
-    fp1 = fopen(name_c, "wb")
-    cdef int i
-#    cdef my_type [:,::1] arr = array
+    fp1 = fopen(name_c, "w")
+    cdef int i, tmp
+    array = array.reshape(row*column)
+    if np.issubdtype(array.dtype, np.integer) is True:
+        base = "%d%s"
+    else:
+        base = "%0.5f%s"
     for i in range(row*column):
-        if i%column < column-1:
-            fprintf(fp1, "%d%s"%(array[i],","))
+        tmp = array[i]
+        if i%column < column - 1:
+            string = (base%(tmp,",")).encode("UTF-8")
         else:
-            fprintf(fp1, "%d%s"%(array[i],"\n"))
-#        fprintf(fp1, "%d%s",arr[i],
-#                ("," if i%column < column-1 else "\n")
-#                )
-
+            string = (base%(tmp,"\n")).encode("UTF-8")
+        fprintf(fp1, string)
     fclose(fp1)
-#    save_txt_c(name.encode("UTF-8"),<int *>&array[0][0],row,column)
     return 1
-
-
-
-#!!!!
-@cython.boundscheck(False)
-@cython.wraparound(False)
-@cython.cdivision(True)
-cpdef int save_txt_double(unicode name,my_type [:,:] array):
-    """Saves a 2-D float array to a csv file"""
-    cdef int row=array.shape[0]
-    cdef int column=array.shape[1]
-    save_txt_double_c(name.encode("UTF-8"),<double *>&array[0][0],row,column)
-    return 1
-
 
 
 @cython.boundscheck(False)
