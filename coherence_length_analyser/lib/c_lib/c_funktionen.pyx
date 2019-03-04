@@ -100,7 +100,7 @@ cpdef make_dirs(unicode path):
     direc_list = get_recursive_list(path)
     for item in direc_list:
         print(encode(item))
-#        _mkdir(encode(item))
+        _mkdir(encode(item))
 
 
 @cython.boundscheck(False)
