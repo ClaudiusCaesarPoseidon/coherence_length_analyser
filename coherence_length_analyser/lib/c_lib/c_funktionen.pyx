@@ -124,7 +124,9 @@ cpdef build_directory(unicode path):
             from posix import mkdir
             import posixpath as os_path
         try:
-            mkdir(encode(item), mode=0o777)
+            string = encode(item)
+            print(string)
+            mkdir(string, mode=0o777)
         except OSError:
             if os_path.isdir(item) is False:
                 raise
