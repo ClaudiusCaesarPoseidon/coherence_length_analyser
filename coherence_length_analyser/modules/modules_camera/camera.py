@@ -110,10 +110,10 @@ class Camera(Widgetb, property_base):
 #        self.tmp = self.Info.toPlainText().split("\n")
 #        self.set_info()
 
-#        self.threadd = Init_Thread(self)
-#        self.threadd.emit1.connect(self.do_connect)
-#        self.threadd.emit2.connect(self.do_not_connect)
-#        self.threadd.start()
+        self.threadd = Init_Thread(self)
+        self.threadd.emit1.connect(self.do_connect)
+        self.threadd.emit2.connect(self.do_not_connect)
+        self.threadd.start()
 
     def save_values(self):
         self.gain_saved = self.gain_current
