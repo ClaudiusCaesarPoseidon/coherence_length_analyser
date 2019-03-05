@@ -511,7 +511,7 @@ class Camera(Widgetb):
 #            self.sleep_time = self.Sleep_Time.value()
             self.stop = False
             if self.number_of_measurements > 0:
-                self.Start.clicked.disconnect()
+#                self.Start.clicked.disconnect()
                 self.Start.clicked.connect(self.start_multiple)
             self.ends = False
             print("Parameter Accepted")
