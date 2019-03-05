@@ -507,8 +507,8 @@ class Camera(Widgetb):
             self.Number_Of_Measurements.setEnabled(False)
             self.Reset_None.setEnabled(False)
             self.number_of_measurements = self.Number_Of_Measurements.value()
-            self.Sleep_Time.setDisabled(True)
-            self.sleep_time = self.Sleep_Time.value()
+#            self.Sleep_Time.setDisabled(True)
+#            self.sleep_time = self.Sleep_Time.value()
             self.stop = False
             if self.number_of_measurements > 0:
                 self.Start.clicked.disconnect()
