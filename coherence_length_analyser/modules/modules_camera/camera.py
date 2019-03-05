@@ -10,6 +10,7 @@ from .camera_init_thread import Init_Thread
 from .property_base import property_base
 import os
 import timeit
+import numpy as np
 from functools import partial
 from PySide2 import QtCore, QtWidgets, QtGui
 from ConvertQt import uic
@@ -24,6 +25,8 @@ class Camera(Widgetb, property_base):
         """load widget from ui file, connect signals to slots and initialise"""\
             """class attribute"""
         super().__init__(parent=parent)
+
+        # variabled for propertys
         self._exposure_current = 0.0
         self._gain_current = 50
         self._exposure_saved = None
@@ -34,6 +37,15 @@ class Camera(Widgetb, property_base):
         self._white_val = None
         self._mean = None
         self._position = None
+        sys_drive = self.parent.sys_drive
+        self.pos_path = os.path.join(
+            sys_drive, "coherence_length_analyser", "position.csv")
+        if os.path.exists(self.pos_path) is False:
+            os.makedirs(os.path.dirname(self.pos_path), exist_ok=True)
+            with open(self.pos_path, "a+") as file:
+                file.write("0,0\n0,0")
+        self.position = np.loadtxt(self.pos_path, delimiter=',')
+
         self.parent = parent
         if self.parent is not None:
             self.direc_path = self.parent.direc_path
