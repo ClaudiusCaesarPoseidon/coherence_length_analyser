@@ -480,7 +480,7 @@ def slepian(width):
 
 
 def gauss(width):
-    """returns a 2-D gauß window function with the specified width"""
+    """returns a 2-D gauss window function with the specified width"""
     x = scipy.signal.gaussian(width, 0.4 * (width - 1) / 2)
     y = scipy.signal.gaussian(width, 0.4 * (width - 1) / 2)
     X, Y = np.meshgrid(x, y)
