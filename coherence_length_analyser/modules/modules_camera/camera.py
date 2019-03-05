@@ -63,6 +63,7 @@ class Camera(Widgetb):
         self.Reset.clicked.connect(self.reset)
         self.Left.clicked.connect(partial(self.move_motor, 'backward'))
         self.Right.clicked.connect(partial(self.move_motor, 'forward'))
+        self.Start.clicked.connect(self.start_multiple)
         self.ends = False
         self.cam_off = True
         self.resized.connect(self.set_Size)
@@ -507,12 +508,7 @@ class Camera(Widgetb):
             self.Number_Of_Measurements.setEnabled(False)
             self.Reset_None.setEnabled(False)
             self.number_of_measurements = self.Number_Of_Measurements.value()
-#            self.Sleep_Time.setDisabled(True)
-#            self.sleep_time = self.Sleep_Time.value()
             self.stop = False
-            if self.number_of_measurements > 0:
-#                self.Start.clicked.disconnect()
-                self.Start.clicked.connect(self.start_multiple)
             self.ends = False
             print("Parameter Accepted")
         else:
@@ -542,7 +538,6 @@ class Camera(Widgetb):
         self.Save.setDisabled(False)
         self.Number_Of_Measurements.setEnabled(True)
         self.Reset_None.setEnabled(True)
-        self.Sleep_Time.setDisabled(False)
 
     def move_motor(self, mode="forward"):
         self.Right.setDisabled(True)
