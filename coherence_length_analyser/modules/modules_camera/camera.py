@@ -24,6 +24,16 @@ class Camera(Widgetb, property_base):
         """load widget from ui file, connect signals to slots and initialise"""\
             """class attribute"""
         super().__init__(parent=parent)
+        self._exposure_current = 0.0
+        self._gain_current = 50
+        self._exposure_saved = None
+        self._gain_saved = None
+        self._angle = 0
+        self._lines = None
+        self._white = None
+        self._white_val = None
+        self._mean = None
+        self._position = None
         self.parent = parent
         if self.parent is not None:
             self.direc_path = self.parent.direc_path
