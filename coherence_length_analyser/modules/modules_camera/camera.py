@@ -10,7 +10,6 @@ from .camera_init_thread import Init_Thread
 from .property_base import property_base
 import os
 import timeit
-import numpy as np
 from functools import partial
 from PySide2 import QtCore, QtWidgets, QtGui
 from ConvertQt import uic

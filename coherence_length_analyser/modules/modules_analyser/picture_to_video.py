@@ -44,7 +44,6 @@ class picture_to_video(Widgetb):
         self.resized.connect(self.set_Size)
         self.Convert_All.clicked.connect(self.start_all)
 
-
     def get_folder(self):
         self.ChooseFolder.setDisabled(True)
         self.Convert_All.setDisabled(True)

@@ -288,7 +288,6 @@ class Analyser(Widgetb):
         elif self.Open_Demo.isEnabled() is False and self.demo is True:
             self.Open_Demo.setEnabled(True)
 
-
     @QtCore.Slot(QtGui.QImage)
     def setImage(self, image):
         self.cv2.setPixmap(QtGui.QPixmap.fromImage(image))
@@ -313,7 +312,7 @@ class Analyser(Widgetb):
                 self.dialog.showMaximized()
             else:
                 self.dialog.resize(int(self.win_width * 3 / 4),
-                                int(self.win_height * 3 / 4))
+                                   int(self.win_height * 3 / 4))
                 self.dialog.show()
         self.dialog.exec_()
         if self.config['windowed'] is True:

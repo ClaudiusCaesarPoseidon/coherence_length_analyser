@@ -42,7 +42,7 @@ class Master(Widget):
         self.fontsize = None
         user_path = os.path.expanduser("~")
         os.makedirs(os.path.join(user_path, "OUT",
-                                         "coherence_length_analyser"), exist_ok=True)
+                                 "coherence_length_analyser"), exist_ok=True)
         self.direc_path = os.path.join(
             user_path, "OUT", "coherence_length_analyser")
         self.sys_drive = os.path.abspath("/usr/bin/local")
@@ -120,7 +120,6 @@ class Master(Widget):
         if self.config['windowed'] is True:
             self.show()
         self.closed()
-
 
     def evaluate(self):
         # shows the window according to the settings

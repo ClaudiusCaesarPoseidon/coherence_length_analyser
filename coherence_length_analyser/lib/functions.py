@@ -194,7 +194,6 @@ def fft_shift_py(array):
     return c_funktionen.fft_shift(array)
 
 
-
 def dft(img):
     """calculates the dft of the image"""
     dft = cv2.dft(np.float32(img), flags=cv2.DFT_COMPLEX_OUTPUT)
@@ -244,7 +243,6 @@ def arreq_in_list(myarr, list_arrays):
             elem, myarr)), False)
 
 
-
 def set_list(lst):
     """returns a list of all tuple in the nested tuple input list"""\
         """excluding multiples"""
@@ -273,13 +271,21 @@ def min__(array, percentage, mode=0):
 
         # calculates the mean of the values, which are no more 'precentage' higher
         # or lower than the most common value
-        mean_ind = np.where(np.logical_and(array >= tmp - tmp * percentage / 100,
-                                           array <= tmp + tmp * percentage / 100))
+        mean_ind = np.where(
+            np.logical_and(
+                array >= tmp -
+                tmp *
+                percentage /
+                100,
+                array <= tmp +
+                tmp *
+                percentage /
+                100))
         mean_array = array[mean_ind]
         return np.mean(mean_array)
     elif mode == 1:
         # calvulates the mean of the first procent and last procent of values
-        procent = int(len(array)/100)
+        procent = int(len(array) / 100)
         if procent > 0:
             tmp = array[0:procent]
             mean1 = np.mean(tmp)
@@ -288,7 +294,6 @@ def min__(array, percentage, mode=0):
             return np.mean([mean1, mean2])
     else:
         return np.amin(array)
-
 
 
 def threshold(array, percentage):
