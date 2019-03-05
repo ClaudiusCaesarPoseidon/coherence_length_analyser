@@ -6,7 +6,7 @@ from .angle_thread import angle_thread
 import cv2
 import qimage2ndarray
 from ...lib import functions
-from ..eigen_widgets import Widgetb
+from ..widgets import Widgetb
 from PySide2 import QtCore, QtWidgets, QtGui, QtTest
 from ConvertQt import uic
 

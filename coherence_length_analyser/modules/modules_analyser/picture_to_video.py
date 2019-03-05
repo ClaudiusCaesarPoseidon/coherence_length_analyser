@@ -1,4 +1,4 @@
-from ..eigen_widgets import Widgetb
+from ..widgets import Widgetb
 from ...lib import functions
 from .choose_action import choose_action
 from .ptv_thread import ptv_thread

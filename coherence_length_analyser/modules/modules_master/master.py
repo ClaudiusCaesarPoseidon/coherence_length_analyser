@@ -10,7 +10,7 @@
 # pylint: disable=R0915
 # pylint: disable=E1101
 from .make_jupyter_widget import make_jupyter_widget
-from ..eigen_widgets import Widget
+from ..widgets import Widget
 from ..turn import Count
 from ..angle import Angle
 from ..camera import Camera

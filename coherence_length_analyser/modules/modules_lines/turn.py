@@ -5,7 +5,7 @@ from .search_folder import search_folder
 from .copy import copy_thread
 from .convert_thread import convert_thread
 from ...lib import functions
-from ..eigen_widgets import Widgetb
+from ..widgets import Widgetb
 from PySide2 import QtCore, QtWidgets, QtGui
 from ConvertQt import uic
 

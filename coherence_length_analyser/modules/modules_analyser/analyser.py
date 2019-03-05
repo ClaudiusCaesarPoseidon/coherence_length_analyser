@@ -1,7 +1,7 @@
 #from .analyse_everything import everything
 #from ..check_fft import Check_FFT
 from ...lib import functions
-from ..eigen_widgets import Stream, Widgetb
+from ..widgets import Stream, Widgetb
 from .section_test import section_test
 from .picture_to_video import picture_to_video
 from .pyplot_cv2 import pyplot_cv2

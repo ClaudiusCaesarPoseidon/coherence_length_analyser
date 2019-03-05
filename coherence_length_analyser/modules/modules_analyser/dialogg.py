@@ -1,6 +1,6 @@
 import os
 from ...lib import functions
-from ..eigen_widgets import Dialog
+from ..widgets import Dialog
 from PySide2 import QtCore, QtWidgets, QtGui
 from ConvertQt import uic
 
