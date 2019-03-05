@@ -16,7 +16,6 @@ class property_base(object):
 
     def __init__(self, parent=None):
         super().__init__()
-        print("Ich werde aufgerufen.")
         # variabled for propertys
         self._exposure_current = 0.0
         self._gain_current = 50
