@@ -100,8 +100,6 @@ class Analyser(Widgetb):
         self.section_thread = section_test(self)
         self.section_thread.changePixmap.connect(self.setImage)
         self.Check_Section_Size.clicked.connect(self.test_section)
-        self.Check_FFT.setVisible(False)
-        self.Start_Everything.setVisible(False)
         self.tmp = False
         self.fist = True
         self.Start_All.clicked.connect(self.s_a)
@@ -395,8 +393,7 @@ class Analyser(Widgetb):
 
     def test_section(self):
         self.tmp = self.Check_Section_Size.isChecked()
-        tmp = self.tmp
-        if tmp is True:
+        if self.tmp is True:
             if self.fist is True:
                 self.section_thread.start()
                 self.fist = False
