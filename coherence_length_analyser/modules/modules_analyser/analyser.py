@@ -301,9 +301,25 @@ class Analyser(Widgetb):
     def convert(self):
         self.dialog = picture_to_video(self)
         self.dialog.setModal(True)
-        self.dialog.setWindowFlags(QtCore.Qt.WindowFlags(QtCore.Qt.Dialog))
-        self.dialog.show()
+
+        if self.config['windowed'] is False:
+            self.dialog.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+            self.dialog.showFullScreen()
+        else:
+            self.hide()
+            if self.config['border'] is False:
+                self.dialog.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+            if self.config['fullscreen'] is True:
+                self.dialog.showMaximized()
+            else:
+                self.dialog.resize(int(self.win_width * 3 / 4),
+                                int(self.win_height * 3 / 4))
+                self.dialog.show()
         self.dialog.exec_()
+        self.raise_()
+        if self.config['windowed'] is True:
+            self.show()
+
         sys.stdout = Stream()
         sys.stdout.newText.connect(self.onUpdateText)
 

@@ -42,31 +42,11 @@ class Master(Widget):
         self.width = int(self.geometry().width())
         self.fontsize = None
         user_path = os.path.expanduser("~")
-#        if os.path.exists(
-#            os.path.join(
-#                user_path,
-#                "OUT",
-#                "coherence_length_analyser")) is False:
         os.makedirs(os.path.join(user_path, "OUT",
                                          "coherence_length_analyser"), exist_ok=True)
         self.direc_path = os.path.join(
             user_path, "OUT", "coherence_length_analyser")
-#        sys_drive = os.path.join(os.getenv("SystemDrive"), os.sep)
         self.sys_drive = os.path.abspath("/usr/bin/local")
-#        if os.path.exists(
-#            os.path.join(
-#                self.sys_drive,
-#                "coherence_length_analyser",
-#                "login.txt")):
-#            shutil.copyfile(
-#                os.path.join(
-#                    self.sys_drive,
-#                    "coherence_length_analyser",
-#                    "login.txt"),
-#                os.path.join(
-#                    user_path,
-#                    "coherence_length_analyser",
-#                    "login.txt"))
         self.win = None
         self.win_width, self.win_height = None, None
         self.ipy = False
