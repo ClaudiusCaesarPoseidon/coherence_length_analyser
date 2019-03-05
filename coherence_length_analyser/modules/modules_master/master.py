@@ -40,7 +40,7 @@ class Master(Widget):
         self.Take_Pictures.clicked.connect(self.camera)
         self.Evaluate.clicked.connect(self.evaluate)
         self.Count.clicked.connect(self.count)
-        self.resized.connect(self.set_Size)
+#        self.resized.connect(self.set_Size)
         self.config = config
         self.height = int(self.geometry().height())
         self.width = int(self.geometry().width())
