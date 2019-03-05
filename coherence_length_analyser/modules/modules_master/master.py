@@ -35,17 +35,16 @@ class Master(Widget):
         # loads the widgets from the ui file
         file = functions.resource_path(os.path.join("ui", "master.ui"))
         uic.loadUi(file, self)
-#        self.Close.clicked.connect(self.close)
-#        self.Analyse_Pictures.clicked.connect(self.analyse)
-#        self.Take_Pictures.clicked.connect(self.camera)
-#        self.Register.setVisible(False)
-#        self.Evaluate.clicked.connect(self.evaluate)
-#        self.Count.clicked.connect(self.count)
-#        self.resized.connect(self.set_Size)
-#        self.config = config
-#        self.height = int(self.geometry().height())
-#        self.width = int(self.geometry().width())
-#        self.fontsize = None
+        self.Close.clicked.connect(self.close)
+        self.Analyse_Pictures.clicked.connect(self.analyse)
+        self.Take_Pictures.clicked.connect(self.camera)
+        self.Evaluate.clicked.connect(self.evaluate)
+        self.Count.clicked.connect(self.count)
+        self.resized.connect(self.set_Size)
+        self.config = config
+        self.height = int(self.geometry().height())
+        self.width = int(self.geometry().width())
+        self.fontsize = None
 #        user_path = os.path.expanduser("~")
 #        if os.path.exists(
 #            os.path.join(
