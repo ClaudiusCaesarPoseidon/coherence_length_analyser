@@ -55,10 +55,10 @@ class Camera(Widgetb, property_base):
         self.config = config
 
         # loads the widgets from the ui file
-#        file = functions.resource_path(os.path.join(
-#            "ui", "interference_pattern_camera.ui"))
-#        file = functions.resource_path(os.path.join("ui", "new_camera.ui"))
-#        uic.loadUi(file, self)
+        file = functions.resource_path(os.path.join(
+            "ui", "interference_pattern_camera.ui"))
+        file = functions.resource_path(os.path.join("ui", "new_camera.ui"))
+        uic.loadUi(file, self)
 #        self.accept_mode = self.Accept_Parameter.isEnabled()
 #        self.thread_run = False
 #        self.Close.clicked.connect(self.close)
