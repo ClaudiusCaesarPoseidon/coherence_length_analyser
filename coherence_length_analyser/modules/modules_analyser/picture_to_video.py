@@ -25,31 +25,6 @@ class picture_to_video(Widgetb):
         self.Close.clicked.connect(self.close)
         self.Start.clicked.connect(self.start)
         self.ChooseFolder.clicked.connect(self.get_folder)
-        self.CustomFunction.setVisible(False)
-        self.Password.setVisible(False)
-        self.Name.setVisible(False)
-        self.Password.setEchoMode(QtWidgets.QLineEdit.Password)
-        index = self.Windows.findText("Custom")
-        self.Windows.removeItem(index)
-        self.user_dict = None
-        sys_drive = self.parent.sys_drive
-        if os.path.exists(
-            os.path.join(
-                sys_drive,
-                "coherence_length_analyser",
-                "login.txt")):
-            if os.stat(
-                os.path.join(
-                    sys_drive,
-                    "coherence_length_analyser",
-                    "login.txt")).st_size > 0:
-                with open(os.path.join(sys_drive, "coherence_length_analyser", "login.txt"), 'r') as f:
-                    self.x = f.read()
-                lis = []
-                self.y = self.x.split("\n")
-                for i in self.y:
-                    lis.append(i.split("\t"))
-                self.user_dict = {k[0]: k[1] for k in lis}
         print("Select a Folder with images in this format: img_0%_total-length_temperature_current_stepwidth.extension")
         print(
             "Then select a window Function for the images (Boxcar is the original image).")
