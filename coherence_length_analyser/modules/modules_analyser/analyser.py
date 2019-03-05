@@ -102,8 +102,8 @@ class Analyser(Widgetb):
         self.Check_Section_Size.clicked.connect(self.test_section)
         self.tmp = False
         self.fist = True
-        self.Start_All.clicked.connect(self.s_a)
-        self.Start_All.setVisible(False)
+#        self.Start_All.clicked.connect(self.s_a)
+#        self.Start_All.setVisible(False)
         self.i = 0
         self.Stop.clicked.connect(self.stop)
         self.Start_Raum.clicked.connect(self.start_raum)
@@ -433,43 +433,43 @@ class Analyser(Widgetb):
             self.Open_Folder.setDisabled(False)
             self.Windows.setDisabled(False)
 
-    def s_a(self):
-        # sets self.i to 0
-        self.i = 0
-        self.start_all()
+#    def s_a(self):
+#        # sets self.i to 0
+#        self.i = 0
+#        self.start_all()
 
-    def end_all(self):
-        self.i += 1
-        self.end()
-        self.th.wait()
-        if self.i >= self.Filter_Switch.count():
-            self.enable()
-        else:
-            self.start_all()
+#    def end_all(self):
+#        self.i += 1
+#        self.end()
+#        self.th.wait()
+#        if self.i >= self.Filter_Switch.count():
+#            self.enable()
+#        else:
+#            self.start_all()
 
-    def start_all(self):
-        self.end_test()
-        self.Filter_Switch.setCurrentIndex(self.i)
-        self.th.start()
-        if self.first is False:
-            self.canvas.figure.delaxes(self.th.ax)
-            self.canvas.figure.clf()
-        self.Start_All.setDisabled(True)
-        self.first = False
-        self.Start.setDisabled(True)
-        self.oPen.setDisabled(True)
-        self.Convert.setDisabled(True)
-        self.Section_Size.setDisabled(True)
-        self.State = self.Open_Demo.isEnabled()
-        self.Open_Demo.setEnabled(False)
-        self.Switch_Demo.setEnabled(False)
-        self.Check_Section_Size.setDisabled(True)
-        self.Check_FFT.setDisabled(True)
-        self.Filter_Switch.setDisabled(True)
-        self.toc = timeit.default_timer()
-        self.Start_Everything.setDisabled(True)
-        self.Windows.setDisabled(True)
-        self.th.finished.connect(self.end_all)
+#    def start_all(self):
+#        self.end_test()
+#        self.Filter_Switch.setCurrentIndex(self.i)
+#        self.th.start()
+#        if self.first is False:
+#            self.canvas.figure.delaxes(self.th.ax)
+#            self.canvas.figure.clf()
+#        self.Start_All.setDisabled(True)
+#        self.first = False
+#        self.Start.setDisabled(True)
+#        self.oPen.setDisabled(True)
+#        self.Convert.setDisabled(True)
+#        self.Section_Size.setDisabled(True)
+#        self.State = self.Open_Demo.isEnabled()
+#        self.Open_Demo.setEnabled(False)
+#        self.Switch_Demo.setEnabled(False)
+#        self.Check_Section_Size.setDisabled(True)
+#        self.Check_FFT.setDisabled(True)
+#        self.Filter_Switch.setDisabled(True)
+#        self.toc = timeit.default_timer()
+#        self.Start_Everything.setDisabled(True)
+#        self.Windows.setDisabled(True)
+#        self.th.finished.connect(self.end_all)
 
     def stop(self):
         self.stopped = True
