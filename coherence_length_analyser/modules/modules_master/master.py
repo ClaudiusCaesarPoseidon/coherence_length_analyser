@@ -74,10 +74,10 @@ class Master(Widget):
         self.win = None
         self.win_width, self.win_height = None, None
         self.ipy = False
-#        if self.config['ipython'] is True:
-#            self.ipy = True
-#            self.jupyter_widget = make_jupyter_widget()
-#            self.gridLayout_4.addWidget(self.jupyter_widget, 0, 1, 1, 1)
+        if self.config['ipython'] is True:
+            self.ipy = True
+            self.jupyter_widget = make_jupyter_widget()
+            self.gridLayout_4.addWidget(self.jupyter_widget, 0, 1, 1, 1)
 
     def set_Size(self):
         # sets the fontsize of the widgets according to window size

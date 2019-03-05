@@ -33,7 +33,6 @@ class picture_to_video(Widgetb):
         print("Mathematical constants must have the prefix math. like math.pi.")
         print("Please enter username and password.")
         self.Convert_All.setVisible(False)
-        self.Switch.setVisible(False)
         self.setFixedSize(self.size())
         self.setWindowFlags(QtCore.Qt.CustomizeWindowHint |
                             QtCore.Qt.WindowTitleHint)
@@ -98,7 +97,6 @@ class picture_to_video(Widgetb):
         self.ChooseFolder.setDisabled(False)
         self.Subtract_Background.setDisabled(False)
         self.Mirror_Image.setDisabled(False)
-        self.Switch.setDisabled(False)
 
     def start(self):
         print("Start")
@@ -112,7 +110,6 @@ class picture_to_video(Widgetb):
         self.Close.setDisabled(True)
         self.Subtract_Background.setDisabled(True)
         self.Mirror_Image.setDisabled(True)
-        self.Switch.setDisabled(True)
 
     def start_all(self):
         self.ChooseFolder.setDisabled(True)
@@ -121,7 +118,6 @@ class picture_to_video(Widgetb):
         self.Close.setDisabled(True)
         self.Subtract_Background.setDisabled(True)
         self.Mirror_Image.setDisabled(True)
-        self.Switch.setDisabled(True)
 
         dname = self.folders[self.i]
         s = search(dname, 'image')
@@ -148,7 +144,6 @@ class picture_to_video(Widgetb):
         self.Subtract_Background.setDisabled(False)
         self.Mirror_Image.setDisabled(False)
         self.Convert_All.setDisabled(False)
-        self.Switch.setDisabled(False)
 
     def set_Size(self):
         # sets the fontsize of the widgets according to window size
