@@ -91,7 +91,7 @@ cpdef list split_path(unicode path):
             break
         else:
             path = parts[0]
-            allparts.insert(0, parts[1])
+            all_parts.insert(0, parts[1])
     return all_parts
 
 @cython.boundscheck(False)
