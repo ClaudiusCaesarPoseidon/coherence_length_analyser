@@ -229,7 +229,6 @@ class Analyser(Widgetb):
         self.Open_Demo.setEnabled(False)
         self.Switch_Demo.setEnabled(False)
         self.Check_Section_Size.setDisabled(True)
-        self.Check_FFT.setDisabled(True)
         self.Filter_Switch.setDisabled(True)
         self.Start_All.setDisabled(True)
         self.Start_Everything.setDisabled(True)
@@ -255,7 +254,6 @@ class Analyser(Widgetb):
         self.Open_Demo.setEnabled(self.State)
         self.Switch_Demo.setEnabled(True)
         self.Check_Section_Size.setEnabled(True)
-        self.Check_FFT.setEnabled(True)
         self.Filter_Switch.setDisabled(False)
         self.Start_All.setDisabled(False)
         self.Start_Everything.setDisabled(False)
@@ -358,7 +356,6 @@ class Analyser(Widgetb):
         self.Open_Demo.setEnabled(False)
         self.Switch_Demo.setEnabled(False)
         self.Check_Section_Size.setDisabled(True)
-        self.Check_FFT.setDisabled(True)
         self.Filter_Switch.setDisabled(True)
         self.Start_All.setDisabled(True)
         self.Start_Everything.setDisabled(True)
@@ -378,7 +375,6 @@ class Analyser(Widgetb):
         self.Open_Demo.setEnabled(self.State)
         self.Switch_Demo.setEnabled(True)
         self.Check_Section_Size.setEnabled(True)
-        self.Check_FFT.setEnabled(True)
         self.Filter_Switch.setDisabled(False)
         self.Start_All.setDisabled(False)
         self.Start_Everything.setDisabled(False)
@@ -401,7 +397,6 @@ class Analyser(Widgetb):
             self.thread_pause = False
             self.Open_Demo.setEnabled(False)
             self.Switch_Demo.setEnabled(False)
-            self.Check_FFT.setDisabled(True)
             self.Start.setDisabled(True)
             self.oPen.setDisabled(True)
             self.Convert.setDisabled(True)
@@ -419,7 +414,6 @@ class Analyser(Widgetb):
             self.section_thread.start()
             self.Open_Demo.setEnabled(True)
             self.Switch_Demo.setEnabled(True)
-            self.Check_FFT.setDisabled(False)
             self.Start.setDisabled(False)
             self.oPen.setDisabled(False)
             self.Convert.setDisabled(False)
@@ -432,44 +426,6 @@ class Analyser(Widgetb):
             self.Start_Raum.setDisabled(False)
             self.Open_Folder.setDisabled(False)
             self.Windows.setDisabled(False)
-
-#    def s_a(self):
-#        # sets self.i to 0
-#        self.i = 0
-#        self.start_all()
-
-#    def end_all(self):
-#        self.i += 1
-#        self.end()
-#        self.th.wait()
-#        if self.i >= self.Filter_Switch.count():
-#            self.enable()
-#        else:
-#            self.start_all()
-
-#    def start_all(self):
-#        self.end_test()
-#        self.Filter_Switch.setCurrentIndex(self.i)
-#        self.th.start()
-#        if self.first is False:
-#            self.canvas.figure.delaxes(self.th.ax)
-#            self.canvas.figure.clf()
-#        self.Start_All.setDisabled(True)
-#        self.first = False
-#        self.Start.setDisabled(True)
-#        self.oPen.setDisabled(True)
-#        self.Convert.setDisabled(True)
-#        self.Section_Size.setDisabled(True)
-#        self.State = self.Open_Demo.isEnabled()
-#        self.Open_Demo.setEnabled(False)
-#        self.Switch_Demo.setEnabled(False)
-#        self.Check_Section_Size.setDisabled(True)
-#        self.Check_FFT.setDisabled(True)
-#        self.Filter_Switch.setDisabled(True)
-#        self.toc = timeit.default_timer()
-#        self.Start_Everything.setDisabled(True)
-#        self.Windows.setDisabled(True)
-#        self.th.finished.connect(self.end_all)
 
     def stop(self):
         self.stopped = True
