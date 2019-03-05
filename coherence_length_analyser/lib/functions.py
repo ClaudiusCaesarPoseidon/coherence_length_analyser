@@ -3,7 +3,6 @@ import ctypes
 import math
 import imghdr
 import cv2
-import os
 import numpy as np
 import scipy.signal
 from screeninfo import get_monitors

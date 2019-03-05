@@ -110,8 +110,7 @@ class ptv_thread(QtCore.QThread):
                 print("Processing image %d" % i)
                 path_output = os.path.abspath(os.path.join(
                     os.path.dirname(img), '..', "output"))
-                if os.path.isdir(path_output) is False:
-                    functions.build_directory(path_output)
+                os.makedirs(path_output, exist_ok=True)
                 if self.parent.Mirror_Image.isChecked() is True:
                     a = cv2.flip(a, 1)
                 if self.parent.Subtract_Background.isChecked() is True:
@@ -134,22 +133,22 @@ class ptv_thread(QtCore.QThread):
                     a)
                 i += 1
             ffmpeg_img_path = os.path.join(path_output, r)
-            if os.path.isdir(
-                os.path.join(
-                    self.parent.parent.direc_path,
-                    "converted_videos")) is False:
-                functions.build_directory(os.path.join(
-                    self.parent.parent.direc_path, "converted_videos"))
-            if os.path.isdir(
-                os.path.join(
-                    self.parent.parent.direc_path,
-                    "converted_videos",
-                    timestamp)) is False:
-                functions.build_directory(
+#            if os.path.isdir(
+#                os.path.join(
+#                    self.parent.parent.direc_path,
+#                    "converted_videos")) is False:
+            os.makedirs(os.path.join(
+                    self.parent.parent.direc_path, "converted_videos"), exist_ok=True)
+#            if os.path.isdir(
+#                os.path.join(
+#                    self.parent.parent.direc_path,
+#                    "converted_videos",
+#                    timestamp)) is False:
+            os.makedirs(
                     os.path.join(
                         self.parent.parent.direc_path,
                         "converted_videos",
-                        timestamp))
+                        timestamp), exist_ok=True)
             ffmpeg_vid_path = os.path.join(
                 self.parent.parent.direc_path,
                 "converted_videos",

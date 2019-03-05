@@ -44,8 +44,8 @@ class turn_thread(QtCore.QThread):
         except FileNotFoundError:
             pass
         # builds the removed directory new
-        if os.path.exists(new_direc) is False:
-            functions.build_directory(new_direc)
+#        if os.path.exists(new_direc) is False:
+        os.makedirs(new_direc, exist_ok=True)
 
         for item, file in zip(self.parent.images, self.parent.angles):
             if self.parent.end_loop is True:
