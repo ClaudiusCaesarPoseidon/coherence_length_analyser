@@ -299,9 +299,9 @@ class Analyser(Widgetb):
         return super().closeEvent(event)
 
     def convert(self):
+        # shows the window according to the settings
         self.dialog = picture_to_video(self)
         self.dialog.setModal(True)
-
         if self.config['windowed'] is False:
             self.dialog.setWindowFlags(QtCore.Qt.FramelessWindowHint)
             self.dialog.showFullScreen()

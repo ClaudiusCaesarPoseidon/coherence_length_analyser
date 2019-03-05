@@ -7,10 +7,10 @@ from .constants import max_for
 from .constants import max_back
 from .move_pos import move_pos
 from .camera_init_thread import Init_Thread
+from .property_base import property_base
 import os
 import timeit
 from functools import partial
-import numpy as np
 from PySide2 import QtCore, QtWidgets, QtGui
 from ConvertQt import uic
 
@@ -19,19 +19,7 @@ inting = functions.inting
 toggle = functions.toggle
 
 
-class Camera(Widgetb):
-    # signals that will be emmited when the value of the propertys changes
-    valueChanged = QtCore.Signal(object)
-    valueChanged_a = QtCore.Signal(object)
-    valueChanged_l = QtCore.Signal(object)
-    valueChanged_ec = QtCore.Signal(object)
-    valueChanged_es = QtCore.Signal(object)
-    valueChanged_gc = QtCore.Signal(object)
-    valueChanged_gs = QtCore.Signal(object)
-    valueChanged_w = QtCore.Signal(object)
-    valueChanged_wv = QtCore.Signal(object)
-    valueChanged_m = QtCore.Signal(object)
-
+class Camera(Widgetb, property_base):
     def __init__(self, parent=None, config=None):
         """load widget from ui file, connect signals to slots and initialise"""\
             """class attribute"""
@@ -43,14 +31,7 @@ class Camera(Widgetb):
             self.direc_path = os.path.join(os.path.expanduser(
                 "~"), "OUT", "coherence_length_analyser")
         self.config = config
-        sys_drive = self.parent.sys_drive
-        self.pos_path = os.path.join(
-            sys_drive, "coherence_length_analyser", "position.csv")
-        if os.path.exists(self.pos_path) is False:
-            os.makedirs(os.path.dirname(self.pos_path), exist_ok=True)
-            with open(self.pos_path, "a+") as file:
-                file.write("0,0\n0,0")
-        self.position = np.loadtxt(self.pos_path, delimiter=',')
+
         # loads the widgets from the ui file
         file = functions.resource_path(os.path.join(
             "ui", "interference_pattern_camera.ui"))
@@ -92,26 +73,16 @@ class Camera(Widgetb):
         self.valueChanged.connect(self.check)
         self.Value = None
         self.Reset_None.clicked.connect(self.reset_lines)
-        self._exposure_current = 0.0
-        self._gain_current = 50
-        self._exposure_saved = None
-        self._gain_saved = None
-        self._angle = 0
-        self._lines = None
-        self._white = None
-        self._white_val = None
-        self._mean = None
         self.stop = False
         self.i = 0
         self.Save.clicked.connect(self.save_values)
-        self.valueChanged_a.connect(self.set_gui_values)
+        self.valueChanged_angle.connect(self.set_gui_values)
         self.valueChanged_l.connect(self.set_gui_values)
-        self.valueChanged_ec.connect(self.set_gui_values)
-        self.valueChanged_es.connect(self.set_gui_values)
-        self.valueChanged_gc.connect(self.set_gui_values)
-        self.valueChanged_gs.connect(self.set_gui_values)
-        self.valueChanged_w.connect(self.set_gui_values)
-        self.valueChanged_m.connect(self.set_gui_values)
+        self.valueChanged_exposure_time_current.connect(self.set_gui_values)
+        self.valueChanged_exposure_time_saved.connect(self.set_gui_values)
+        self.valueChanged_gain_curren.connect(self.set_gui_values)
+        self.valueChanged_gain_saved.connect(self.set_gui_values)
+        self.valueChanged_mean.connect(self.set_gui_values)
         self.threadd = Init_Thread(self)
         self.threadd.emit1.connect(self.do_connect)
         self.threadd.emit2.connect(self.do_not_connect)
@@ -185,96 +156,6 @@ class Camera(Widgetb):
         self.ser = ser
         self.cam = came[0]
         self.ret = came[1]
-
-    @property
-    def exposure_current(self):
-        return self._exposure_current
-
-    @exposure_current.setter
-    def exposure_current(self, value):
-        self._exposure_current = value
-        self.valueChanged_ec.emit(value)
-
-    @property
-    def exposure_saved(self):
-        return self._exposure_saved
-
-    @exposure_saved.setter
-    def exposure_saved(self, value):
-        self._exposure_saved = value
-        self.valueChanged_es.emit(value)
-
-    @property
-    def gain_current(self):
-        return self._gain_current
-
-    @gain_current.setter
-    def gain_current(self, value):
-        self._gain_current = value
-        self.valueChanged_gc.emit(value)
-
-    @property
-    def gain_saved(self):
-        return self._gain_saved
-
-    @gain_saved.setter
-    def gain_saved(self, value):
-        self._gain_saved = value
-        self.valueChanged_gs.emit(value)
-
-    @property
-    def angle(self):
-        return self._angle
-
-    @angle.setter
-    def angle(self, value):
-        self._angle = value
-        self.valueChanged_a.emit(value)
-
-    @property
-    def lines(self):
-        return self._lines
-
-    @lines.setter
-    def lines(self, value):
-        self._lines = value
-        self.valueChanged_l.emit(value)
-
-    @property
-    def position(self):
-        return self._position
-
-    @position.setter
-    def position(self, value):
-        self._position = value
-        self.valueChanged.emit(value)
-
-    @property
-    def white(self):
-        return self._white
-
-    @white.setter
-    def white(self, value):
-        self._white = value
-        self.valueChanged_w.emit(value)
-
-    @property
-    def white_val(self):
-        return self._white_val
-
-    @white_val.setter
-    def white_val(self, value):
-        self._white_val = value
-        self.valueChanged_wv.emit(value)
-
-    @property
-    def mean(self):
-        return self._mean
-
-    @mean.setter
-    def mean(self, value):
-        self._mean = value
-        self.valueChanged_m.emit(value)
 
     def set_Size(self):
         # sets the fontsize of the widgets according to window size
@@ -670,22 +551,6 @@ class Camera(Widgetb):
             self.Accept_Parameter.setEnabled(self.accept_mode)
             self.failed = False
             self.pos = None
-
-#    def start(self):
-#        self.i = 0
-#        self.Right.setDisabled(True)
-#        self.Left.setDisabled(True)
-#        self.Start.setDisabled(True)
-#        self.Reset.setDisabled(True)
-#        self.Stop.setDisabled(False)
-#        self.Not_Measuring = False
-#        self.th = Measure(parent=self)
-#        self.th.do.connect(self.set_info)
-#        self.th.changePixmap.connect(self.setImage)
-#        self.th.finished.connect(self.reset)
-#        self.th.finished.connect(self.reset2)
-#        self.th.finished.connect(self.reset3)
-#        self.th.start()
 
     def closeEvent(self, event):
         self.ends = True

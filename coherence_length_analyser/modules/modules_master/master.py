@@ -18,7 +18,6 @@ from ..analyser import Analyser
 import os
 import sys
 from ...lib import functions
-import shutil
 from PySide2 import QtCore, QtWidgets, QtGui
 from ConvertQt import uic
 

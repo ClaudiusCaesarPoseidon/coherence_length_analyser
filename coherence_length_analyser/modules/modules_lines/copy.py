@@ -42,7 +42,6 @@ class copy_thread(QtCore.QThread):
         except FileNotFoundError:
             pass
         # builds the removed directory new
-#        if os.path.exists(new_direc) is False:
         os.makedirs(new_direc, exist_ok=True)
 
         for item in files:

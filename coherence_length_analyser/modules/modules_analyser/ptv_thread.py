@@ -133,17 +133,8 @@ class ptv_thread(QtCore.QThread):
                     a)
                 i += 1
             ffmpeg_img_path = os.path.join(path_output, r)
-#            if os.path.isdir(
-#                os.path.join(
-#                    self.parent.parent.direc_path,
-#                    "converted_videos")) is False:
             os.makedirs(os.path.join(
                     self.parent.parent.direc_path, "converted_videos"), exist_ok=True)
-#            if os.path.isdir(
-#                os.path.join(
-#                    self.parent.parent.direc_path,
-#                    "converted_videos",
-#                    timestamp)) is False:
             os.makedirs(
                     os.path.join(
                         self.parent.parent.direc_path,

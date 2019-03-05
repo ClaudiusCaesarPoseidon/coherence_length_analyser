@@ -53,10 +53,11 @@ class Measure(QtCore.QThread):
             "_" + self.Current.text()
         self.string_direc = os.path.join(
             self.parent.direc_path, self.direc_name)
-        os.makedirs(self.string_direc, exist_ok=True)
-#        ret1 = functions.build_directory(self.string_direc)
-#        functions.remove_directory(self.string_direc)
-        ret1 = 0
+        try:
+            os.makedirs(self.string_direc, exist_ok=True)
+            ret1 = 0
+        except OSError:
+            ret1 = 1
 
         self.parent.thread_run = True
         if self.parent.failed is True:
