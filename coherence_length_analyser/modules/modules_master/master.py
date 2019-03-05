@@ -36,11 +36,11 @@ class Master(Widget):
         file = functions.resource_path(os.path.join("ui", "master.ui"))
         uic.loadUi(file, self)
         self.Close.clicked.connect(self.close)
-        self.Analyse_Pictures.clicked.connect(self.analyse)
-        self.Take_Pictures.clicked.connect(self.camera)
-        self.Evaluate.clicked.connect(self.evaluate)
-        self.Count.clicked.connect(self.count)
-#        self.resized.connect(self.set_Size)
+#        self.Analyse_Pictures.clicked.connect(self.analyse)
+#        self.Take_Pictures.clicked.connect(self.camera)
+#        self.Evaluate.clicked.connect(self.evaluate)
+#        self.Count.clicked.connect(self.count)
+        self.resized.connect(self.set_Size)
         self.config = config
         self.height = int(self.geometry().height())
         self.width = int(self.geometry().width())
@@ -79,28 +79,28 @@ class Master(Widget):
 #            self.jupyter_widget = make_jupyter_widget()
 #            self.gridLayout_4.addWidget(self.jupyter_widget, 0, 1, 1, 1)
 
-#    def set_Size(self):
-#        # sets the fontsize of the widgets according to window size
-#        self.height = int(self.geometry().height())
-#        self.width = int(self.geometry().width())
-#        fontsize = (self.height / 20)
-#        font_button = QtGui.QFont()
-#        font_button.setPointSize(fontsize)
-#        fontsize = (self.height / 75)
-#        if fontsize <= 8:
-#            fontsize = 8
-#        if fontsize >= 16:
-#            fontsize = 16
-#        font_text = QtGui.QFont()
-#        font_text.setPointSize(fontsize)
-#        for item in self.findChildren(QtWidgets.QPushButton):
-#            item.setFont(font_button)
-#        for item in self.findChildren(QtWidgets.QLineEdit):
-#            item.setFont(font_text)
-#        for item in self.findChildren(QtWidgets.QPlainTextEdit):
-#            item.setFont(font_text)
-#        for item in self.findChildren(QtWidgets.QComboBox):
-#            item.setFont(font_text)
+    def set_Size(self):
+        # sets the fontsize of the widgets according to window size
+        self.height = int(self.geometry().height())
+        self.width = int(self.geometry().width())
+        fontsize = (self.height / 20)
+        font_button = QtGui.QFont()
+        font_button.setPointSize(fontsize)
+        fontsize = (self.height / 75)
+        if fontsize <= 8:
+            fontsize = 8
+        if fontsize >= 16:
+            fontsize = 16
+        font_text = QtGui.QFont()
+        font_text.setPointSize(fontsize)
+        for item in self.findChildren(QtWidgets.QPushButton):
+            item.setFont(font_button)
+        for item in self.findChildren(QtWidgets.QLineEdit):
+            item.setFont(font_text)
+        for item in self.findChildren(QtWidgets.QPlainTextEdit):
+            item.setFont(font_text)
+        for item in self.findChildren(QtWidgets.QComboBox):
+            item.setFont(font_text)
 
 #    def analyse(self):
 #        # shows the window according to the settings
