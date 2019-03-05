@@ -38,12 +38,9 @@ class Master(Widget):
         self.Close.clicked.connect(self.close)
         self.Analyse_Pictures.clicked.connect(self.analyse)
         self.Take_Pictures.clicked.connect(self.camera)
-#        self.Register.clicked.connect(self.register)
         self.Register.setVisible(False)
         self.Evaluate.clicked.connect(self.evaluate)
         self.Count.clicked.connect(self.count)
-#        if is_admin() is True:
-#            self.Register.setVisible(True)
         self.resized.connect(self.set_Size)
         self.config = config
         self.height = int(self.geometry().height())
@@ -78,10 +75,10 @@ class Master(Widget):
         self.win = None
         self.win_width, self.win_height = None, None
         self.ipy = False
-        if self.config['ipython'] is True:
-            self.ipy = True
-            self.jupyter_widget = make_jupyter_widget()
-            self.gridLayout_4.addWidget(self.jupyter_widget, 0, 1, 1, 1)
+#        if self.config['ipython'] is True:
+#            self.ipy = True
+#            self.jupyter_widget = make_jupyter_widget()
+#            self.gridLayout_4.addWidget(self.jupyter_widget, 0, 1, 1, 1)
 
     def set_Size(self):
         # sets the fontsize of the widgets according to window size
@@ -106,27 +103,27 @@ class Master(Widget):
         for item in self.findChildren(QtWidgets.QComboBox):
             item.setFont(font_text)
 
-    def analyse(self):
-        # shows the window according to the settings
-        self.win = Analyser(self, self.config)
-        self.win.setModal(True)
-        if self.config['windowed'] is False:
-            self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-            self.win.showFullScreen()
-        else:
-            self.hide()
-            if self.config['border'] is False:
-                self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-            if self.config['fullscreen'] is True:
-                self.win.showMaximized()
-            else:
-                self.win.resize(int(self.win_width * 3 / 4),
-                                int(self.win_height * 3 / 4))
-                self.win.show()
-        self.win.exec_()
-        if self.config['windowed'] is True:
-            self.show()
-        self.closed()
+#    def analyse(self):
+#        # shows the window according to the settings
+#        self.win = Analyser(self, self.config)
+#        self.win.setModal(True)
+#        if self.config['windowed'] is False:
+#            self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+#            self.win.showFullScreen()
+#        else:
+#            self.hide()
+#            if self.config['border'] is False:
+#                self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+#            if self.config['fullscreen'] is True:
+#                self.win.showMaximized()
+#            else:
+#                self.win.resize(int(self.win_width * 3 / 4),
+#                                int(self.win_height * 3 / 4))
+#                self.win.show()
+#        self.win.exec_()
+#        if self.config['windowed'] is True:
+#            self.show()
+#        self.closed()
 
 #    def camera(self):
 #        # shows the window according to the settings
