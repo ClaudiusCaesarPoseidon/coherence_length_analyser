@@ -29,7 +29,7 @@ class property_base(object):
         self._mean = None
         self._position = None
 
-        sys_drive = self.parent.sys_drive
+        sys_drive = "/usr/bin/local"
         self.pos_path = os.path.join(
             sys_drive, "coherence_length_analyser", "position.csv")
         if os.path.exists(self.pos_path) is False:
