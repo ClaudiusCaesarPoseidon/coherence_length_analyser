@@ -25,17 +25,13 @@ class picture_to_video(Widgetb):
         self.Close.clicked.connect(self.close)
         self.Start.clicked.connect(self.start)
         self.ChooseFolder.clicked.connect(self.get_folder)
-#        self.Windows.currentIndexChanged.connect(self.changed_box)
         self.CustomFunction.setVisible(False)
         self.Password.setVisible(False)
         self.Name.setVisible(False)
-#        self.Password.returnPressed.connect(self.login)
-#        self.Name.returnPressed.connect(self.login)
         self.Password.setEchoMode(QtWidgets.QLineEdit.Password)
         index = self.Windows.findText("Custom")
         self.Windows.removeItem(index)
         self.user_dict = None
-#        sys_drive = os.path.join(os.getenv("SystemDrive"), os.sep)
         sys_drive = self.parent.sys_drive
         if os.path.exists(
             os.path.join(
@@ -61,10 +57,6 @@ class picture_to_video(Widgetb):
         print("Where np.arange(width) are the values for the x-axis.")
         print("Mathematical constants must have the prefix math. like math.pi.")
         print("Please enter username and password.")
-        self.Name.setVisible(True)
-        self.Name.setDisabled(False)
-        self.Password.setVisible(True)
-        self.Password.setDisabled(False)
         self.Convert_All.setVisible(False)
         self.Switch.setVisible(False)
         self.setFixedSize(self.size())
@@ -78,41 +70,6 @@ class picture_to_video(Widgetb):
         self.resized.connect(self.set_Size)
         self.Convert_All.clicked.connect(self.start_all)
 
-#    def login(self):
-#        if self.Name.text() == 'Zeraora':
-#            pword_check = hashlib.md5(functions.vigenere(
-#                "Plasmafäuste", self.Name.text()).encode("UTF-8")).hexdigest()
-#            pword = hashlib.md5(
-#                functions.vigenere(
-#                    self.Password.text(),
-#                    self.Name.text()).encode("UTF-8")).hexdigest()
-#            if pword == pword_check:
-#                self.Windows.addItem("Custom")
-#                self.Password.setVisible(False)
-#                self.Password.setDisabled(True)
-#                self.Name.setVisible(False)
-#                self.Name.setDisabled(True)
-#                print("Custom functions activated")
-#            else:
-#                print("Please enter the right password")
-#        else:
-#            try:
-#                pword_check = self.user_dict[self.Name.text()]
-#                pword = hashlib.md5(
-#                    functions.vigenere(
-#                        self.Password.text(),
-#                        self.Name.text()).encode("UTF-8")).hexdigest()
-#                if pword == pword_check:
-#                    self.Windows.addItem("Custom")
-#                    self.Password.setVisible(False)
-#                    self.Password.setDisabled(True)
-#                    self.Name.setVisible(False)
-#                    self.Name.setDisabled(True)
-#                    print("Custom functions activated")
-#                else:
-#                    print("Please enter the right password")
-#            except (KeyError, TypeError):
-#                print("User not recognised.")
 
     def get_folder(self):
         self.ChooseFolder.setDisabled(True)
@@ -150,14 +107,6 @@ class picture_to_video(Widgetb):
             print("Folder " + self.dname + " selected.")
         else:
             raise OSError("Not Possible, You Hacker!")
-
-#    def changed_box(self):
-#        if self.Windows.currentText() == "Custom":
-#            self.CustomFunction.setDisabled(False)
-#            self.CustomFunction.setVisible(True)
-#        else:
-#            self.CustomFunction.setDisabled(True)
-#            self.CustomFunction.setVisible(False)
 
     def exist(self, value):
         self.dialogg = Dialogg(self)
