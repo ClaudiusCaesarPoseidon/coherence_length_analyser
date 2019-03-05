@@ -17,8 +17,8 @@ class Widgetb(Dialog):
         self.setWindowFlags(self.windowFlags() |
                             QtCore.Qt.WindowSystemMenuHint |
                             QtCore.Qt.WindowMinMaxButtonsHint)
-#        sys.stdout = Stream()
-#        sys.stdout.newText.connect(self.onUpdateText)
+        sys.stdout = Stream()
+        sys.stdout.newText.connect(self.onUpdateText)
 
     def resizeEvent(self, event):
         self.resized.emit()
