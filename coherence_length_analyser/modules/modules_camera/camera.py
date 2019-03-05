@@ -60,8 +60,8 @@ class Camera(Widgetb, property_base):
         file = functions.resource_path(os.path.join("ui", "new_camera.ui"))
         uic.loadUi(file, self)
 #        self.accept_mode = self.Accept_Parameter.isEnabled()
-#        self.thread_run = False
-#        self.Close.clicked.connect(self.close)
+        self.thread_run = False
+        self.Close.clicked.connect(self.close)
 #        self.Accept_Parameter.clicked.connect(self.accept)
 #        self.Reset.clicked.connect(self.reset)
 #        self.Left.clicked.connect(partial(self.move_motor, 'backward'))

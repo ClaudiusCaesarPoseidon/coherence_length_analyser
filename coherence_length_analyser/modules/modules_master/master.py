@@ -102,7 +102,7 @@ class Master(Widget):
     def camera(self):
         # shows the window according to the settings
         self.win = Camera(self, self.config)
-        print(dir(self.win))
+#        print(dir(self.win))
         self.win.setModal(True)
         if self.config['windowed'] is False:
             self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
