@@ -23,7 +23,7 @@ class Camera(Widgetb, property_base):
     def __init__(self, parent=None, config=None):
         """load widget from ui file, connect signals to slots and initialise"""\
             """class attribute"""
-        super().__init__()
+        super().__init__(parent=parent)
         self.parent = parent
         if self.parent is not None:
             self.direc_path = self.parent.direc_path
