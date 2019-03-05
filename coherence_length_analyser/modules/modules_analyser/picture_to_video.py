@@ -35,7 +35,8 @@ class picture_to_video(Widgetb):
         index = self.Windows.findText("Custom")
         self.Windows.removeItem(index)
         self.user_dict = None
-        sys_drive = os.path.join(os.getenv("SystemDrive"), os.sep)
+#        sys_drive = os.path.join(os.getenv("SystemDrive"), os.sep)
+        sys_drive = self.parent.sys_drive
         if os.path.exists(
             os.path.join(
                 sys_drive,

@@ -79,20 +79,21 @@ cpdef char* encode(unicode string):
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.cdivision(True)
-cpdef list split_path(unicode path):
-    all_parts = []
-    while True:
-        parts = os.path.split(path)
-        if parts[0] == path:  # sentinel for absolute paths
-            all_parts.insert(0, parts[0])
-            break
-        elif parts[1] == path: # sentinel for relative paths
-            all_parts.insert(0, parts[1])
-            break
+cpdef list split_path(path):
+    path_list = []
+    if os.path.isabs(path) is True:
+        path = path.split(os.sep)
+        for item in path:
+            path_list.append(item)
+        if os.name == 'nt':
+            path_list[0] = os.path.join(path_list[0], os.sep)
         else:
-            path = parts[0]
-            all_parts.insert(0, parts[1])
-    return all_parts
+            path_list[0] = os.sep
+    else:
+        path = path.split(os.sep)
+        for item in path:
+            path_list.append(item)
+    return path_list
 
 @cython.boundscheck(False)
 @cython.wraparound(False)

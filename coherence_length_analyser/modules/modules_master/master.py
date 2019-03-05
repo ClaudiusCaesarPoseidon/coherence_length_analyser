@@ -61,15 +61,15 @@ class Master(Widget):
         self.direc_path = os.path.join(
             user_path, "OUT", "coherence_length_analyser")
 #        sys_drive = os.path.join(os.getenv("SystemDrive"), os.sep)
-        sys_drive = os.path.abspath("/usr/bin/local")
+        self.sys_drive = os.path.abspath("/usr/bin/local")
         if os.path.exists(
             os.path.join(
-                sys_drive,
+                self.sys_drive,
                 "coherence_length_analyser",
                 "login.txt")):
             shutil.copyfile(
                 os.path.join(
-                    sys_drive,
+                    self.sys_drive,
                     "coherence_length_analyser",
                     "login.txt"),
                 os.path.join(
@@ -152,42 +152,6 @@ class Master(Widget):
             self.show()
         self.closed()
 
-#    def register(self):
-#        self.win = Register(self, self.config)
-#        self.win.setModal(True)
-#        if bool(self.config['windowed']) is False:
-#            self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-#            self.win.showFullScreen()
-#        else:
-#            self.hide()
-#            if bool(self.config['border']) is False:
-#                self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-#            if bool(self.config['fullscreen']) is True:
-#                self.win.showMaximized()
-#            else:
-#                self.win.resize(int(self.win_width * 3 / 4),
-#                                int(self.win_height * 3 / 4))
-#                self.win.show()
-#        self.win.exec_()
-#        if bool(self.config['windowed']) is True:
-#            self.show()
-#        sys_drive = os.path.join(os.getenv("SystemDrive"), os.sep)
-#        user_path = os.path.expanduser("~")
-#        if os.path.exists(
-#            os.path.join(
-#                sys_drive,
-#                "coherence_length_analyser",
-#                "login.txt")):
-#            shutil.copyfile(
-#                os.path.join(
-#                    sys_drive,
-#                    "coherence_length_analyser",
-#                    "login.txt"),
-#                os.path.join(
-#                    user_path,
-#                    "coherence_length_analyser",
-#                    "login.txt"))
-#        self.closed()
 
     def evaluate(self):
         # shows the window according to the settings

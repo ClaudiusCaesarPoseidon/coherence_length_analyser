@@ -42,7 +42,8 @@ class Camera(Widgetb):
             self.direc_path = os.path.join(os.path.expanduser(
                 "~"), "OUT", "coherence_length_analyser")
         self.config = config
-        sys_drive = os.path.join(os.getenv("SystemDrive"), os.sep)
+#        sys_drive = os.path.join(os.getenv("SystemDrive"), os.sep)
+        sys_drive = self.parent.sys_drive
         self.pos_path = os.path.join(
             sys_drive, "coherence_length_analyser", "position.csv")
         if os.path.exists(self.pos_path) is False:
