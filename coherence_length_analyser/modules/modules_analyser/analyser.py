@@ -316,7 +316,6 @@ class Analyser(Widgetb):
                                 int(self.win_height * 3 / 4))
                 self.dialog.show()
         self.dialog.exec_()
-        self.raise_()
         if self.config['windowed'] is True:
             self.show()
 
