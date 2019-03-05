@@ -82,7 +82,7 @@ class Camera(property_base, Widgetb):
         self.valueChanged_lines.connect(self.set_gui_values)
         self.valueChanged_exposure_time_current.connect(self.set_gui_values)
         self.valueChanged_exposure_time_saved.connect(self.set_gui_values)
-        self.valueChanged_gain_curren.connect(self.set_gui_values)
+        self.valueChanged_gain_current.connect(self.set_gui_values)
         self.valueChanged_gain_saved.connect(self.set_gui_values)
         self.valueChanged_mean.connect(self.set_gui_values)
 
