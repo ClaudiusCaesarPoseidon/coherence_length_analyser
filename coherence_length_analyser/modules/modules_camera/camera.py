@@ -55,60 +55,65 @@ class Camera(Widgetb, property_base):
         self.config = config
 
         # loads the widgets from the ui file
-        file = functions.resource_path(os.path.join(
-            "ui", "interference_pattern_camera.ui"))
-        file = functions.resource_path(os.path.join("ui", "new_camera.ui"))
-        uic.loadUi(file, self)
-        self.accept_mode = self.Accept_Parameter.isEnabled()
-        self.thread_run = False
-        self.Close.clicked.connect(self.close)
-        self.Accept_Parameter.clicked.connect(self.accept)
-        self.Reset.clicked.connect(self.reset)
-        self.Left.clicked.connect(partial(self.move_motor, 'backward'))
-        self.Right.clicked.connect(partial(self.move_motor, 'forward'))
-        self.Start.clicked.connect(self.start_multiple)
-        self.ends = False
-        self.cam_off = True
-        self.resized.connect(self.set_Size)
-        self.Cam_Off.clicked.connect(self.Off)
-        self.Cam_On.clicked.connect(self.On)
-        self.bild_width = self.geometry().width()
-        self.height = self.geometry().height()
-        self.fontsize = None
-        self.th = None
-        self.mm = None
-        self.Not_Measuring = True
-        self.Gain_Boost.clicked.connect(self.gain_boost)
-        self.Stop.clicked.connect(self.is_ends)
-        self.check_end = False
-        self.failed = False
-        self.max = False
-        self.m_max = None
-        self.Left_Max.clicked.connect(partial(self.goto, max_back))
-        self.Right_Max.clicked.connect(partial(self.goto, max_for))
-        self.Go_To_Line.setPlaceholderText("%d - %d" % (max_back, max_for))
-        self.Go_To.clicked.connect(self.goto)
-        self.pos = None
-        self.m_p = None
-        self.tmp = self.Info.toPlainText().split("\n")
-        self.set_info()
-        self.valueChanged.connect(self.check)
-        self.Value = None
-        self.Reset_None.clicked.connect(self.reset_lines)
-        self.stop = False
-        self.i = 0
-        self.Save.clicked.connect(self.save_values)
-        self.valueChanged_angle.connect(self.set_gui_values)
-        self.valueChanged_l.connect(self.set_gui_values)
-        self.valueChanged_exposure_time_current.connect(self.set_gui_values)
-        self.valueChanged_exposure_time_saved.connect(self.set_gui_values)
-        self.valueChanged_gain_curren.connect(self.set_gui_values)
-        self.valueChanged_gain_saved.connect(self.set_gui_values)
-        self.valueChanged_mean.connect(self.set_gui_values)
-        self.threadd = Init_Thread(self)
-        self.threadd.emit1.connect(self.do_connect)
-        self.threadd.emit2.connect(self.do_not_connect)
-        self.threadd.start()
+#        file = functions.resource_path(os.path.join(
+#            "ui", "interference_pattern_camera.ui"))
+#        file = functions.resource_path(os.path.join("ui", "new_camera.ui"))
+#        uic.loadUi(file, self)
+#        self.accept_mode = self.Accept_Parameter.isEnabled()
+#        self.thread_run = False
+#        self.Close.clicked.connect(self.close)
+#        self.Accept_Parameter.clicked.connect(self.accept)
+#        self.Reset.clicked.connect(self.reset)
+#        self.Left.clicked.connect(partial(self.move_motor, 'backward'))
+#        self.Right.clicked.connect(partial(self.move_motor, 'forward'))
+#        self.Start.clicked.connect(self.start_multiple)
+#        self.ends = False
+#        self.cam_off = True
+#        self.resized.connect(self.set_Size)
+#        self.Cam_Off.clicked.connect(self.Off)
+#        self.Cam_On.clicked.connect(self.On)
+#        self.bild_width = self.geometry().width()
+#        self.height = self.geometry().height()
+#        self.fontsize = None
+#        self.th = None
+#        self.mm = None
+#        self.Not_Measuring = True
+#        self.Gain_Boost.clicked.connect(self.gain_boost)
+#        self.Stop.clicked.connect(self.is_ends)
+#        self.check_end = False
+#        self.failed = False
+#        self.max = False
+#        self.m_max = None
+#        self.Left_Max.clicked.connect(partial(self.goto, max_back))
+#        self.Right_Max.clicked.connect(partial(self.goto, max_for))
+#        self.Go_To_Line.setPlaceholderText("%d - %d" % (max_back, max_for))
+#        self.Go_To.clicked.connect(self.goto)
+#        self.pos = None
+#        self.m_p = None
+
+#        self.Value = None
+#        self.Reset_None.clicked.connect(self.reset_lines)
+#        self.stop = False
+#        self.i = 0
+#        self.Save.clicked.connect(self.save_values)
+
+#        self.valueChanged.connect(self.check)
+#        self.valueChanged_angle.connect(self.set_gui_values)
+#        self.valueChanged_l.connect(self.set_gui_values)
+#        self.valueChanged_exposure_time_current.connect(self.set_gui_values)
+#        self.valueChanged_exposure_time_saved.connect(self.set_gui_values)
+#        self.valueChanged_gain_curren.connect(self.set_gui_values)
+#        self.valueChanged_gain_saved.connect(self.set_gui_values)
+#        self.valueChanged_mean.connect(self.set_gui_values)
+
+        # set start info text
+#        self.tmp = self.Info.toPlainText().split("\n")
+#        self.set_info()
+
+#        self.threadd = Init_Thread(self)
+#        self.threadd.emit1.connect(self.do_connect)
+#        self.threadd.emit2.connect(self.do_not_connect)
+#        self.threadd.start()
 
     def save_values(self):
         self.gain_saved = self.gain_current
