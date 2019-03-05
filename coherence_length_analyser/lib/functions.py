@@ -11,7 +11,6 @@ from PIL import Image, ImageChops
 import serial.tools.list_ports
 import serial
 from .c_lib import c_funktionen
-#from encodings.aliases import aliases
 from collections import Counter
 from pyueye import ueye
 
@@ -166,26 +165,6 @@ def Exit_Cam(cam, pcImgMem, pid):
     return ret
 
 
-#def get_codecs(limiter=None):
-#    """gets all available codecs"""
-#    if limiter is not None:
-#        if isinstance(limiter, str):
-#            return [x for x in set(aliases.values()) if limiter in x]
-#        else:
-#            raise ValueError("Limiter must be a string.")
-#    else:
-#        return list(set(aliases.values()))
-#
-#
-#def encode(string):
-#    """encodes the string with the appropriate codec"""
-#    codecs = get_codecs('cp')
-#    for codec in codecs:
-#        try:
-#            return string.encode(codec)
-#        except UnicodeEncodeError:
-#            pass
-
 def encode(string):
     """encodes the string with the appropriate codec"""
     return c_funktionen.encode(string)
@@ -209,20 +188,12 @@ def round_array(array, b=0):
 def save_txt(name, array):
     """save 2d array to csv"""
     return c_funktionen.save_txt(name, array)
-#    if array.dtype == np.double:
-#        return c_funktionen.save_txt_double(name, array)
-#    else:
-#        return c_funktionen.save_txt_int(name, array)
 
 
 def fft_shift_py(array):
     """switches 1st and 3rd, and 2nd and 4th quadrant of image"""
     return c_funktionen.fft_shift(array)
 
-
-#def vigenere(string, key):
-#    """encodes the string with vigenère-cipher"""
-#    return c_funktionen.vigenere(string, key)
 
 
 def dft(img):
@@ -262,26 +233,6 @@ def ifft_cv2(dft):
     return img_back
 
 
-def build_directory(directory):
-    """recursivly builds the directory"""
-    os.makedirs(directory, exist_ok=True)
-#    try:
-#        ret = c_funktionen.build_directory(directory)
-#    except TypeError:
-#        ret = c_funktionen.build_directory(encode(directory))
-#    return ret
-
-
-def remove_directory(directory):
-    """recursivly removes the directory"""
-    os.removedirs(directory)
-#    try:
-#        ret = c_funktionen.remove_directory(directory)
-#    except TypeError:
-#        ret = c_funktionen.remove_directory(encode(directory))
-#    return ret
-
-
 def is_64():
     """checks if the programm is run with 64-bit"""
     return True if ctypes.sizeof(ctypes.c_voidp) == 8 else False
@@ -293,16 +244,6 @@ def arreq_in_list(myarr, list_arrays):
         (True for elem in list_arrays if np.array_equal(
             elem, myarr)), False)
 
-
-#def unique_array(lst):
-#    """returns a list of all arrays in the input list"""\
-#        """excluding multiples"""
-#    f = []
-#    for item in lst:
-#        for jtem in item:
-#            if arreq_in_list(jtem, f) is False:
-#                f.append(jtem)
-#    return f
 
 
 def set_list(lst):
@@ -319,44 +260,36 @@ def set_list(lst):
     return lst
 
 
-# def min__(array, length, x):
-#    """calculates the lower threshold of the array"""
-#    procent = int(length / 100)
-#    if procent > 0:
-#        tmp = array[0:procent]
-#        mean1 = np.mean(tmp)
-#        tmp = array[-1 - procent + 1:]
-#        mean2 = np.mean(tmp)
-#        return np.mean([mean1, mean2])
-#    return np.amin(array)
-
-
-#def check_dtype(array, dtype):
-#    """checks if the type of the array is the dtype"""
-#    if isinstance(array, np.ndarray) and array.dtype == dtype\
-#            and array.flags.contiguous:
-#        return True
-#    else:
-#        return False
-
-
-def min__(array, percentage):
+def min__(array, percentage, mode=0):
     """calculates the lower threshold of the array"""
-    # rounds the array to 2 decimal places if is it floating number format
-    if np.issubdtype(array.dtype, np.integer) is False:
-        array = round_array(array, 2)
+    if mode == 0:
+        # rounds the array to 2 decimal places if is it floating number format
+        if np.issubdtype(array.dtype, np.integer) is False:
+            array = round_array(array, 2)
 
-    # gets a dictionary if the number of occurences of values in the array
-    # and the most common value in the array
-    count = Counter(array)
-    tmp = count.most_common()[0][0]
+        # gets a dictionary if the number of occurences of values in the array
+        # and the most common value in the array
+        count = Counter(array)
+        tmp = count.most_common()[0][0]
 
-    # calculates the mean of the values, which are no more 'precentage' higher
-    # or lower than the most common value
-    mean_ind = np.where(np.logical_and(array >= tmp - tmp * percentage / 100,
-                                       array <= tmp + tmp * percentage / 100))
-    mean_array = array[mean_ind]
-    return np.mean(mean_array)
+        # calculates the mean of the values, which are no more 'precentage' higher
+        # or lower than the most common value
+        mean_ind = np.where(np.logical_and(array >= tmp - tmp * percentage / 100,
+                                           array <= tmp + tmp * percentage / 100))
+        mean_array = array[mean_ind]
+        return np.mean(mean_array)
+    elif mode == 1:
+        # calvulates the mean of the first procent and last procent of values
+        procent = int(len(array)/100)
+        if procent > 0:
+            tmp = array[0:procent]
+            mean1 = np.mean(tmp)
+            tmp = array[-1 - procent + 1:]
+            mean2 = np.mean(tmp)
+            return np.mean([mean1, mean2])
+    else:
+        return np.amin(array)
+
 
 
 def threshold(array, percentage):

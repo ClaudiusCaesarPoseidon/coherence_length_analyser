@@ -20,6 +20,7 @@ toggle = functions.toggle
 
 
 class Camera(Widgetb):
+    # signals that will be emmited when the value of the propertys changes
     valueChanged = QtCore.Signal(object)
     valueChanged_a = QtCore.Signal(object)
     valueChanged_l = QtCore.Signal(object)
