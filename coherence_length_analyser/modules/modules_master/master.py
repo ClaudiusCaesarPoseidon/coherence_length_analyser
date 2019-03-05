@@ -77,7 +77,6 @@ class Master(Widget):
                     "login.txt"))
         self.win = None
         self.win_width, self.win_height = None, None
-        self.Console.setVisible(False)
         self.ipy = False
         if self.config['ipython'] is True:
             self.ipy = True
