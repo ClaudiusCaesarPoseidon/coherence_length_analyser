@@ -65,15 +65,11 @@ class Analyser(Widgetb):
         print("To start please choose file with \"Open File\".")
         print("If no file is opened, a demo file will be used.")
         print("The video must be in a square format; e.g. 480x480")
-        self.th = pyplot_cv2(self)
-        self.th.changePixmap.connect(self.setImage)
-        self.th.finished.connect(self.enable)
         self.Start.clicked.connect(self.start)
         self.Close.clicked.connect(self.close)
         self.oPen.clicked.connect(self.Open)
         self.Convert.clicked.connect(self.convert)
         self.resized.connect(self.set_Size)
-#        self.Check_FFT.clicked.connect(self.show_fft)
         if self.Convert.sizeHint().width() >= self.Convert.geometry().width():
             self.Convert.setText("Convert Pictures\nto Video")
         self.Open_Demo.clicked.connect(self.open_demo)
@@ -111,7 +107,6 @@ class Analyser(Widgetb):
         self.Start_All.clicked.connect(self.s_a)
         self.Start_All.setVisible(False)
         self.i = 0
-#        self.Start_Everything.clicked.connect(self.start_everything)
         self.Stop.clicked.connect(self.stop)
         self.Start_Raum.clicked.connect(self.start_raum)
         self.Open_Folder.clicked.connect(self.open_folder)
@@ -191,15 +186,11 @@ class Analyser(Widgetb):
                 self.canvas.figure.delaxes(self.th.ax)
             except (KeyError, AttributeError):
                 pass
-            try:
-                self.canvas.figure.delaxes(self.th2.ax)
-            except (KeyError, AttributeError):
-                pass
             self.canvas.figure.clf()
             self.i = 0
-            self.th2 = pyplot_cv2(self)
-            self.th2.changePixmap.connect(self.setImage)
-            self.th2.finished.connect(self.mid_2_raum)
+            self.th = pyplot_cv2(self)
+            self.th.changePixmap.connect(self.setImage)
+            self.th.finished.connect(self.mid_2_raum)
             self.using = self.Use.isChecked()
             self.mid_raum()
             self.toc = timeit.default_timer()
@@ -225,13 +216,9 @@ class Analyser(Widgetb):
             self.Use.setChecked(True)
         except FileNotFoundError:
             self.Use.setChecked(self.using)
-        self.th2.start()
+        self.th.start()
         try:
             self.canvas.figure.delaxes(self.th.ax)
-        except (KeyError, AttributeError):
-            pass
-        try:
-            self.canvas.figure.delaxes(self.th2.ax)
         except (KeyError, AttributeError):
             pass
         self.canvas.figure.clf()
@@ -311,9 +298,6 @@ class Analyser(Widgetb):
         elif self.Open_Demo.isEnabled() is False and self.demo is True:
             self.Open_Demo.setEnabled(True)
 
-#    def show_fft(self):
-#        Dialog = Check_FFT(parent=self, filename=self.fname, max_=2)
-#        Dialog.exec()
 
     @QtCore.Slot(QtGui.QImage)
     def setImage(self, image):
@@ -358,13 +342,12 @@ class Analyser(Widgetb):
     def start(self):
         self.end_test()
         self.ends = False
+        self.th = pyplot_cv2(self)
+        self.th.changePixmap.connect(self.setImage)
+        self.th.finished.connect(self.enable)
         self.th.start()
         try:
             self.canvas.figure.delaxes(self.th.ax)
-        except (KeyError, AttributeError):
-            pass
-        try:
-            self.canvas.figure.delaxes(self.th2.ax)
         except (KeyError, AttributeError):
             pass
         self.canvas.figure.clf()
@@ -490,11 +473,6 @@ class Analyser(Widgetb):
         self.Start_Everything.setDisabled(True)
         self.Windows.setDisabled(True)
         self.th.finished.connect(self.end_all)
-
-#    def start_everything(self):
-#        self.th_glub = everything(self)
-#        self.th_glub.start()
-#        self.th_glub.finished.connect(self.enable)
 
     def stop(self):
         self.stopped = True
