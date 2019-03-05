@@ -42,7 +42,6 @@ class Camera(Widgetb):
             self.direc_path = os.path.join(os.path.expanduser(
                 "~"), "OUT", "coherence_length_analyser")
         self.config = config
-#        sys_drive = os.path.join(os.getenv("SystemDrive"), os.sep)
         sys_drive = self.parent.sys_drive
         self.pos_path = os.path.join(
             sys_drive, "coherence_length_analyser", "position.csv")
@@ -61,7 +60,6 @@ class Camera(Widgetb):
         self.Close.clicked.connect(self.close)
         self.Accept_Parameter.clicked.connect(self.accept)
         self.Reset.clicked.connect(self.reset)
-#        self.Start.clicked.connect(self.start)
         self.Left.clicked.connect(partial(self.move_motor, 'backward'))
         self.Right.clicked.connect(partial(self.move_motor, 'forward'))
         self.ends = False
@@ -92,10 +90,6 @@ class Camera(Widgetb):
         self.valueChanged.connect(self.check)
         self.Value = None
         self.Reset_None.clicked.connect(self.reset_lines)
-        self.Angle.setVisible(False)
-        self.Angle_Text.setVisible(False)
-        self.Lines.setVisible(False)
-        self.Lines_Text.setVisible(False)
         self._exposure_current = 0.0
         self._gain_current = 50
         self._exposure_saved = None
