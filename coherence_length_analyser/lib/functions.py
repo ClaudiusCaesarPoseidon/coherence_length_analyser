@@ -9,7 +9,7 @@ from screeninfo import get_monitors
 from PIL import Image, ImageChops
 import serial.tools.list_ports
 import serial
-from .c_lib import c_funktionen
+from . import c_funktionen
 from collections import Counter
 from pyueye import ueye
 

@@ -11,18 +11,8 @@ def setup_():
         long_description = fh.read()
 
     ext_modules = [
-#        Extension('coherence_length_analyser.lib.c_lib.resource_path', [
-#                  os.path.join('coherence_length_analyser', 'lib', 'c_lib', 'resource_path.pyx')],),
-#        Extension('coherence_length_analyser.lib.c_lib.defines', [
-#                  os.path.join('coherence_length_analyser', 'lib', 'c_lib', 'defines.pyx')],),
-#        Extension('coherence_length_analyser.lib.c_lib.enum_c_value', [
-#                  os.path.join('coherence_length_analyser', 'lib', 'c_lib', 'enum_c_value.pyx')],),
-#        Extension('coherence_length_analyser.lib.c_lib.uEye', [
-#                  os.path.join('coherence_length_analyser', 'lib', 'c_lib', 'uEye.pyx')],),
-        Extension('coherence_length_analyser.lib.c_lib.c_funktionen', [
-                  os.path.join('coherence_length_analyser', 'lib', 'c_lib', 'c_funktionen.pyx')],),
-#        Extension('coherence_length_analyser.lib.c_lib.idle_switch', [
-#                  os.path.join('coherence_length_analyser', 'lib', 'c_lib', 'idle_switch.pyx')],),
+        Extension('coherence_length_analyser.lib.c_funktionen', [
+                  os.path.join('coherence_length_analyser', 'lib', 'c_funktionen.pyx')],),
     ]
 
     REQUIREMENTS = [
