@@ -11,9 +11,9 @@
 # pylint: disable=E1101
 from .make_jupyter_widget import make_jupyter_widget
 from ..eigen_widgets import Widget
-#from ..turn import Count
-#from ..angle import Angle
-#from ..camera import Camera
+from ..turn import Count
+from ..angle import Angle
+from ..camera import Camera
 from ..analyser import Analyser
 import os
 import sys
@@ -36,10 +36,10 @@ class Master(Widget):
         file = functions.resource_path(os.path.join("ui", "master.ui"))
         uic.loadUi(file, self)
         self.Close.clicked.connect(self.close)
-#        self.Analyse_Pictures.clicked.connect(self.analyse)
-#        self.Take_Pictures.clicked.connect(self.camera)
-#        self.Evaluate.clicked.connect(self.evaluate)
-#        self.Count.clicked.connect(self.count)
+        self.Analyse_Pictures.clicked.connect(self.analyse)
+        self.Take_Pictures.clicked.connect(self.camera)
+        self.Evaluate.clicked.connect(self.evaluate)
+        self.Count.clicked.connect(self.count)
         self.resized.connect(self.set_Size)
         self.config = config
         self.height = int(self.geometry().height())
@@ -102,96 +102,96 @@ class Master(Widget):
         for item in self.findChildren(QtWidgets.QComboBox):
             item.setFont(font_text)
 
-#    def analyse(self):
-#        # shows the window according to the settings
-#        self.win = Analyser(self, self.config)
-#        self.win.setModal(True)
-#        if self.config['windowed'] is False:
-#            self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-#            self.win.showFullScreen()
-#        else:
-#            self.hide()
-#            if self.config['border'] is False:
-#                self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-#            if self.config['fullscreen'] is True:
-#                self.win.showMaximized()
-#            else:
-#                self.win.resize(int(self.win_width * 3 / 4),
-#                                int(self.win_height * 3 / 4))
-#                self.win.show()
-#        self.win.exec_()
-#        if self.config['windowed'] is True:
-#            self.show()
-#        self.closed()
+    def analyse(self):
+        # shows the window according to the settings
+        self.win = Analyser(self, self.config)
+        self.win.setModal(True)
+        if self.config['windowed'] is False:
+            self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+            self.win.showFullScreen()
+        else:
+            self.hide()
+            if self.config['border'] is False:
+                self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+            if self.config['fullscreen'] is True:
+                self.win.showMaximized()
+            else:
+                self.win.resize(int(self.win_width * 3 / 4),
+                                int(self.win_height * 3 / 4))
+                self.win.show()
+        self.win.exec_()
+        if self.config['windowed'] is True:
+            self.show()
+        self.closed()
 
-#    def camera(self):
-#        # shows the window according to the settings
-#        self.win = Camera(self, self.config)
-#        self.win.setModal(True)
-#        if self.config['windowed'] is False:
-#            self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-#            self.win.showFullScreen()
-#        else:
-#            self.hide()
-#            if self.config['border'] is False:
-#                self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-#            if self.config['fullscreen'] is True:
-#                self.win.showMaximized()
-#            else:
-#                self.win.resize(int(self.win_width * 3 / 4),
-#                                int(self.win_height * 3 / 4))
-#                self.win.show()
-#        self.win.exec_()
-#        if self.config['windowed'] is True:
-#            self.show()
-#        self.closed()
-#
-#
-#    def evaluate(self):
-#        # shows the window according to the settings
-#        self.win = Angle(self, self.config)
-#        self.win.setModal(True)
-#        if self.config['windowed'] is False:
-#            self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-#            self.win.showFullScreen()
-#        else:
-#            self.hide()
-#            if self.config['border'] is False:
-#                self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-#            if self.config['fullscreen'] is True:
-#                self.win.showMaximized()
-#            else:
-#                self.win.resize(int(self.win_width * 3 / 4),
-#                                int(self.win_height * 3 / 4))
-#                self.win.show()
-#        self.win.exec_()
-#        if self.config['windowed'] is True:
-#            self.show()
-#
-#    def count(self):
-#        # shows the window according to the settings
-#        self.win = Count(self, self.config)
-#        self.win.setModal(True)
-#        if self.config['windowed'] is False:
-#            self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-#            self.win.showFullScreen()
-#        else:
-#            self.hide()
-#            if self.config['border'] is False:
-#                self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-#            if self.config['fullscreen'] is True:
-#                self.win.showMaximized()
-#            else:
-#                self.win.resize(int(self.win_width * 3 / 4),
-#                                int(self.win_height * 3 / 4))
-#                self.win.show()
-#        self.win.exec_()
-#        if self.config['windowed'] is True:
-#            self.show()
+    def camera(self):
+        # shows the window according to the settings
+        self.win = Camera(self, self.config)
+        self.win.setModal(True)
+        if self.config['windowed'] is False:
+            self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+            self.win.showFullScreen()
+        else:
+            self.hide()
+            if self.config['border'] is False:
+                self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+            if self.config['fullscreen'] is True:
+                self.win.showMaximized()
+            else:
+                self.win.resize(int(self.win_width * 3 / 4),
+                                int(self.win_height * 3 / 4))
+                self.win.show()
+        self.win.exec_()
+        if self.config['windowed'] is True:
+            self.show()
+        self.closed()
+
+
+    def evaluate(self):
+        # shows the window according to the settings
+        self.win = Angle(self, self.config)
+        self.win.setModal(True)
+        if self.config['windowed'] is False:
+            self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+            self.win.showFullScreen()
+        else:
+            self.hide()
+            if self.config['border'] is False:
+                self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+            if self.config['fullscreen'] is True:
+                self.win.showMaximized()
+            else:
+                self.win.resize(int(self.win_width * 3 / 4),
+                                int(self.win_height * 3 / 4))
+                self.win.show()
+        self.win.exec_()
+        if self.config['windowed'] is True:
+            self.show()
+
+    def count(self):
+        # shows the window according to the settings
+        self.win = Count(self, self.config)
+        self.win.setModal(True)
+        if self.config['windowed'] is False:
+            self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+            self.win.showFullScreen()
+        else:
+            self.hide()
+            if self.config['border'] is False:
+                self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+            if self.config['fullscreen'] is True:
+                self.win.showMaximized()
+            else:
+                self.win.resize(int(self.win_width * 3 / 4),
+                                int(self.win_height * 3 / 4))
+                self.win.show()
+        self.win.exec_()
+        if self.config['windowed'] is True:
+            self.show()
 
     def closed(self):
         # ends all threads of the windows and resets stdout
-#        sys.stdout = self.win.default_stdout
-#        sys.stderr = self.win.default_stderr
+        sys.stdout = self.win.default_stdout
+        sys.stderr = self.win.default_stderr
         self.activateWindow()
         self.win.end_()
