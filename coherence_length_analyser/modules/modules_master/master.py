@@ -103,23 +103,23 @@ class Master(Widget):
         # shows the window according to the settings
         self.win = Camera(self, self.config)
         print(dir(self.win))
-#        self.win.setModal(True)
-#        if self.config['windowed'] is False:
-#            self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-#            self.win.showFullScreen()
-#        else:
-#            self.hide()
-#            if self.config['border'] is False:
-#                self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
-#            if self.config['fullscreen'] is True:
-#                self.win.showMaximized()
-#            else:
-#                self.win.resize(int(self.win_width * 3 / 4),
-#                                int(self.win_height * 3 / 4))
-#                self.win.show()
-#        self.win.exec_()
-#        if self.config['windowed'] is True:
-#            self.show()
+        self.win.setModal(True)
+        if self.config['windowed'] is False:
+            self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+            self.win.showFullScreen()
+        else:
+            self.hide()
+            if self.config['border'] is False:
+                self.win.setWindowFlags(QtCore.Qt.FramelessWindowHint)
+            if self.config['fullscreen'] is True:
+                self.win.showMaximized()
+            else:
+                self.win.resize(int(self.win_width * 3 / 4),
+                                int(self.win_height * 3 / 4))
+                self.win.show()
+        self.win.exec_()
+        if self.config['windowed'] is True:
+            self.show()
         self.closed()
 
 
