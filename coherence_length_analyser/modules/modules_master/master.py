@@ -60,7 +60,8 @@ class Master(Widget):
                                          "coherence_length_analyser"))
         self.direc_path = os.path.join(
             user_path, "OUT", "coherence_length_analyser")
-        sys_drive = os.path.join(os.getenv("SystemDrive"), os.sep)
+#        sys_drive = os.path.join(os.getenv("SystemDrive"), os.sep)
+        sys_drive = os.path.abspath("/usr/bin/local")
         if os.path.exists(
             os.path.join(
                 sys_drive,

@@ -79,26 +79,26 @@ cpdef char* encode(unicode string):
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.cdivision(True)
-cpdef list splitall(unicode path):
-    allparts = []
-    while 1:
+cpdef list split_path(unicode path):
+    all_parts = []
+    while True:
         parts = os.path.split(path)
         if parts[0] == path:  # sentinel for absolute paths
-            allparts.insert(0, parts[0])
+            all_parts.insert(0, parts[0])
             break
         elif parts[1] == path: # sentinel for relative paths
-            allparts.insert(0, parts[1])
+            all_parts.insert(0, parts[1])
             break
         else:
             path = parts[0]
             allparts.insert(0, parts[1])
-    return allparts
+    return all_parts
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.cdivision(True)
 cpdef list get_recursive_list(unicode path):
-    lst = splitall(path)
+    lst = split_path(path)
     direc_list = []
     last_direc = ""
     for item in lst:
@@ -109,27 +109,7 @@ cpdef list get_recursive_list(unicode path):
         del direc_list[0]
     return direc_list
 
-#@cython.wraparound(False)
-#@cython.boundscheck(False)
-#@cython.cdivision(True)
-#cpdef build_directory(unicode path):
-#    direc_list = get_recursive_list(path)
-#    for item in direc_list:
-#        print(encode(item))
-#        #item = direc_list[-1]
-#        if 'nt' in _names:
-#            from nt import mkdir
-#            import ntpath as os_path
-#        else:
-#            from posix import mkdir
-#            import posixpath as os_path
-#        try:
-##            string = encode(item)
-##            print(string)
-#            mkdir(item, mode=0o777)
-#        except OSError:
-#            if os_path.isdir(item) is False:
-#                raise
+
 
 @cython.boundscheck(False)
 @cython.wraparound(False)
@@ -165,18 +145,6 @@ cpdef int save_txt(unicode name,ndarray array):
 cpdef double round_c(double number) nogil:
     return <double>(<int>(number + 0.5)) if number >= 0\
       else <double>(<int>(number - 0.5))
-
-#@cython.boundscheck(False)
-#@cython.wraparound(False)
-#@cython.cdivision(True)
-#cpdef build_directory(unicode string):
-#    return os.makedirs(string, exists_ok=True)
-
-#@cython.boundscheck(False)
-#@cython.wraparound(False)
-#@cython.cdivision(True)
-#cpdef remove_directory(unicode string):
-#    return os.removedirs(string)
 
 
 @cython.boundscheck(False)

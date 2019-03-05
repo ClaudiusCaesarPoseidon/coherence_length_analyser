@@ -30,8 +30,8 @@ def main_init():
                 return np.asarray(Image.open(path).convert('RGB'))
 
     # sets the systemdrive enviroment variable in OSs other than windows
-    if 'nt' not in os.name:
-        os.environ['systemdrive'] = "/usr/local"
+#    if 'nt' not in os.name:
+    os.environ['systemdrive'] = "/usr/bin/local"
 
     # sets the QT_API enviroment variable to pyside2 in PyInstaller or to
     # the preferred binding otherwiese
