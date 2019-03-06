@@ -4,39 +4,7 @@
 
 
 
-                        cap = cv2.VideoCapture(path)
-                        ret, frame = cap.read()
-                        c = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                    dft = functions.dft(c)
-                    fft = functions.fft_cv2(dft)
-                    fft = functions.fft_shift_py(
-                        fft.astype(np.float64)).astype(np.uint8)
-                    row, col = fft.shape
-                    h_fft, w_fft = fft.shape
-                    row, col = int(row / 2), int(col / 2)
-                    tmp_value = int(
-                        int(self.parent.Section_Size_Text.text()) / 2)
-                    section = fft[row - tmp_value:row +
-                                  tmp_value, col - tmp_value:col + tmp_value]
-                    h_sec, w_sec = section.shape
-                    for glubber in range(11, 2, -2):  # 11 - 3
 
-                        # find maxima in FFT
-                        points = functions.maxi(
-                            section, max_count, glubber, 0)
-                        if len(points) > 0:
-                            points = tuple(map(tuple, points))
-                            indexes.append(points)
-                            frame_number = i
-                            break
-                    i += 1
-
-            else:
-                self.ind = (self.parent.Spin_Row.value(),
-                            self.parent.Spin_Col.value())
-                print("Skipping Peak Detectcion. Using provided Peak Location.")
-            print("The second run is to determine the theshold value.")
-            print("Please wait.")
             cap = cv2.VideoCapture(path)
             data = []
             x = []
