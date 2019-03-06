@@ -361,6 +361,9 @@ class pyplot_cv2(QtCore.QThread):
                     if tmp_for_filter == 0:
                         filter_string = "None\n"
                         filter_name = "wo"
+                    elif tmp_for_filter == 1:
+                        filter_string = "Moving Average\n"
+                        filter_name = "m-a"
 
 ##################################################################################
                     # save plot as png
