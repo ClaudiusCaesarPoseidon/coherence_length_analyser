@@ -359,29 +359,9 @@ class pyplot_cv2(QtCore.QThread):
                     self.parent.canvas.figure.text(
                         0, 0.20, "filter used:", fontsize=8, zorder=10)
                     if tmp_for_filter == 0:
-                        filter_string = "None"
+                        filter_string = "None\n"
                         filter_name = "wo"
-                    elif tmp_for_filter == 1:
-                        filter_string = "Moving Average"
-                        filter_name = "m-a"
-                    elif tmp_for_filter == 2:
-                        filter_string = "Savitzky–Golay"
-                        filter_name = "s-g"
-                    elif tmp_for_filter == 3:
-                        filter_string = "first moving Averagethen Savitzky–Golay"
-                        filter_name = "m-a_s-g"
-                    elif tmp_for_filter == 4:
-                        filter_string = "Median"
-                        filter_name = "me"
-                    elif tmp_for_filter == 5:
-                        filter_string = "First Medianthen Savitzky–Golay"
-                        filter_name = "me_s-g"
-                    elif tmp_for_filter == 6:
-                        filter_string = "FFT"
-                        filter_name = "fft"
-                    elif tmp_for_filter == 7:
-                        filter_string = "First FFTthen Savitzky–Golay"
-                        filter_name = "fft_s-g"
+
 ##################################################################################
                     # save plot as png
                     self.parent.canvas.figure.text(
