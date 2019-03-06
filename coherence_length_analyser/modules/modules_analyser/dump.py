@@ -3,47 +3,7 @@
 
 
 
-                                # find index with maximum itensity
-                                for index in indexes:
-                                    cap.set(
-                                        cv2.CAP_PROP_POS_FRAMES, frame_number)
-                                    ret, frame = cap.read()
-                                    c = cv2.cvtColor(
-                                        frame, cv2.COLOR_BGR2GRAY)
-                                    dft = functions.dft(c)
-                                    fft = functions.fft_cv2(dft)
-                                    fft = functions.fft_shift_py(
-                                        fft.astype(np.float64)).astype(np.uint8)
-                                    row, col = fft.shape
-                                    h_fft, w_fft = fft.shape
-                                    row, col = int(row / 2), int(col / 2)
-                                    tmp_value = int(
-                                        int(self.parent.Section_Size_Text.text()) / 2)
-                                    section = fft[row -
-                                                  tmp_value:row +
-                                                  tmp_value, col -
-                                                  tmp_value:col +
-                                                  tmp_value]
-                                    tempo = tuple(index)
-                                    ind.append(tempo)
-                                    inde.append(section[tempo])
-                                    try:
-                                        if inde[1] > inde[0]:
-                                            del ind[0]
-                                            del inde[0]
-                                        else:
-                                            del ind[-1]
-                                            del inde[-1]
-                                    except IndexError:
-                                        pass
-                                self.ind = ind[0]
-                            break
-                        else:
-                            frame_number = None
-                            max_count -= 1
-                        if max_count <= 0:
-                            print("No Peak found")
-                            break
+
                         cap = cv2.VideoCapture(path)
                         ret, frame = cap.read()
                         c = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
