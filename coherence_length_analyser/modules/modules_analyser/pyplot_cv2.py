@@ -270,7 +270,7 @@ class pyplot_cv2(QtCore.QThread):
                 # finding the position of the first value above the treshold
                 # and the position of the first value under the treshold and
                 # after the maximum and calculating the distance between
-                # theese points
+                # these points
                 if self.parent.Calculate.isChecked() is True:
                     s = -1
                     e = 0
@@ -285,7 +285,7 @@ class pyplot_cv2(QtCore.QThread):
                     print(
                         "The Coherence Length is:",
                         (e - s) * step_width)
-##################################################################################
+
                      # add the parameters to the plot
                     self.ax.axvline(s * step_width, color="green")
                     self.ax.axvline(e * step_width, color="green")
@@ -382,7 +382,7 @@ class pyplot_cv2(QtCore.QThread):
                     elif tmp_for_filter == 7:
                         filter_string = "First FFT\nthen Savitzky-Golay"
                         filter_name = "fft_s-g"
-##################################################################################
+
                     # save plot as png
                     self.parent.canvas.figure.text(
                         0, 0.16, filter_string, fontsize=8, zorder=10)
