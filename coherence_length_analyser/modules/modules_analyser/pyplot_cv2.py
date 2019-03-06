@@ -186,3 +186,34 @@ class pyplot_cv2(QtCore.QThread):
                         data.append(section[self.ind])
                         x.append(step_width * i)
                         i += 1
+
+            # calculates threshold value
+            if video is True and self.parent.ends is False:
+                data_a = np.array(data)
+                tmp_for_filter = self.parent.Filter_Switch.currentIndex()
+                data_a = choose_filter(data_a, tmp_for_filter, x)
+                threshold, maxi, mini = functions.threshold(
+                    data_a, 7.5)
+                data_threshold = [threshold] * len(data)
+                data_maxi = [maxi] * len(data)
+                data_mini = [mini] * len(data)
+                array_max = np.argmax(data_a)
+
+                cap.set(cv2.CAP_PROP_POS_FRAMES, array_max)
+                ret, frame = cap.read()
+                c = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+                dft = functions.dft(c)
+                fft = functions.fft_cv2(dft)
+                fft = functions.fft_shift_py(
+                    fft.astype(np.float64)).astype(np.uint8)
+                row, col = fft.shape
+                h_fft, w_fft = fft.shape
+                row, col = int(row / 2), int(col / 2)
+                tmp_value = int(
+                    int(self.parent.Section_Size_Text.text()) / 2)
+                section = fft[row - tmp_value:row + tmp_value,
+                              col - tmp_value:col + tmp_value]
+                h_sec, w_sec = section.shape
+                section = cv2.cvtColor(
+                    section, cv2.COLOR_GRAY2BGR)
+                section[self.ind] = [0, 0, 255]
