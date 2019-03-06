@@ -1,7 +1,7 @@
 from PIL import Image
 import numpy as np
 import os
-from .search_folder import search_folder
+#from .search_folder import search_folder
 from .angle_thread import angle_thread
 import cv2
 import qimage2ndarray
@@ -138,7 +138,7 @@ class Angle(Widgetb):
             else:
                 path = os.path.join(
                     self.direc_path, "converted_videos", self.folder)
-            s = search_folder(path, self.Windows.currentText())
+            s = functions.search_folder(path, window=self.Windows.currentText(), mode=0)
             self.files = s.file_names
             if self.files.size == 0:
                 print("There are no measurents in the folder.")

@@ -1,7 +1,7 @@
 import os
 from .count_lines import count_thread
 from .turn_thread import turn_thread
-from .search_folder import search_folder
+#from .search_folder import search_folder
 from .copy import copy_thread
 from .convert_thread import convert_thread
 from ...lib import functions
@@ -100,7 +100,7 @@ class Count(Widgetb):
         else:
             path = os.path.join(
                 self.direc_path, "converted_videos", self.folder)
-        self.s = search_folder(path)
+        self.s = functions.search_folder(path, mode=1, window="Boxcar")
         self.files = self.s.file_names[0]
         if self.files.size == 0:
             print("There are no measurents in the folder.")

@@ -1,4 +1,5 @@
 import sys
+import os
 import ctypes
 import math
 import imghdr
@@ -539,3 +540,58 @@ def isascii(string):
             return True
         except UnicodeEncodeError:
             return False
+
+
+class search_folder:
+    """gets all relevent images in folder"""
+
+    def __init__(self, path, window="Boxcar", mode=0):
+        self.path = path
+        self.tmp = next(os.walk(path))[1]
+        self.folders = [os.path.abspath(
+            os.path.join(path, x)) for x in self.tmp]
+        self.files = []
+        for item in self.folders:
+            tmp = os.listdir(item)
+            for item2 in tmp:
+                if window not in item2:
+                    continue
+                temp = item2.split("_")
+                if mode == 0:
+                    temp = temp[-1].split(".")
+                    if temp[0].isdigit() is True and temp[-1].endswith("png"):
+                        self.files.append(os.path.join(item, item2))
+                elif mode == 1:
+                    if temp[-1].endswith("alignment2.png"):
+                        self.files.append(os.path.join(item, item2))
+                else:
+                    raise RuntimeError("Mode not recognised")
+        self.tmp = [x for x in self.tmp if substring_in_list(x, self.files)]
+        self.file_names = np.array((self.files, self.tmp))
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
