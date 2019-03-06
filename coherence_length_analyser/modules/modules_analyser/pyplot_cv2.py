@@ -296,6 +296,28 @@ class pyplot_cv2(QtCore.QThread):
                     self.parent.canvas.figure.text(
                         0, 0.91, "%0.2f" %
                         (s * step_width), fontsize=8, zorder=10)
+                    self.parent.canvas.figure.text(
+                        0, 0.89, "Last Occurence:", fontsize=8, zorder=10)
+                    self.parent.canvas.figure.text(
+                        0, 0.86, "%0.2f" %
+                        (e * step_width), fontsize=8, zorder=10)
+                    self.parent.canvas.figure.text(
+                        0, 0.83, "Coherence Length:", fontsize=8, zorder=10)
+                    self.parent.canvas.figure.text(0, 0.81, "%0.2f" % (
+                        (e - s) * step_width), fontsize=8, zorder=10)
+                    self.parent.canvas.figure.text(
+                        0, 0.78, "Maximum Value:", fontsize=8, zorder=10)
+                    self.parent.canvas.figure.text(
+                        0, 0.75, "%0.2f" % maxi, fontsize=8, zorder=10)
+                    self.parent.canvas.figure.text(
+                        0, 0.72, "Minumum Value:", fontsize=8, zorder=10)
+                    self.parent.canvas.figure.text(
+                        0, 0.69, "%0.2f" % mini, fontsize=8, zorder=10)
+                    self.parent.canvas.figure.text(
+                        0, 0.66, "Threshold Value:", fontsize=8, zorder=10)
+                    self.parent.canvas.figure.text(
+                        0, 0.63, "%0.2f" %
+                        threshold, fontsize=8, zorder=10)
 ##################################################################################
                     # save plot as png
                     self.parent.canvas.figure.text(
