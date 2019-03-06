@@ -6,29 +6,29 @@
                     self.parent.canvas.figure.text(
                         0, 0.94, "First Occurence:", fontsize=8, zorder=10)
                     self.parent.canvas.figure.text(
-                        0, 0.91, "0.2f"
+                        0, 0.91, "%0.2f" %
                         (s * step_width), fontsize=8, zorder=10)
                     self.parent.canvas.figure.text(
                         0, 0.89, "Last Occurence:", fontsize=8, zorder=10)
                     self.parent.canvas.figure.text(
-                        0, 0.86, "0.2f"
+                        0, 0.86, "%0.2f" %
                         (e * step_width), fontsize=8, zorder=10)
                     self.parent.canvas.figure.text(
                         0, 0.83, "Coherence Length:", fontsize=8, zorder=10)
-                    self.parent.canvas.figure.text(0, 0.81, "0.2f"  (
+                    self.parent.canvas.figure.text(0, 0.81, "%0.2f" % (
                         (e - s) * step_width), fontsize=8, zorder=10)
                     self.parent.canvas.figure.text(
                         0, 0.78, "Maximum Value:", fontsize=8, zorder=10)
                     self.parent.canvas.figure.text(
-                        0, 0.75, "0.2f"  maxi, fontsize=8, zorder=10)
+                        0, 0.75, "%0.2f" % maxi, fontsize=8, zorder=10)
                     self.parent.canvas.figure.text(
                         0, 0.72, "Minumum Value:", fontsize=8, zorder=10)
                     self.parent.canvas.figure.text(
-                        0, 0.69, "0.2f"  mini, fontsize=8, zorder=10)
+                        0, 0.69, "%0.2f" % mini, fontsize=8, zorder=10)
                     self.parent.canvas.figure.text(
                         0, 0.66, "Threshold Value:", fontsize=8, zorder=10)
                     self.parent.canvas.figure.text(
-                        0, 0.63, "0.2f"
+                        0, 0.63, "%0.2f" %
                         threshold, fontsize=8, zorder=10)
                     current = float(os.path.splitext(
                         os.path.basename(path))[0].split("_")[-2])
@@ -49,22 +49,22 @@
                     self.parent.canvas.figure.text(
                         0, 0.47, "Temperature:", fontsize=8, zorder=10)
                     self.parent.canvas.figure.text(
-                        0, 0.44, "0.2f"
+                        0, 0.44, "%0.2f" %
                         temperature, fontsize=8, zorder=10)
                     self.parent.canvas.figure.text(
                         0, 0.41, "Current:", fontsize=8, zorder=10)
                     self.parent.canvas.figure.text(
-                        0, 0.38, "0.2f"
+                        0, 0.38, "%0.2f" %
                         current, fontsize=8, zorder=10)
                     self.parent.canvas.figure.text(
                         0, 0.35, "Step_Width:", fontsize=8, zorder=10)
                     self.parent.canvas.figure.text(
-                        0, 0.32, "0.2f"
+                        0, 0.32, "%0.2f" %
                         step_width, fontsize=8, zorder=10)
                     self.parent.canvas.figure.text(
                         0, 0.29, "Total Length:", fontsize=8, zorder=10)
                     self.parent.canvas.figure.text(
-                        0, 0.26, "0.2f"
+                        0, 0.26, "%0.2f" %
                         max_width, fontsize=8, zorder=10)
                     self.parent.canvas.figure.text(
                         0, 0.23, "Mode:" + mode, fontsize=8, zorder=10)
