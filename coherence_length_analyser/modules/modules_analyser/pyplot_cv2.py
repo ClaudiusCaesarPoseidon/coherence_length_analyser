@@ -289,7 +289,13 @@ class pyplot_cv2(QtCore.QThread):
                      # add the parameters to the plot
                     self.ax.axvline(s * step_width, color="green")
                     self.ax.axvline(e * step_width, color="green")
-
+                    self.parent.canvas.figure.text(
+                        0.0, 0.97, "Results:", fontsize=8, zorder=10)
+                    self.parent.canvas.figure.text(
+                        0, 0.94, "First Occurence:", fontsize=8, zorder=10)
+                    self.parent.canvas.figure.text(
+                        0, 0.91, "%0.2f" %
+                        (s * step_width), fontsize=8, zorder=10)
 ##################################################################################
                     # save plot as png
                     self.parent.canvas.figure.text(
