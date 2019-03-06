@@ -318,7 +318,20 @@ class pyplot_cv2(QtCore.QThread):
                     self.parent.canvas.figure.text(
                         0, 0.63, "%0.2f" %
                         threshold, fontsize=8, zorder=10)
-
+                    current = float(os.path.splitext(
+                        os.path.basename(path))[0].split("_")[-2])
+                    temperature = float(os.path.splitext(
+                        os.path.basename(path))[0].split("_")[-3])
+                    max_width = float(os.path.splitext(
+                        os.path.basename(path))[0].split("_")[-4])
+                    temp = os.path.splitext(os.path.basename(path))[
+                        0].split("_")[0][-1]
+                    if temp == "f":
+                        mode = "forward"
+                    elif temp == "b":
+                        mode = "backward"
+                    else:
+                        mode = "No mode specified"
                     self.parent.canvas.figure.text(
                         0, 0.50, "Parameters:", fontsize=8, zorder=10)
                     self.parent.canvas.figure.text(
