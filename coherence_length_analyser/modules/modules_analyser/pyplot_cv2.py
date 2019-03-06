@@ -52,3 +52,15 @@ class pyplot_cv2(QtCore.QThread):
                 print("Please choose a correct File.")
         else:
             print("The File does not exist.")
+        if video is True and self.parent.ends is False:
+            # check if Use is toggled
+            if self.parent.Use.isChecked() is False:
+                print(
+                    "The first run is to determine the location of the peak in the fft.")
+                print(
+                    "The time this will take depends on the number of frames and the visibility of the peak.")
+                print("Please wait.")
+                cap = cv2.VideoCapture(path)
+                frame_number = None
+                max_count = 190  # 255 204 216 190
+                i = 0
