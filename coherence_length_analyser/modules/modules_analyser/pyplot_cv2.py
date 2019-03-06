@@ -155,3 +155,34 @@ class pyplot_cv2(QtCore.QThread):
                 print("Skipping Peak Detectcion. Using provided Peak Location.")
             print("The second run is to determine the theshold value.")
             print("Please wait.")
+            cap = cv2.VideoCapture(path)
+            data = []
+            x = []
+            i = 0
+            if video is True and self.parent.ends is False:
+
+                # save the intensity values of the FFT at the location
+                # of the peak and the relative motor position in lists
+                while True:
+                    if self.parent.ends is True:
+                        break
+                    ret, frame = cap.read()
+                    if ret is False:
+                        break
+                    else:
+                        c = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+                        dft = functions.dft(c)
+                        fft = functions.fft_cv2(dft)
+                        fft = functions.fft_shift_py(
+                            fft.astype(np.float64)).astype(np.uint8)
+                        row, col = fft.shape
+                        h_fft, w_fft = fft.shape
+                        row, col = int(row / 2), int(col / 2)
+                        tmp_value = int(
+                            int(self.parent.Section_Size_Text.text()) / 2)
+                        section = fft[row - tmp_value:row + tmp_value,
+                                      col - tmp_value:col + tmp_value]
+                        h_sec, w_sec = section.shape
+                        data.append(section[self.ind])
+                        x.append(step_width * i)
+                        i += 1
