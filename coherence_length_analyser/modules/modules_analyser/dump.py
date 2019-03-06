@@ -1,26 +1,6 @@
 
 
-    def run(self):
-        indexes = []
-        self.ind = None
-        self.ax = self.parent.canvas.figure.add_subplot(111)
-        path = self.parent.fname
-        file_name = os.path.splitext(os.path.basename(path))[0]
-        file_direc = os.path.dirname(path)
-        step_width = float(os.path.splitext(
-            os.path.basename(path).split("_")[-1])[0]) * 0.11
-        video = False
-        # check if file is video
-        if os.path.exists(path):
-            fileInfo = MediaInfo.parse(path)
-            for track in fileInfo.tracks:
-                if track.track_type == "Video":
-                    video = True
-                    break
-            else:
-                print("Please choose a correct File.")
-        else:
-            print("The File does not exist.")
+
         if video is True and self.parent.ends is False:
             # check if Use is toggled
             if self.parent.Use.isChecked() is False:
