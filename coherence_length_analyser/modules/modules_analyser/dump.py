@@ -1,11 +1,7 @@
 
 
-                    elif tmp_for_filter == 1:
-                        filter_string = "Moving Average\n"
-                        filter_name = "m-a"
-                    elif tmp_for_filter == 2:
-                        filter_string = "Savitzky–Golay\n"
-                        filter_name = "s-g"
+
+
                     elif tmp_for_filter == 3:
                         filter_string = "first moving Average\nthen Savitzky–Golay"
                         filter_name = "m-a_s-g"

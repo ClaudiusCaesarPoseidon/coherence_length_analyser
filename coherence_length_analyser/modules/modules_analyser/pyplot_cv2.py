@@ -364,6 +364,9 @@ class pyplot_cv2(QtCore.QThread):
                     elif tmp_for_filter == 1:
                         filter_string = "Moving Average\n"
                         filter_name = "m-a"
+                    elif tmp_for_filter == 2:
+                        filter_string = "Savitzky–Golay\n"
+                        filter_name = "s-g"
 
 ##################################################################################
                     # save plot as png
