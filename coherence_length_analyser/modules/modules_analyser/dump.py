@@ -2,23 +2,6 @@
 
 
 
-                while True:
-                    if self.parent.ends is True:
-                        break
-                    ret, frame = cap.read()
-                    if ret is True:
-                        c = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-                    else:
-                        i = 0
-                        print("Checking Threshold: ", max_count)
-                        indexes = functions.set_list(indexes)
-                        self.indexes = indexes
-                        if len(indexes) > 0:
-                            if len(indexes) == 0:
-                                self.ind = tuple((indexes[0])[0])
-                            else:
-                                ind = []
-                                inde = []
 
                                 # find index with maximum itensity
                                 for index in indexes:
