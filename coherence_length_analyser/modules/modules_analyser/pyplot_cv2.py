@@ -229,3 +229,22 @@ class pyplot_cv2(QtCore.QThread):
                             "_alignment_%d.png" %
                             tmp_value),
                         section)
+
+                # display FFT and image at maximum intensity
+                section = functions.resize(
+                    section, h_fft / h_sec, w_fft / w_sec)
+                c = cv2.cvtColor(
+                    c, cv2.COLOR_GRAY2BGR)
+                fft = cv2.cvtColor(
+                    fft, cv2.COLOR_GRAY2BGR)
+                res = np.concatenate(
+                    (c, fft, section), axis=1)
+                convertToQtFormat = qimage2ndarray.array2qimage(
+                    res).rgbSwapped()
+                p_cv2 = convertToQtFormat.scaled(
+                    self.parent.cv2_width,
+                    self.parent.cv2_height,
+                    QtCore.Qt.KeepAspectRatio)
+                self.changePixmap.emit(p_cv2)
+                print("The third run is to determine the coherence length.")
+                print("Please wait.")
