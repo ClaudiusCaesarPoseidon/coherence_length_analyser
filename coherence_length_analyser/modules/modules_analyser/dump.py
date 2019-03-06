@@ -9,17 +9,7 @@
 
 
 
-                # save FFT and image at maximum intensity
-                if self.parent.demo is False:
-                    cv2.imwrite(os.path.join(
-                        file_direc, file_name + "_alignment2.png"), c)
-                    cv2.imwrite(
-                        os.path.join(
-                            file_direc,
-                            file_name +
-                            "_alignment_%d.png" %
-                            tmp_value),
-                        section)
+
 
                 # display FFT and image at maximum intensity
                 section = functions.resize(

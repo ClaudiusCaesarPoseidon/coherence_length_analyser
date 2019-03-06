@@ -217,3 +217,15 @@ class pyplot_cv2(QtCore.QThread):
                 section = cv2.cvtColor(
                     section, cv2.COLOR_GRAY2BGR)
                 section[self.ind] = [0, 0, 255]
+
+                # save FFT and image at maximum intensity
+                if self.parent.demo is False:
+                    cv2.imwrite(os.path.join(
+                        file_direc, file_name + "_alignment2.png"), c)
+                    cv2.imwrite(
+                        os.path.join(
+                            file_direc,
+                            file_name +
+                            "_alignment_%d.png" %
+                            tmp_value),
+                        section)
