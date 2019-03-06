@@ -248,3 +248,20 @@ class pyplot_cv2(QtCore.QThread):
                 self.changePixmap.emit(p_cv2)
                 print("The third run is to determine the coherence length.")
                 print("Please wait.")
+
+            if video is True and self.parent.ends is False:
+                # set matplotlib image dpi
+                self.parent.canvas.figure.set_dpi(h_dpi)
+                self.parent.canvas.figure.set_size_inches(
+                    self.parent.pyplot_width / h_dpi, self.parent.pyplot_height / h_dpi)
+                self.ax.clear()
+                if x[-1] >= 50:
+                    self.ax.xaxis.set_major_locator(
+                        ticker.MultipleLocator(10))
+                self.ax.margins(x=0)
+
+                # plot graph
+                self.ax.plot(x, data_a, color="black")
+                self.ax.plot(x, data_threshold, color="red")
+                self.ax.plot(x, data_maxi, color="cyan")
+                self.ax.plot(x, data_mini, color="magenta")
