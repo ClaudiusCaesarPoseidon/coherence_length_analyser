@@ -15,25 +15,7 @@
 
 
 
-                # calculate coherence length by
-                # finding the position of the first value above the treshold
-                # and the position of the first value under the treshold and
-                # after the maximum and calculating the distance between
-                # theese points
-                if self.parent.Calculate.isChecked() is True:
-                    s = -1
-                    e = 0
-                    for i, item in zip(x, data_a):
-                        if self.parent.ends is True:
-                            break
-                        j = i / step_width
-                        if item > threshold and s == -1:
-                            s = j
-                        elif item < threshold and s != -1 and e == 0 and j > array_max:
-                            e = j
-                    print(
-                        "The Coherence Length is:",
-                        (e - s) * step_width)
+
 
                     # add the parameters to the plot
                     self.ax.axvline(s * step_width, color="green")
