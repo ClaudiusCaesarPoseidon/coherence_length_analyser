@@ -20,3 +20,17 @@ v_dpi = ctypes.windll.gdi32.GetDeviceCaps(dc, LOGPIXELSY)
 ctypes.windll.user32.ReleaseDC(0, dc)
 
 
+class pyplot_cv2(QtCore.QThread):
+    changePixmap = QtCore.Signal(QtGui.QImage)
+
+    def __init__(self, parent=None):
+        super().__init__()
+        self.parent = parent
+        self.ind = None
+        self.save = False
+        self.ax = None
+        self.quadrant = None
+        self.indexes = None
+        self.ind_mult = None
+        self.section = None
+        self.sect = None
