@@ -365,8 +365,8 @@ class pyplot_cv2(QtCore.QThread):
                         filter_string = "Moving Average\n"
                         filter_name = "m-a"
                     elif tmp_for_filter == 2:
-                        filter_string = "SavitzkyGolay\n"
-                        filter_name = "sg"
+                        filter_string = "Savitzky-Golay\n"
+                        filter_name = "s-g"
                     #####
                     elif tmp_for_filter == 4:
                         filter_string = "Median\n"
