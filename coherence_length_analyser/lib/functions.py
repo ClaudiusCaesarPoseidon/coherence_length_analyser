@@ -480,8 +480,8 @@ def hamming(width):
 #    return slepian_
 
 def dolph_chebyshev(width):
-    x = scipy.signal.chebwin(width)
-    y = scipy.signal.chebwin(width)
+    x = scipy.signal.chebwin(width, 140)
+    y = scipy.signal.chebwin(width, 140)
     X, Y = np.meshgrid(x, y)
     dolph_ = X * Y
     return dolph_
