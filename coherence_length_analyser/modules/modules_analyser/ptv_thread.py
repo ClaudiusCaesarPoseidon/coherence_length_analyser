@@ -61,7 +61,7 @@ class ptv_thread(QtCore.QThread):
             "Boxcar": functions.boxcar,
             "Hamming": functions.hamming,
             "Hanning": functions.hanning,
-            "Slepian": functions.slepian,
+            "Dolph-Chebyshev": functions.dolph_chebyshev,
             "Gauss": functions.gauss,
             "Custom": self.custom_function,
         }
