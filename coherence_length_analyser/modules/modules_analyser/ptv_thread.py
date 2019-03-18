@@ -59,7 +59,7 @@ class ptv_thread(QtCore.QThread):
         switcher = {
             "Kaiser": functions.kaiser,
             "Boxcar": functions.boxcar,
-            "Hamming": functions.hamming,
+            "Bohman": functions.bohman,
             "Hanning": functions.hanning,
             "Dolph-Chebyshev": functions.dolph_chebyshev,
             "Gauss": functions.gauss,

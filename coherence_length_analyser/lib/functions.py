@@ -462,13 +462,21 @@ def hanning(width):
     return hanning_
 
 
-def hamming(width):
-    """returns a 2-D hamming window function with the specified width"""
-    x = scipy.signal.hamming(width)
-    y = scipy.signal.hamming(width)
+#def hamming(width):
+#    """returns a 2-D hamming window function with the specified width"""
+#    x = scipy.signal.hamming(width)
+#    y = scipy.signal.hamming(width)
+#    X, Y = np.meshgrid(x, y)
+#    hamming_ = X * Y
+#    return hamming_
+    
+def bohman(width):
+    """returns a 2-D bohman window function with the specified width"""
+    x = scipy.signal.bohman(width)
+    y = scipy.signal.bohman(width)
     X, Y = np.meshgrid(x, y)
-    hamming_ = X * Y
-    return hamming_
+    bohman_ = X * Y
+    return bohman_
 
 
 #def slepian(width):
