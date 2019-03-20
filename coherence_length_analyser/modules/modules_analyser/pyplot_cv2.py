@@ -288,7 +288,7 @@ class pyplot_cv2(QtCore.QThread):
 
                     self.ax.set_title("Intensitätskurve")
                     self.ax.set_xlabel("Verfahrweg [µm]")
-                    self.ax.set_ylabel("Helligkeitswer [1]")
+                    self.ax.set_ylabel("Helligkeitswert [1]")
 
                      # add the parameters to the plot
                     self.ax.axvline(s * step_width, color="green")
