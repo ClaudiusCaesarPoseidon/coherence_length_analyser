@@ -45,6 +45,7 @@ class count_thread(QtCore.QThread):
         z = lc[0]  # window name
         # remove the window name from the list
         lc = [y for y in lc if z[0] not in y]
+
         lc.insert(0, z)  # insert the window name once at the beginning
         tmp = []
         for j in range(len(lc[0])):
