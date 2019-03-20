@@ -53,7 +53,6 @@ class count_thread(QtCore.QThread):
                     tmp.append(lc[i][j] + "ö")  # adds ö at file line end
                 else:
                     tmp.append(lc[i][j])
-        print(lc)
         # convert list to string
         tmp = (' '.join(tmp))
         # add space at the begging
@@ -66,6 +65,7 @@ class count_thread(QtCore.QThread):
         except ValueError:
             pass
         lc = tmp
+        print(lc)
 
         # create dictionary with names as key and; angle and coherence length
         # as values
@@ -74,7 +74,6 @@ class count_thread(QtCore.QThread):
 
         # list of csv files
         tmp = [os.path.join(path, item) for item in os.listdir(path)]
-
         for item in tmp:
             # loads the csv file into a numpy array
             a = np.loadtxt(item, delimiter=",")
