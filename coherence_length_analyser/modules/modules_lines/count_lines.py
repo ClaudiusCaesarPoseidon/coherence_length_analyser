@@ -25,6 +25,7 @@ class count_thread(QtCore.QThread):
             self.direc_path = self.parent.direc_path
 
     def run(self):
+        print(1)
         path = os.path.join(self.direc_path, "lines_csv")
 
         # loads angle.txt and converts it to a list

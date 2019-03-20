@@ -568,30 +568,3 @@ class search_folder:
                     raise RuntimeError("Mode not recognised")
         self.tmp = [x for x in self.tmp if substring_in_list(x, self.files)]
         self.file_names = np.array((self.files, self.tmp))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
