@@ -339,11 +339,10 @@ def rotate_image(image, angle, row, col):
 def resize(array, h_param, w_param):
     """resises the array"""
     try:
-        print(array.shape)
         i, j = array.shape
-        return c_funktionen.resize(array, h_param, w_param)
     except ValueError:
         return c_funktionen.resize_colour(array, h_param, w_param)
+    return c_funktionen.resize(array, h_param, w_param)
 
 
 def connect(port='COM23'):
