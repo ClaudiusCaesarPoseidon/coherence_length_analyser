@@ -462,28 +462,43 @@ def hanning(width):
     return hanning_
 
 
-def hamming(width):
-    """returns a 2-D hamming window function with the specified width"""
-    x = scipy.signal.hamming(width)
-    y = scipy.signal.hamming(width)
+#def hamming(width):
+#    """returns a 2-D hamming window function with the specified width"""
+#    x = scipy.signal.hamming(width)
+#    y = scipy.signal.hamming(width)
+#    X, Y = np.meshgrid(x, y)
+#    hamming_ = X * Y
+#    return hamming_
+    
+def bohman(width):
+    """returns a 2-D bohman window function with the specified width"""
+    x = scipy.signal.bohman(width)
+    y = scipy.signal.bohman(width)
     X, Y = np.meshgrid(x, y)
-    hamming_ = X * Y
-    return hamming_
+    bohman_ = X * Y
+    return bohman_
 
 
-def slepian(width):
-    """returns a 2-D slepian window function with the specified width"""
-    x = scipy.signal.slepian(width, 0.02)
-    y = scipy.signal.slepian(width, 0.02)
+#def slepian(width):
+#    """returns a 2-D slepian window function with the specified width"""
+#    x = scipy.signal.slepian(width, 0.02)
+#    y = scipy.signal.slepian(width, 0.02)
+#    X, Y = np.meshgrid(x, y)
+#    slepian_ = X * Y
+#    return slepian_
+
+def dolph_chebyshev(width):
+    x = scipy.signal.chebwin(width, 140)
+    y = scipy.signal.chebwin(width, 140)
     X, Y = np.meshgrid(x, y)
-    slepian_ = X * Y
-    return slepian_
+    dolph_ = X * Y
+    return dolph_
 
 
 def gauss(width):
     """returns a 2-D gauss window function with the specified width"""
-    x = scipy.signal.gaussian(width, 0.4 * (width - 1) / 2)
-    y = scipy.signal.gaussian(width, 0.4 * (width - 1) / 2)
+    x = scipy.signal.gaussian(width, 0.3 * (width - 1) / 2)
+    y = scipy.signal.gaussian(width, 0.3 * (width - 1) / 2)
     X, Y = np.meshgrid(x, y)
     gauss_ = X * Y
     return gauss_
