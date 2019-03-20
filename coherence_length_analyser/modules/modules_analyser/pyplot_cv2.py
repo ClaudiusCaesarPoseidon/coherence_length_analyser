@@ -286,9 +286,9 @@ class pyplot_cv2(QtCore.QThread):
                         "The Coherence Length is:",
                         (e - s) * step_width)
 
-                    self.ax.title("a")
-                    self.ax.xlabel("a")
-                    self.ax.ylabel("a")
+                    self.ax.set_title("a")
+                    self.ax.set_xlabel("a")
+                    self.ax.set_ylabel("a")
 
                      # add the parameters to the plot
                     self.ax.axvline(s * step_width, color="green")
