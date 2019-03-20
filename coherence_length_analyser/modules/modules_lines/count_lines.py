@@ -32,7 +32,6 @@ class count_thread(QtCore.QThread):
             tmp = file.read()
         tmp = tmp.split("\n")
         tmp[:] = [x.split('\t') for x in tmp]
-        print(tmp)
 
         # parses the list multiple list by columns
         names = get_column(tmp, 0)
@@ -54,7 +53,7 @@ class count_thread(QtCore.QThread):
                     tmp.append(lc[i][j] + "ö")  # adds ö at file line end
                 else:
                     tmp.append(lc[i][j])
-
+        print(lc)
         # convert list to string
         tmp = (' '.join(tmp))
         # add space at the begging
