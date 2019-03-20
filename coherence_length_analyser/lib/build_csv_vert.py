@@ -1,4 +1,5 @@
 import os
+import numpy as np
 
 
 path = r"C:\Users\Haarmeyer\OUT\coherence_length_analyser\converted_videos"
@@ -23,13 +24,20 @@ def build_csv_vert(path, out_path):
         lst[1].append(tmp)
         i+=1
     #print(lst)
+    values = [float(x) for x in lst[1]]
+    values = np.array(values)
+
+
     lst = list(map(list, zip(*lst)))
     string = '\n'.join([','.join(x) for x in lst])
+    string = "1,1\n[1],[\\textmu mu]\n" + string
 #    print(string)
     with open(out_path, "w") as file:
         file.write(string)
+    return values
 
 if __name__ == '__main__':
     path = r"C:\Users\Haarmeyer\OUT\coherence_length_analyser\converted_videos"
     path2 = r"C:\Users\Haarmeyer\OUT\coherence_length_analyser\csv_vert.csv"
-    build_csv_vert(path, path2)
+    a = build_csv_vert(path, path2)
+    print(a)
