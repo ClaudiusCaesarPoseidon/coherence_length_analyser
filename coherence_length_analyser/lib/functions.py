@@ -339,6 +339,7 @@ def rotate_image(image, angle, row, col):
 def resize(array, h_param, w_param):
     """resises the array"""
     try:
+        print(array.shape)
         i, j = array.shape
         return c_funktionen.resize(array, h_param, w_param)
     except ValueError:
@@ -469,7 +470,7 @@ def hanning(width):
 #    X, Y = np.meshgrid(x, y)
 #    hamming_ = X * Y
 #    return hamming_
-    
+
 def bohman(width):
     """returns a 2-D bohman window function with the specified width"""
     x = scipy.signal.bohman(width)
