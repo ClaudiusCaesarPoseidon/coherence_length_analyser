@@ -108,6 +108,7 @@ class Analyser(Widgetb):
         self.Open_Folder.clicked.connect(self.open_folder)
         self.dname = os.path.join(self.direc_path, "converted_videos")
         self.stopped = False
+        print(1)
 
     def set_Size(self):
         # sets the fontsize of the widgets according to window size
