@@ -192,7 +192,6 @@ class Analyser(Widgetb):
             self.toc = timeit.default_timer()
         else:
             print("There are no files to analyse.")
-        print(1)
 
     def mid_raum(self):
         self.fname = self.files[self.i]
