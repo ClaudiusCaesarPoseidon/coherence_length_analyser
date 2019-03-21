@@ -98,6 +98,8 @@ class get_video:
 
     def get(self, window='Kaiser'):
         order = self.order.copy()
+        print(order)
+        print(window)
         order.remove(window)
         order.insert(0, window)
         files = []
