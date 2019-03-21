@@ -87,12 +87,11 @@ class get_video:
 
     def __init__(self, path):
         self.order = [
+            'Dolph-Chebychev',
             'Kaiser',
             'Gauss',
             'Hanning',
-            'Hamming',
-            'Hanning',
-            'Slepian',
+            'Bohman',
             'Boxcar']
         self.folders = [x[0] for x in os.walk(path) if hasNumber(x[0]) is True]
         self.files = None
