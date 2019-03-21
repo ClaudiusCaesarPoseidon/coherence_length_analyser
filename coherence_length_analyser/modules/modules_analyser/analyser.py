@@ -108,7 +108,6 @@ class Analyser(Widgetb):
         self.Open_Folder.clicked.connect(self.open_folder)
         self.dname = os.path.join(self.direc_path, "converted_videos")
         self.stopped = False
-        print(1)
 
     def set_Size(self):
         # sets the fontsize of the widgets according to window size
@@ -193,6 +192,7 @@ class Analyser(Widgetb):
             self.toc = timeit.default_timer()
         else:
             print("There are no files to analyse.")
+        print(1)
 
     def mid_raum(self):
         self.fname = self.files[self.i]
