@@ -87,7 +87,7 @@ class get_video:
 
     def __init__(self, path):
         self.order = [
-            'Dolph-Chebychev',
+            'Dolph-Chebyshev',
             'Kaiser',
             'Gauss',
             'Hanning',
@@ -98,8 +98,6 @@ class get_video:
 
     def get(self, window='Kaiser'):
         order = self.order.copy()
-        print(order)
-        print(window)
         order.remove(window)
         order.insert(0, window)
         files = []
