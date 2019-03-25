@@ -61,6 +61,8 @@ def build_csv(path, out_path):
         temp = int(len(csv) / tmp)
         csv = csv.reshape(temp, tmp)
 
+        print(csv)
+
         # saves to array to file
         save_txt(out_path, csv)
 
