@@ -123,7 +123,8 @@ cpdef int save_txt(unicode name,ndarray array):
     cdef int column=array.shape[1]
     cdef FILE *fp1
     fp1 = fopen(name_c, "w")
-    cdef int i, tmp
+    cdef int i
+    cdef double tmp
     array = array.reshape(row*column)
     if np.issubdtype(array.dtype, np.integer) is True:
         base = "%d%s"
@@ -137,7 +138,7 @@ cpdef int save_txt(unicode name,ndarray array):
             string = (base%(tmp,"\n")).encode("UTF-8")
         fprintf(fp1, string)
     fclose(fp1)
-    return 1
+    return base
 
 
 @cython.boundscheck(False)
