@@ -3,6 +3,8 @@ from .functions import save_txt
 
 
 def build_csv(path, out_path):
+    global tmp
+    global csv
     """builds a csv file from the values in the file(path)"""
     with open(path, "r") as file:
         # reads the lines from the file and parses it to a dictionary
@@ -17,7 +19,7 @@ def build_csv(path, out_path):
                 temp = tempo[-2]
                 lines = item[1]
                 angle = item[2]
-                tempo = (item[-1].split(";")[-1]).replace("Kaiser ", "")
+                tempo = (item[-1].split(";")[-1]).replace("Dolph-Chebyshev ", "")
                 pos1 = tempo.find("(")
                 pos2 = tempo.find(")")
                 tempo = float(tempo.replace(
@@ -54,6 +56,7 @@ def build_csv(path, out_path):
                 csv = array.copy()
 
         # reshapes the array to 2D
+#        print(csv_dict)
         tmp = int(len(csv_dict.get(item)) + 4)
         temp = int(len(csv) / tmp)
         csv = csv.reshape(temp, tmp)
@@ -83,5 +86,5 @@ def build_csv(path, out_path):
 
 if __name__ == '__main__':
     csvv = build_csv(
-        r"C:\Users\Haarmeyer\OUT\coherence_length_analyser\lines.txt")
-    print(csvv)
+        r"C:\Users\Haarmeyer\OUT\coherence_length_analyser\lines.txt", "abc")
+#    print(csvv)
