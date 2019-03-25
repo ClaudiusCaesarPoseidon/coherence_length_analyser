@@ -138,7 +138,7 @@ cpdef int save_txt(unicode name,ndarray array):
             string = (base%(tmp,"\n")).encode("UTF-8")
         fprintf(fp1, string)
     fclose(fp1)
-    return base
+    return 1
 
 
 @cython.boundscheck(False)

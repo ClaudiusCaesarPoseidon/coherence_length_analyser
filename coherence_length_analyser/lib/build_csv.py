@@ -61,10 +61,8 @@ def build_csv(path, out_path):
         temp = int(len(csv) / tmp)
         csv = csv.reshape(temp, tmp)
 
-        print(csv)
-
         # saves to array to file
-        print(save_txt(out_path, csv))
+        save_txt(out_path, csv)
 
         # reads the file and adds the column heads
         with open(out_path, "r+") as file:
