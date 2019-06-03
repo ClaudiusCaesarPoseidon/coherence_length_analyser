@@ -297,10 +297,10 @@ def min__(array, percentage, mode=0):
         return np.amin(array)
 
 
-def threshold(array, percentage):
+def threshold(array, percentage, mode=0):
     """calculate the 1/e-threshold,the minimum value and the"""\
         """maximum value of the 1-D array"""
-    min_ = min__(array, percentage)
+    min_ = min__(array, percentage, mode=mode)
     return np.amax(array) / math.e + (1 - 1 / math.e) * \
         min_, np.amax(array), min_
 
