@@ -130,7 +130,7 @@ cpdef int save_txt(unicode name,ndarray array, int precision=5):
         base = "%d%s"
     else:
 #        base = "%0.5f%s"
-        base = ("%%0.%df%%s"%precision)%(0.5, ',')
+        base = ("%%0.%df%%s"%precision)
     for i in range(row*column):
         tmp = array[i]
         if i%column < column - 1:
