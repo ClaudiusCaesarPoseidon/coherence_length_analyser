@@ -31,8 +31,8 @@ lst[0].extend(["Mittelwert","Standardabweichung"])
 lst[1].extend(["[\\textmu m]","[\\textmu m]"])
 
 path2 = r"C:\Users\Haarmeyer\OUT\coherence_length_analyser\lines2.csv"
-with open(path2, "w", newline="") as file:
-    writer = csv.writer(file)
-    writer.writerows(lst)
+#with open(path2, "w", newline="") as file:
+#    writer = csv.writer(file)
+#    writer.writerows(lst)
 
 #print(lst)

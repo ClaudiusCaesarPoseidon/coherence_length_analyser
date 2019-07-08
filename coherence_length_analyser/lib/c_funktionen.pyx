@@ -115,7 +115,7 @@ cpdef list get_recursive_list(unicode path):
 @cython.boundscheck(False)
 @cython.wraparound(False)
 @cython.cdivision(True)
-cpdef int save_txt(unicode name,ndarray array):
+cpdef int save_txt(unicode name,ndarray array, int precision=5):
     """Saves a 2-D int array to a csv file"""
     temp = name.encode("UTF-8")
     cdef char* name_c = temp
@@ -129,7 +129,8 @@ cpdef int save_txt(unicode name,ndarray array):
     if np.issubdtype(array.dtype, np.integer) is True:
         base = "%d%s"
     else:
-        base = "%0.5f%s"
+#        base = "%0.5f%s"
+        base = ("%%0.%df%%s"%precision)%(0.5, ',')
     for i in range(row*column):
         tmp = array[i]
         if i%column < column - 1:

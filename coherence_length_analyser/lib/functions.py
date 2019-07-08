@@ -185,9 +185,9 @@ def round_array(array, b=0):
     return c_funktionen.round_array(array, b)
 
 
-def save_txt(name, array):
+def save_txt(name, array, precision=5):
     """save 2d array to csv"""
-    return c_funktionen.save_txt(name, array)
+    return c_funktionen.save_txt(name, array, precision)
 
 
 def fft_shift_py(array):
